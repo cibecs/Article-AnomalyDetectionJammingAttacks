@@ -152,6 +152,10 @@ The paper is divided in 5 sections:
 	\item \textbf{Conclusions:} In this section we will summarize the results and discuss possible future research directions.
 \end{enumerate}
 
+\section{Related Works}
+
+%TODO Add related works
+
 \section{Topic Overview}
 
 \subsection{Drones in 6G Networks}
@@ -174,7 +178,32 @@ mounted with explosives were successfully used to destroy much more expensive eq
 
 Security against Jamming attacks is crucial in all these applications, especially in a safety critical environment. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Understanding Jamming Attacks}
+
+Jamming attacks are a type of Denial of Service (DoS) attack that aims at disrupting the communication between two or more devices. 
+This is achieved by transmitting a powerful signal on the same frequency as the one used by the devices to communicate. If the jamming signal is strong enough, 
+it is able to overwhelm the legitimate signal, effectively blocking the communication between the devices \cite{DroneCommHassija}. 
+Since the ability to communicate is affected, Jamming attacks falls under the umbrella of attacks that target the \textit{Availability} of the service in the CIA triad classification \cite{DataIntegrityCawthra}. 
+Jamming attacks can be classified into 5 main categories, based on the attack pattern of the jammer: 
+
+\begin{itemize}
+    \item \textbf{Constant Jamming:} Constant jamming is the simplest form of jamming attack. In constant jamming, the jammer is active all the time. 
+    \item \textbf{Periodic Jamming:} The jammer simply transmits a strong signal on the same frequency as the devices it wants to disrupt 
+    for a certain period of time \(t_a\), then stops transmitting for another period of time \(t_b\). This type of jamming attack is particularly effective against devices 
+    that are not able to change their frequency and has the ability to disrupt the transmission of a sequence of consecutive packets. \cite{VANETsAI-Lyamin}
+    \item \textbf{Random Jamming:} In random jamming, the jammer is active at random intervals, giving each transmitted packet a probability 
+    \(p\) of being jammed \cite{VANETsAI-Lyamin}. 
+    \item \textbf{Reactive Jamming:} A reactive jammer starts transmitting its jamming signal only when it senses energy in the communication channel, 
+    indicating that a legitimate transmission is taking place. This type of jamming attack is more power efficient compared to other 
+    operation types, as it only transmits its signal when it is needed\cite{MLMisbehavior5GBoualouache}.
+    \item \textbf{Smart Jamming:} A smart jammer is a more sophisticated type of jammer that is able to adapt its jamming signal to 
+    maximize the disruption of the communication between the devices. Smart jammers are able to modify their attack pattern based on the 
+    transmission specifics of the devices they are targeting and are able to adapt to changes in the communication channel\cite{AntiJammingV2V-Feng}.
+\end{itemize}
+
+An effective Jamming detection AI model should achieve a high detection score against all the different types of jamming attacks.
+
+
 \section{Materials and Methods}
 
 Materials and Methods should be described with sufficient details to allow others to replicate and build on published results. Please note that publication of your manuscript implicates that you must make all materials, data, computer code, and protocols associated with the publication available to readers. Please disclose at the submission stage any restrictions on the availability of materials or information. New methods and protocols should be described in detail while well-established methods can be briefly described and appropriately cited.
@@ -193,19 +222,6 @@ This section may be divided by subheadings. It should provide a concise and prec
 \subsection{Subsection}
 \subsubsection{Subsubsection}
 
-Bulleted lists look like this:
-\begin{itemize}
-\item	First bullet;
-\item	Second bullet;
-\item	Third bullet.
-\end{itemize}
-
-Numbered lists can be added as follows:
-\begin{enumerate}
-\item	First item; 
-\item	Second item;
-\item	Third item.
-\end{enumerate}
 
 The text continues here. 
 
@@ -388,6 +404,7 @@ UAVs & Unmanned Aerial Vehicles \\
 3GPP & 3rd Generation Partnership Project \\
 V2X & Vehicle to Everything \\
 FPV & First Person View \\
+DOS & Denial Of Service \\
 
 MDPI & Multidisciplinary Digital Publishing Institute\\
 DOAJ & Directory of open access journals\\
@@ -455,37 +472,25 @@ Laricchia, F. Consumer and commercial drones - statistics and facts. Available o
 \bibitem[Sultan(2018)]{5GV2XSultan}
 Sultan, A. Study on enhancement of 3GPP support for 5G V2X services. Tech. Rep. {\em 3GPP}, 2018.
 
-\bibitem[Rao et al.(2024)]{DroneCombatUkraine}
-Rao, A.; Zafra, M.; Hunder, M.; Kiyada, S. How drone combat in Ukraine is changing warfare. Available online: \url{https://www.reuters.com/graphics/UKRAINE-CRISIS/DRONES/dwpkeyjwkpm/} (accessed on 13 May 2024).
-
 \bibitem[Hassija et al.(2021)]{DroneCommHassija}
 Hassija, V.; Kumar, R.; Gupta, H.; Singh, S.; Sharma, P. Fast, Reliable, and Secure Drone Communication: A Comprehensive Survey. {\em IEEE Communications Surveys and Tutorials} {\bf 2021}, {\em 23}, 2802--2832. https://doi.org/10.1109/COMST.2021.3097916.
 
+\bibitem[Rao et al.(2024)]{DroneCombatUkraine}
+Rao, A.; Zafra, M.; Hunder, M.; Kiyada, S. How drone combat in Ukraine is changing warfare. Available online: \url{https://www.reuters.com/graphics/UKRAINE-CRISIS/DRONES/dwpkeyjwkpm/} (accessed on 13 May 2024).
 
-% Reference 1
-\bibitem[Author1(year)]{ref-journal}
-Author~1, T. The title of the cited article. {\em Journal Abbreviation} {\bf 2008}, {\em 10}, 142--149.
-% Reference 2
-\bibitem[Author2(year)]{ref-book1}
-Author~2, L. The title of the cited contribution. In {\em The Book Title}; Editor 1, F., Editor 2, A., Eds.; Publishing House: City, Country, 2007; pp. 32--58.
-% Reference 3
-\bibitem[Author3(year)]{ref-book2}
-Author 1, A.; Author 2, B. \textit{Book Title}, 3rd ed.; Publisher: Publisher Location, Country, 2008; pp. 154--196.
-% Reference 4
-\bibitem[Author4(year)]{ref-unpublish}
-Author 1, A.B.; Author 2, C. Title of Unpublished Work. \textit{Abbreviated Journal Name} year, \textit{phrase indicating stage of publication (submitted; accepted; in press)}.
-% Reference 5
-\bibitem[Author5(year)]{ref-communication}
-Author 1, A.B. (University, City, State, Country); Author 2, C. (Institute, City, State, Country). Personal communication, 2012.
-% Reference 6
-\bibitem[Author6(year)]{ref-proceeding}
-Author 1, A.B.; Author 2, C.D.; Author 3, E.F. Title of presentation. In Proceedings of the Name of the Conference, Location of Conference, Country, Date of Conference (Day Month Year); Abstract Number (optional), Pagination (optional).
-% Reference 7
-\bibitem[Author7(year)]{ref-thesis}
-Author 1, A.B. Title of Thesis. Level of Thesis, Degree-Granting University, Location of University, Date of Completion.
-% Reference 8
-\bibitem[Author8(year)]{ref-url}
-Title of Site. Available online: URL (accessed on Day Month Year).
+\bibitem[Cawthra(2020)]{DataIntegrityCawthra}
+Cawthra, J. Data Integrity: Detecting and Responding to Ransomware and Other Destructive Events. {\em NIST Special Publication} {\bf 2020}, {\em 1800-26A}.
+
+\bibitem[Lyamin et al.(2018)]{VANETsAI-Lyamin}
+Lyamin, N.; Samuylov, A.; Gaidamaka, Y.; Vinel, A.; Koucheryavy, Y. AI-Based Malicious Network Traffic Detection in VANETs. {\em IEEE Network} {\bf 2018}, {\em 32}, 15--21. https://doi.org/10.1109/MNET.2018.1800074.
+
+\bibitem[Boualouache and Engel(2023)]{MLMisbehavior5GBoualouache}
+Boualouache, A.; Engel, T. A Survey on Machine Learning-Based Misbehavior Detection Systems for 5G and Beyond Vehicular Networks. {\em IEEE Communications Surveys and Tutorials} {\bf 2023}, {\em 25}, 1128--1172. https://doi.org/10.1109/COMST.2023.3236448.
+
+\bibitem[Feng and Haykin(2019)]{AntiJammingV2V-Feng}
+Feng, S.; Haykin, S. Cognitive Risk Control for Anti-Jamming V2V Communications in Autonomous Vehicle Networks. {\em IEEE Transactions on Vehicular Technology} {\bf 2019}, {\em 68}, 9920--9934. https://doi.org/10.1109/TVT.2019.2935999.
+
+
 \end{thebibliography}
 
 % If authors have biography, please use the format below
