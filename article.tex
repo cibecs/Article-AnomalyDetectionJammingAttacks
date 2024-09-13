@@ -126,7 +126,7 @@ $^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
 \section{Introduction}
 
 The shift from 4G to 5G has been a generational leap has revolutionized connectivity around the world. 
-Despite 5G being still in its early adoption rate at the time of writing\cite{5GStatisticsTaylor}, the research community is already working on the next generation of wireless communication technologies, 6G. 
+Despite 5G being still in its early adoption rate at the time of writing \cite{5GStatisticsTaylor}, the research community is already working on the next generation of wireless communication technologies, 6G. 
 6G technology is expected to enable a wide variety of new use cases, thanks to the increases in both data rates and latency but this in turn 
 will also bring forth new security challenges, specific to those applications. 
 
@@ -140,10 +140,25 @@ AI integration in 6G networks will greatly strengthen the security of the networ
 By leveraging Diagnostic Analytics, a collection of insights into the status of the networks, security teams 
 will be able to train specific AI models to detect and respond to security threats in real-time.
 
-In this paper we will focus on a specific aspect of the security of 6G networks, namely the detection of 
-jamming attacks in drone networks. 
+In this paper we will focus on a specific aspect of the security of 6G networks, namely we will provide a machine learning based approach 
+for the detection of jamming attacks in networks of drones. 
 
+The paper is divided in 5 sections: 
+\begin{enumerate}
+	\item \textbf{Topic overview:} In this section we will discuss how drones can benefit from integration in 6G network, analyze jamming attacks, their types, mitigation and detection. Finally we will discuss the advantages of an edge AI approach for jamming detection. 
+	\item \textbf{Materials and methods:} In this section we will define the scenario that we decided to analyze as well as the dataset, algorithm and evaluation metrics we chose for our tests. 
+	\item \textbf{Numerical Results:} In this section we will present the testing methodology as well as the numerical results that we obtained. 
+	\item \textbf{Discussion:} In this section we will discuss the results obtained in the previous section and highlight notable trends.
+	\item \textbf{Conclusions:} In this section we will summarize the results and discuss possible future research directions.
+\end{enumerate}
 
+\section{Topic Overview}
+
+\subsection{Drones in 6G Networks}
+
+Drones, also known as Unmanned Aerial Vehicles (UAVs) are defined as \textit{all aircraft designed to fly
+without a pilot on board} \cite{DronesEC}. This technology has experienced rapid growth in recent years and is expected to 
+keep growing in both the consumer sector as well as the commercial and military sectors \cite{DronesStatisticsLaricchia}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Materials and Methods}
@@ -354,6 +369,9 @@ The following abbreviations are used in this manuscript:\\
 
 \noindent 
 \begin{tabular}{@{}ll}
+SDN & Software Defined Networks\\
+UAVs & Unmanned Aerial Vehicles \\
+
 MDPI & Multidisciplinary Digital Publishing Institute\\
 DOAJ & Directory of open access journals\\
 TLA & Three letter acronym\\
@@ -406,10 +424,16 @@ All appendix sections must be cited in the main text. In the appendices, Figures
 \begin{thebibliography}{999}
 
 \bibitem[Taylor(2024)]{5GStatisticsTaylor}
-5G - statistics \& facts. Available online: https://www.statista.com/topics/3447/5g/\#topicOverview (accessed on 13 September 2024).
+5G - statistics \& facts. Available online: \url{https://www.statista.com/topics/3447/5g/topicOverview} (accessed on 13 September 2024).
 
 \bibitem[Letaief et al.(2019)]{6GRoadmapLetaief}
-Letaief, K.B.; Chen, W.; Shi, Y.; Zhang, J.; AI, B. The Roadmap to 6G: AI Empowered Wireless Networks. {\em IEEE Communications Magazine} {\bf 2019}, {\em 57}, 84--90. https://doi.org/10.1109/MCOM.2019.1900271.
+Letaief, K.B.; Chen, W.; Shi, Y.; Zhang, J.; AI, B. The Roadmap to 6G: AI Empowered Wireless Networks. {\em IEEE Communications Magazine} {\bf 2019}, {\em 57}, 84--90. \url{https://doi.org/10.1109/MCOM.2019.1900271}.
+
+\bibitem[EuropeanCommission(2024)]{DronesEC}
+Unmanned aircraft (drones). Available online: \url{https://transport.ec.europa.eu/transport-modes/air/aviation-safety/unmanned-aircraft-drones_en} (accessed on 13 May 2024).
+
+\bibitem[Laricchia(2024)]{DronesStatisticsLaricchia}
+Laricchia, F. Consumer and commercial drones - statistics and facts. Available online: \url{https://www.statista.com/topics/7939/drones/\#topicOverview} (accessed on 13 September 2024).
 
 
 % Reference 1
