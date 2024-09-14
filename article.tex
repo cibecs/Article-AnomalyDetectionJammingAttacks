@@ -61,6 +61,7 @@
 % cleveref: load \crefname definitions after \begin{document}
 
 %PLACE TO ADD COMMANDS
+\usepackage{lipsum}
 
 %=================================================================
 % Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
@@ -155,6 +156,7 @@ The paper is divided in 5 sections:
 \section{Related Works}
 
 %TODO Add related works
+\lipsum[1-5]
 
 \section{Topic Overview}
 
@@ -203,7 +205,7 @@ Jamming attacks can be classified into 5 main categories, based on the attack pa
 
 An effective Jamming detection AI model should achieve a high detection score against all the different types of jamming attacks.
 
-\subsection{Jamming attacks against drone networks}
+\subsection{Jamming attacks against drone networks}\label{JammingDroneNetworks}
 
 Jamming attacks are particularly effective against drone networks, as drones usually rely on external input to navigate and operate correctly.
 If a jammer were able to completely block the communication between the drone and the base station, the drone would be left without any indication on how to behave and would need to activate an internal failsafe mechanism. 
@@ -218,6 +220,11 @@ After successfully capturing the drone, the Iranian government managed to revers
 
 \subsection{Centralized vs Edge approach for Jamming detection}
 
+When presenting a machine learning based approach in an IoT setting, the question of where the AI model should be placed often arises. By their nature, IoT devices, and in turn drones, are usually resource constrained, 
+both in terms of computational power but also in terms of internal storage and battery capacity \cite{6GSecurity-Chorti}. This means that complex AI models and algorithms are usually not feasible to be run on the device itself. A centralized approach 
+offloads the computational burden to a central server, that returns the results of the AI model to the device. While this approach might be feasible in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
+communication with the central server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
+An lightweight edge approach on the other hand, while not as powerful as a centralized approach, would to provide real-time results to the device and would be able to operate even when the communication is disrupted. 
 
 \section{Materials and Methods}
 
@@ -510,6 +517,9 @@ Owano, N. RQ-170 drone's ambush facts spilled by Iranian engineer. Available onl
 
 \bibitem[Gross and TOI Staff(2024)]{IranianUAVGross}
 Gross, J.A.; TOI Staff. Iranian UAV that entered Israeli airspace seems to be American stealth knock-off. Available online: \url{https://www.timesofisrael.com/iranian-uav-that-enteredisraeli-airspace-seems-to-be-american-stealth-knock-off} (accessed on 16 May 2024).
+
+\bibitem[Chorti et al.(2022)]{6GSecurity-Chorti}
+Chorti, A.; Hollanti, C.; Koorapaty, H.; Poor, H.V. Context-Aware Security for 6G Wireless: The Role of Physical Layer Security. {\em IEEE Communications Standards Magazine} {\bf 2022}, {\em 6}, 102--108. https://doi.org/10.1109/MCOMSTD.0001.2000082.
 
 
 \end{thebibliography}
