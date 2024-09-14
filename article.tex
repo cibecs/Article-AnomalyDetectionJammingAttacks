@@ -205,7 +205,19 @@ An effective Jamming detection AI model should achieve a high detection score ag
 
 \subsection{Jamming attacks against drone networks}
 
-Jamming attacks are particularly effective against drone networks. 
+Jamming attacks are particularly effective against drone networks, as drones usually rely on external input to navigate and operate correctly.
+If a jammer were able to completely block the communication between the drone and the base station, the drone would be left without any indication on how to behave and would need to activate an internal failsafe mechanism. 
+This usually comes in the form of either a return to base procedure, a landing procedure or a hover in place procedure.
+All of these procedures leave the drone in a vulnerable position, as a bad actor could potentially capture the drone and use it for malicious purposes.
+This is especially true when jamming attacks are used in combination with other types of attacks, such as spoofing attacks. 
+
+One real world example of this is the capture of an American drone by Iran in 2011. 
+In December 2011 a Lockheed Martin RQ-170 Sentinel drone operated by the United States Air Force was flying over Iran when its operators lost control of the vehicle. The US government initially claimed that the drone had crashed due to a technical malfunction, but later reports revealed that the drone had been captured by the Iranian military. 
+Iranian electronic warfare specialists claimed to have brought it down using a Jamming attack, that forced the drone into a return to base procedure, in combination with a  GPS spoofing attack, that made the drone land into a designated area \cite{RQ170DroneOwano}. 
+After successfully capturing the drone, the Iranian government managed to reverse-engineer the drone and produce a working replica, which was then used in their military operations \cite{IranianUAVGross}.
+
+\subsection{Centralized vs Edge approach for Jamming detection}
+
 
 \section{Materials and Methods}
 
@@ -312,7 +324,7 @@ a = 1,
 \end{equation}
 \end{linenomath}
 the text following an equation need not be a new paragraph. Please punctuate equations as regular text.
-%% If the documentclass option "submit" is chosen, please insert a blank line before and after any math environment (equation and eqnarray environments). This ensures correct linenumbering. The blank line should be removed when the documentclass option is changed to "accept" because the text following an equation should not be a new paragraph.
+%% If the documentclass option "submit" is chosen, please insert a blank line before and after any math environment (equation and eqnarray environments). This ensures correct line numbering. The blank line should be removed when the documentclass option is changed to "accept" because the text following an equation should not be a new paragraph.
 
 This is the example 2 of equation:
 \begin{adjustwidth}{-\extralength}{0cm}
@@ -467,7 +479,7 @@ All appendix sections must be cited in the main text. In the appendices, Figures
 Letaief, K.B.; Chen, W.; Shi, Y.; Zhang, J.; AI, B. The Roadmap to 6G: AI Empowered Wireless Networks. {\em IEEE Communications Magazine} {\bf 2019}, {\em 57}, 84--90. \url{https://doi.org/10.1109/MCOM.2019.1900271}.
 
 \bibitem[EuropeanCommission(2024)]{DronesEC}
-Unmanned aircraft (drones). Available online: \url{https://transport.ec.europa.eu/transport-modes/air/aviation-safety/unmanned-aircraft-drones_en} (accessed on 13 May 2024).
+Unmanned aircraft (drones). Available online: \url{https://transport.ec.europa.eu/transport-modes/air/aviation-safety/unmanned-aircraft-drones_en} (accessed on 13 September 2024).
 
 \bibitem[Laricchia(2024)]{DronesStatisticsLaricchia}
 Laricchia, F. Consumer and commercial drones - statistics and facts. Available online: \url{https://www.statista.com/topics/7939/drones/\#topicOverview} (accessed on 13 September 2024).
@@ -479,7 +491,7 @@ Sultan, A. Study on enhancement of 3GPP support for 5G V2X services. Tech. Rep. 
 Hassija, V.; Kumar, R.; Gupta, H.; Singh, S.; Sharma, P. Fast, Reliable, and Secure Drone Communication: A Comprehensive Survey. {\em IEEE Communications Surveys and Tutorials} {\bf 2021}, {\em 23}, 2802--2832. \url{https://doi.org/10.1109/COMST.2021.3097916}.
 
 \bibitem[Rao et al.(2024)]{DroneCombatUkraine}
-Rao, A.; Zafra, M.; Hunder, M.; Kiyada, S. How drone combat in Ukraine is changing warfare. Available online: \url{https://www.reuters.com/graphics/UKRAINE-CRISIS/DRONES/dwpkeyjwkpm/} (accessed on 13 May 2024).
+Rao, A.; Zafra, M.; Hunder, M.; Kiyada, S. How drone combat in Ukraine is changing warfare. Available online: \url{https://www.reuters.com/graphics/UKRAINE-CRISIS/DRONES/dwpkeyjwkpm/} (accessed on 13 September 2024).
 
 \bibitem[Cawthra(2020)]{DataIntegrityCawthra}
 Cawthra, J. Data Integrity: Detecting and Responding to Ransomware and Other Destructive Events. {\em NIST Special Publication} {\bf 2020}, {\em 1800-26A}.
@@ -492,6 +504,12 @@ Boualouache, A.; Engel, T. A Survey on Machine Learning-Based Misbehavior Detect
 
 \bibitem[Feng and Haykin(2019)]{AntiJammingV2V-Feng}
 Feng, S.; Haykin, S. Cognitive Risk Control for Anti-Jamming V2V Communications in Autonomous Vehicle Networks. {\em IEEE Transactions on Vehicular Technology} {\bf 2019}, {\em 68}, 9920--9934. \url{https://doi.org/10.1109/TVT.2019.2935999}.
+
+\bibitem[Owano(2024)]{RQ170DroneOwano}
+Owano, N. RQ-170 drone's ambush facts spilled by Iranian engineer. Available online: \url{https://phys.org/news/2011-12-rq-drone-ambush-facts-iranian.html} (accessed on 14 September 2024).
+
+\bibitem[Gross and TOI Staff(2024)]{IranianUAVGross}
+Gross, J.A.; TOI Staff. Iranian UAV that entered Israeli airspace seems to be American stealth knock-off. Available online: \url{https://www.timesofisrael.com/iranian-uav-that-enteredisraeli-airspace-seems-to-be-american-stealth-knock-off} (accessed on 16 May 2024).
 
 
 \end{thebibliography}
