@@ -239,18 +239,29 @@ effects of the attack.
 
 \section{Materials and Methods}
 
-In the proposed scenario we have a flying drone that is subject to a jamming attack. The drone communicates with a ground station 
-and periodically samples the Received Signal Strength Indicator (RSSI) of the signal it receives. 
-In our analysis the drone implements a simple unsupervised machine learning algorithm, trained on nominal RSSI values, 
-that is able to detect anomalous spikes in the RSSI, indicating a jamming attack.
-The algorithm should detect the jamming attacks with a high degree of accuracy and recall, while also minimizing 
-the number of false positives.
+In the proposed scenario we have a flying drone that is subject to a jamming attack. The drone communicates with a ground station and periodically samples the Received Signal Strength (RSS) of the signal it receives. 
+The drone implements a simple unsupervised machine learning algorithm module, trained on nominal traffic RSS values. The module takes the sampled RSS values and classifies them as either normal or anomalous. Thanks to this classification module, the drone is able to determine wether or not a jamming attack is taking place. 
 
-The drone will be subject to two types of jamming attacks, a constant jamming attack and a periodic jamming attack.
-These types of attacks can be attributed to different types of jammers. 
-A constant jamming attack could be caused by a ground jammer, as maintaining a constant jamming signal requires a constant power source.
-The periodic jamming on the other hand could be caused by a drone jammer, as drones are usually battery powered and can only jam for a limited amount of time. 
-Employing a periodic jamming attack could help the attacker to conserve energy and avoid detection.
+We assume that a jammer is deployed in the network and that it starts a jamming attack at a certain point in time by transmitting a strong signal on the same frequency as the one used by the drone to communicate with the ground station.
+We assume that the jammer is able to completely block the communication between the drone and the ground station, meaning the drone has to rely on its internal classification algorithm to determine if a jamming attack is taking place and react accordingly.
+We assume that the jammer type is unknown to the drone. 
+
+Figure \ref{fig:CombinedJammingscenariosDiagram} shows a diagram of the proposed scenario. 
+
+\begin{figure}[H]
+	\includegraphics[width=10.5 cm]{img/CombinedJammingscenariosDiagram.jpg}
+	\caption{Proposed jamming scenario. The Drone communicates with the 6G base station and receives information about how to behave. The fixed jammer (1) and the mobile jammer (2) target the communication between the drone and the base station. The drone has an internal classification module that is able to detect jamming attacks.}
+	\label{fig:CombinedJammingscenariosDiagram}
+	\end{figure}   
+	\unskip
+
+
+In our scenario, the drone will be subject to two types of jamming attacks, a constant jamming attack and a periodic jamming attack.
+These types of attacks can be attributed to different types of jammers. The constant jamming attack could be caused by a ground jammer, as maintaining a constant jamming signal requires a large power source, while 
+the periodic jamming attack could be caused by a drone jammer, as drones are usually battery powered and can only jam for a limited amount of time. 
+Employing a periodic jamming attack could help the malicious drone conserve energy and reduce the chances of being detected.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
