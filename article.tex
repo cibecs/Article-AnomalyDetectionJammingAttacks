@@ -239,6 +239,8 @@ effects of the attack.
 
 \section{Materials and Methods}
 
+\subsection{Scenario Definition and Attacker Classification}
+
 In the proposed scenario we have a flying drone that is subject to a jamming attack. The drone communicates with a ground station and periodically samples the Received Signal Strength (RSS) of the signal it receives. 
 The drone implements a simple unsupervised machine learning algorithm module, trained on nominal traffic RSS values. The module takes the sampled RSS values and classifies them as either normal or anomalous. Thanks to this classification module, the drone is able to determine wether or not a jamming attack is taking place. 
 
@@ -265,22 +267,55 @@ Table \ref{tab:attacker_classification} shows the attacker classification in the
 
 \begin{table}[H]
 	\caption{Attacker classification details.\label{tab:attacker_classification}}
-		\begin{adjustwidth}{-\extralength}{0cm}
-			\newcolumntype{C}{>{\centering\arraybackslash}X}
-			\begin{tabularx}{\fulllength}{CC}
-				\toprule
-				\textbf{Classification} & \textbf{Description} \\
-				\midrule
-				Active   & The attacker is actively trying to disrupt network operation by transmitting a jamming signal\\
-				External & The attack takes place at level 1 of the OSI model, meaning that the attacker is not part of the network\\
-				Local    & The attack is local, as it is targeted at a specific drone or drone cluster and not at the entire network\\
-				Malicious & Jamming attacks are considered malicious as their main goal is to disrupt correct network operation\\
-				\bottomrule
-			\end{tabularx}
-		\end{adjustwidth}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{Classification} & \textbf{Description} \\
+	\midrule
+	Active   & The attacker is actively trying to disrupt network operation by transmitting a jamming signal\\
+	External & The attack takes place at level 1 of the OSI model, meaning that the attacker is not part of the network\\
+	Local    & The attack is local, as it is targeted at a specific drone or drone cluster and not at the entire network\\
+	Malicious & Jamming attacks are considered malicious as their main goal is to disrupt correct network operation\\
+	\bottomrule
+\end{tabularx}
 \end{table}
-	
-  
+
+\subsection{Dataset Choice}
+
+As 6G network traffic is not yet available, we chose an open-source dataset \cite{JammingDetectionIoT-Hussain} that analyses the RSS values 
+received by a Raspberry Pi 3 that is subject to periodic and constant jamming attacks. 
+
+The dataset was created using a software-defined radio (SDR) connected to a laptop that was programmed to transmit a jamming signal using the 
+open source software \textit{GNU Radio}. A second SDR radio was chosen to receive the jamming signal and the RSS values and was connected 
+to a Raspberry Pi 3. The jamming radio operates at a frequency of 2.412 GHz with a Bandwidth of 40MHz, while the Raspberry Pi 3 was programmed to sample the RSS values with a 
+frequency of 32K samples per second. 
+
+The dataset contains 3 different \textit{.txt} files that store the RSS values sampled by the Raspberry Pi 3. The first file contains the RSS values sampled during a constant jamming attack, the second file contains the RSS values sampled during a periodic jamming attack and the third file contains the RSS values sampled during normal network operation.
+The samples are stored in a single column, with each row representing a single sample. The samples us the \textit{dBm (decibel-milliwatts)} unit of measurement a logarithmic scale that measures the power of a signal in relation to 1 milliwatt. 
+Conversion can be done using the formula \cite{WirelessCommSobot} shown in equation \ref{eq:dbm_to_mw}:
+
+\begin{linenomath}
+	\begin{equation}
+		P_{dBm} = 10 \cdot \log_{10} \left( \frac{P_{mW}}{1mW} \right)
+		\label{eq:dbm_to_mw}
+	\end{equation}
+\end{linenomath}
+
+Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show respectively plots of the RSS values sampled during a constant jamming attack and a periodic jamming attack. 
+
+\begin{figure}[H]
+	\includegraphics[width=10.5 cm]{img/ConstantJammingSignal.png}
+	\caption{Constant jamming attack RSS values}
+	\label{fig:ConstantJammingSignal}
+\end{figure}   
+\unskip
+\begin{figure}[H]
+	\includegraphics[width=10.5 cm]{img/PeriodicJammingSignal.png}
+	\caption{Periodic jamming attack RSS values}
+	\label{fig:PeriodicJammingSignal}
+\end{figure}   
+\unskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
@@ -480,12 +515,10 @@ IoT & Internet of Things \\
 AI & Artificial Intelligence \\
 DSSS & Direct Sequence Spread Spectrum \\
 FHSS & Frequency Hopping Spread Spectrum \\
+OSI & Open Systems Interconnection \\
+dBm & Decibel-milliwatts \\
 
 
-MDPI & Multidisciplinary Digital Publishing Institute\\
-DOAJ & Directory of open access journals\\
-TLA & Three letter acronym\\
-LD & Linear dichroism
 \end{tabular}
 }
 
@@ -580,6 +613,12 @@ Sciancalepore, S.; Kusters, F.; Abdelhadi, N.K.; Oligeri, G. Jamming Detection i
 
 \bibitem[Boualouache and Engel(2023)]{MLMisbehavior5GBoualouache}
 Boualouache, A.; Engel, T. A Survey on Machine Learning-Based Misbehavior Detection Systems for 5G and Beyond Vehicular Networks. {\em IEEE Communications Surveys and Tutorials} {\bf 2023}, {\em 25}, 1128--1172. https://doi.org/10.1109/COMST.2023.3236448.
+
+\bibitem[Hussain et al.(2023)]{JammingDetectionIoT-Hussain}
+Hussain, A.; Zhang, M.; Bhatia, S.; Cheng, L. Jamming Detection in IoT Wireless Networks: An Edge-AI Based Approach. In Proceedings of the 12th International Conference on the Internet of Things, IoT ’22; Association for Computing Machinery: Delft, Netherlands, 2023; pp. 57--64. ISBN: 9781450396653. https://doi.org/10.1145/3567445.3567456.
+
+\bibitem[Sobot(2012)]{WirelessCommSobot}
+Sobot, R. \textit{Wireless Communication Electronics: Introduction to RF Circuits and Design}; Springer: 2012; p. 252. ISBN 9783030486303.
 
 
 \end{thebibliography}
