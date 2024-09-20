@@ -249,8 +249,8 @@ We assume that the jammer type is unknown to the drone.
 Figure \ref{fig:CombinedJammingscenariosDiagram} shows a diagram of the proposed scenario. 
 
 \begin{figure}[H]
-	\includegraphics[width=10.5 cm]{img/CombinedJammingscenariosDiagram.jpg}
-	\caption{Proposed jamming scenario. The Drone communicates with the 6G base station and receives information about how to behave. The fixed jammer (1) and the mobile jammer (2) target the communication between the drone and the base station. The drone has an internal classification module that is able to detect jamming attacks.}
+	\includegraphics[width=12.5 cm]{img/CombinedJammingscenariosDiagram.jpg}
+	\caption{Proposed jamming scenario. The Drone communicates with the 6G base station and receives information about how to behave. The fixed jammer \textbf{(1)} and the mobile jammer \textbf{(2)} target the communication between the drone and the base station. The drone has an internal classification module that is able to detect jamming attacks.}
 	\label{fig:CombinedJammingscenariosDiagram}
 	\end{figure}   
 	\unskip
@@ -261,7 +261,26 @@ These types of attacks can be attributed to different types of jammers. The cons
 the periodic jamming attack could be caused by a drone jammer, as drones are usually battery powered and can only jam for a limited amount of time. 
 Employing a periodic jamming attack could help the malicious drone conserve energy and reduce the chances of being detected.
 
+Table \ref{tab:attacker_classification} shows the attacker classification in the proposed scenario \cite{MLMisbehavior5GBoualouache}: 
 
+\begin{table}[H]
+	\caption{Attacker classification details.\label{tab:attacker_classification}}
+		\begin{adjustwidth}{-\extralength}{0cm}
+			\newcolumntype{C}{>{\centering\arraybackslash}X}
+			\begin{tabularx}{\fulllength}{CC}
+				\toprule
+				\textbf{Classification} & \textbf{Description} \\
+				\midrule
+				Active   & The attacker is actively trying to disrupt network operation by transmitting a jamming signal\\
+				External & The attack takes place at level 1 of the OSI model, meaning that the attacker is not part of the network\\
+				Local    & The attack is local, as it is targeted at a specific drone or drone cluster and not at the entire network\\
+				Malicious & Jamming attacks are considered malicious as their main goal is to disrupt correct network operation\\
+				\bottomrule
+			\end{tabularx}
+		\end{adjustwidth}
+\end{table}
+	
+  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
@@ -558,6 +577,9 @@ Chorti, A.; Hollanti, C.; Koorapaty, H.; Poor, H.V. Context-Aware Security for 6
 
 \bibitem[Sciancalepore et al.(2023)]{JammingDetection-Sciancalepore}
 Sciancalepore, S.; Kusters, F.; Abdelhadi, N.K.; Oligeri, G. Jamming Detection in Low-BER Mobile Indoor Scenarios via Deep Learning. {\em arXiv} {\bf 2023}, eprint: 2306.10912. Available online: \url{https://arxiv.org/abs/2306.10912}.
+
+\bibitem[Boualouache and Engel(2023)]{MLMisbehavior5GBoualouache}
+Boualouache, A.; Engel, T. A Survey on Machine Learning-Based Misbehavior Detection Systems for 5G and Beyond Vehicular Networks. {\em IEEE Communications Surveys and Tutorials} {\bf 2023}, {\em 25}, 1128--1172. https://doi.org/10.1109/COMST.2023.3236448.
 
 
 \end{thebibliography}
