@@ -79,12 +79,12 @@
 %\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
 
 % Authors, for the paper (add full first names)
-\Author{Sergio Cibecchini $^{1,\dagger,\ddagger}$\orcidA{}, Francesco Chiti $^{2,\ddagger}$ and Firstname Lastname $^{2,}$*}
+\Author{Sergio Cibecchini $^{1,\dagger,\ddagger}$\orcidA{}, Francesco Chiti $^{2,\ddagger}$ and Laura Pierucci$^{2,}$*}
 
 %\longauthorlist{yes}
 
 % MDPI internal command: Authors, for metadata in PDF
-\AuthorNames{Sergio Cibecchini, Francesco Chiti and Firstname Lastname}
+\AuthorNames{Sergio Cibecchini, Francesco Chiti and Laura Pierucci}
 
 % MDPI internal command: Authors, for citation in the left column
 \AuthorCitation{Cibecchini, S.; Chiti, F.; Lastname, F.}
@@ -239,14 +239,18 @@ effects of the attack.
 
 \section{Materials and Methods}
 
-Materials and Methods should be described with sufficient details to allow others to replicate and build on published results. Please note that publication of your manuscript implicates that you must make all materials, data, computer code, and protocols associated with the publication available to readers. Please disclose at the submission stage any restrictions on the availability of materials or information. New methods and protocols should be described in detail while well-established methods can be briefly described and appropriately cited.
+In the proposed scenario we have a flying drone that is subject to a jamming attack. The drone communicates with a ground station 
+and periodically samples the Received Signal Strength Indicator (RSSI) of the signal it receives. 
+In our analysis the drone implements a simple unsupervised machine learning algorithm, trained on nominal RSSI values, 
+that is able to detect anomalous spikes in the RSSI, indicating a jamming attack.
+The algorithm should detect the jamming attacks with a high degree of accuracy and recall, while also minimizing 
+the number of false positives.
 
-Research manuscripts reporting large datasets that are deposited in a publicly avail-able database should specify where the data have been deposited and provide the relevant accession numbers. If the accession numbers have not yet been obtained at the time of submission, please state that they will be provided during review. They must be provided prior to publication.
-
-Interventionary studies involving animals or humans, and other studies require ethical approval must list the authority that provided approval and the corresponding ethical approval code.
-\begin{quote}
-This is an example of a quote.
-\end{quote}
+The drone will be subject to two types of jamming attacks, a constant jamming attack and a periodic jamming attack.
+These types of attacks can be attributed to different types of jammers. 
+A constant jamming attack could be caused by a ground jammer, as maintaining a constant jamming signal requires a constant power source.
+The periodic jamming on the other hand could be caused by a drone jammer, as drones are usually battery powered and can only jam for a limited amount of time. 
+Employing a periodic jamming attack could help the attacker to conserve energy and avoid detection.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
