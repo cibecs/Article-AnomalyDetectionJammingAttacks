@@ -316,8 +316,19 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 \end{figure}   
 \unskip
 
+\subsection {Algorithm Choice}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm had to meet. The algorithm had to be able to classify anomalous samples with a high degree of accuracy, while at the same time 
+being lightweight enough to be run on a resource constrained device like a drone. The training phase should also be fast, as this would allow the drone to redetermine the normal transmission RSS values in a constantly changing environment. If the model didn't periodically redefine normal RSS values, 
+it would be prone to false positives caused by the mobile nature of drones. 
+The model should be also required a limited amount of storage to be run effectively, as drones are usually lacking in internal storage. 
+
+The algorithm that best fit these requirements was the \textit{Isolation Forest} algorithm \cite{IsolationForestLiu}. The Isolation Forest algorithm is a state-of-the-art unsupervised machine learning algorithm for anomaly detection, introduced by Liu et al. in 2008. 
+Unlike traditional anomaly detection algorithms, which require the definition of a normal class, Isolation Forest is able to detect anomalies without explicitly defining 
+This is achieved by leveraging the properties of anomalyes themselves, i.e being few and separated from the majority of the data points. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 This section may be divided by subheadings. It should provide a concise and precise description of the experimental results, their interpretation as well as the experimental conclusions that can be drawn.
@@ -620,6 +631,8 @@ Hussain, A.; Zhang, M.; Bhatia, S.; Cheng, L. Jamming Detection in IoT Wireless 
 \bibitem[Sobot(2012)]{WirelessCommSobot}
 Sobot, R. \textit{Wireless Communication Electronics: Introduction to RF Circuits and Design}; Springer: 2012; p. 252. ISBN 9783030486303.
 
+\bibitem[Liu et al.(2008)]{IsolationForestLiu}
+Liu, F.T.; Ting, K.M.; Zhou, Z.-H. Isolation Forest. In Proceedings of the 2008 Eighth IEEE International Conference on Data Mining, Pisa, Italy, 2008; pp. 413--422. https://doi.org/10.1109/ICDM.2008.17.
 
 \end{thebibliography}
 
