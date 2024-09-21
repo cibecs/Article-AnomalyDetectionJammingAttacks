@@ -318,14 +318,21 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 
 \subsection {Algorithm Choice}
 
-When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm had to meet. The algorithm had to be able to classify anomalous samples with a high degree of accuracy, while at the same time 
+When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm had to meet. The algorithm has to be able to classify anomalous samples with a high degree of accuracy, while at the same time 
 being lightweight enough to be run on a resource constrained device like a drone. The training phase should also be fast, as this would allow the drone to redetermine the normal transmission RSS values in a constantly changing environment. If the model didn't periodically redefine normal RSS values, 
 it would be prone to false positives caused by the mobile nature of drones. 
 The model should be also required a limited amount of storage to be run effectively, as drones are usually lacking in internal storage. 
 
 The algorithm that best fit these requirements was the \textit{Isolation Forest} algorithm \cite{IsolationForestLiu}. The Isolation Forest algorithm is a state-of-the-art unsupervised machine learning algorithm for anomaly detection, introduced by Liu et al. in 2008. 
-Unlike traditional anomaly detection algorithms, which require the definition of a normal class, Isolation Forest is able to detect anomalies without explicitly defining 
-This is achieved by leveraging the properties of anomalyes themselves, i.e being few and separated from the majority of the data points. 
+Unlike traditional anomaly detection algorithms, which require the definition of a normal class, Isolation Forest is able to detect anomalies without explicitly defining the characteristics of the normal class.
+This is achieved by leveraging the properties of anomalies themselves, i.e being few and separated from the majority of the data points. 
+The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
+left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits that were required to isolate is used to determine the anomaly score of the data point. The higher the number of splits, the more likely the data point is to be an anomaly.
+Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
+
+The chosen implementation for isolation forest is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
+The algorithm was tested on a Desktop PC with an Intel i7-6700 CPU and 16GB of RAM as well as on a Raspberry Pi 3 with a Quad Core 1.2GHz CPU and 1GB of RAM \cite{RaspberryPi3ModelB}.
+The graphs shown are the ones obtained on the Desktop PC for convenience,  but the ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was verified. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -633,6 +640,13 @@ Sobot, R. \textit{Wireless Communication Electronics: Introduction to RF Circuit
 
 \bibitem[Liu et al.(2008)]{IsolationForestLiu}
 Liu, F.T.; Ting, K.M.; Zhou, Z.-H. Isolation Forest. In Proceedings of the 2008 Eighth IEEE International Conference on Data Mining, Pisa, Italy, 2008; pp. 413--422. https://doi.org/10.1109/ICDM.2008.17.
+
+\bibitem[Scikit-learn(2024)]{IsolationForestScikitLearn}
+Scikit-learn: Isolation Forest. Available online: \url{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html} (accessed on 14 September 2024).
+
+\bibitem[RaspberryPi(2024)]{RaspberryPi3ModelB}
+Raspberry Pi 3 Model B. Available online: \url{https://www.raspberrypi.com/products/raspberry-pi-3-model-b/} (accessed on 14 September 2024).
+
 
 \end{thebibliography}
 
