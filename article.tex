@@ -330,6 +330,13 @@ The algorithm works by building a forest of isolation trees. Each tree is built 
 left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits that were required to isolate is used to determine the anomaly score of the data point. The higher the number of splits, the more likely the data point is to be an anomaly.
 Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
 
+\begin{figure}[H]
+	\includegraphics[width=7 cm]{img/IsolationForest.jpg}
+	\caption{Isolation forest in action. The anomaly \textbf{x0} is isolated in less splits compared to the normal datapoint \textbf{x1}\cite{IsolationForestLiu}.}
+	\label{fig:IsolationForest}
+\end{figure}   
+\unskip
+
 The chosen implementation for isolation forest is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
 The algorithm was tested on a Desktop PC with an Intel i7-6700 CPU and 16GB of RAM as well as on a Raspberry Pi 3 with a Quad Core 1.2GHz CPU and 1GB of RAM \cite{RaspberryPi3ModelB}.
 The graphs shown are the ones obtained on the Desktop PC for convenience,  but the ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was verified. 
