@@ -341,7 +341,7 @@ The chosen implementation for isolation forest is the one provided by the \texti
 The algorithm was tested on a Desktop PC with an Intel i7-6700 CPU and 16GB of RAM as well as on a Raspberry Pi 3 with a Quad Core 1.2GHz CPU and 1GB of RAM \cite{RaspberryPi3ModelB}.
 The graphs shown are the ones obtained on the Desktop PC for convenience,  but the ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was verified. 
 
-\subsection{Evaluation Metrics}
+\subsection{Evaluation Metrics}\label{EvaluationMetrics}
 
 The performance of the model was evaluated using the state-of-the-art evaluation metrics for machine learning classification algorithms. The metrics are all based on the number of true positives, false positives, true negatives and false negatives. A true positive is a data point that is correctly classified as an anomaly, while a false positive is a data point that is incorrectly classified as an anomaly. A true negative on the other hand is a data point that is correctly classified as a normal data point, while a false negative is a data point that is incorrectly classified as a normal data point.
 The evaluation metrics that we chose to use are the following: 
@@ -374,7 +374,18 @@ The combination of these metrics gives us an insight into the model's performanc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
-This section may be divided by subheadings. It should provide a concise and precise description of the experimental results, their interpretation as well as the experimental conclusions that can be drawn.
+\subsection{Parameters Tuning}
+The first phase in our testing methodology was the tuning of the hyperparameters of the model. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (see section \ref{EvaluationMetrics}) and then choosing the best performing parameters.
+From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, the parameters we decided to tune were the following: 
+
+\begin{itemize}
+	\item \textbf{n\_estimators:} The number of base estimators in the ensamble, i.e the number of isolation trees used to compute the anomaly score of each datapoint. 
+	\item \textbf{max\_samples:} The max number of samples to draw from the dataset to train each tree.
+	\item \textbf{contamination:} The amount of outliers present in the dataset used to train the model. 
+\end{itemize}
+
+
+
 \subsection{Subsection}
 \subsubsection{Subsubsection}
 
