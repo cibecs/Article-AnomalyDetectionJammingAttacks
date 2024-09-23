@@ -62,6 +62,8 @@
 
 %PLACE TO ADD COMMANDS
 \usepackage{lipsum}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 %=================================================================
 % Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
@@ -384,10 +386,69 @@ From the parameters available in the \textit{Scikit-learn} implementation of the
 	\item \textbf{contamination:} The amount of outliers present in the dataset used to train the model. 
 \end{itemize}
 
+During the tuning phase, the untested hyperparameters were set to their default values of the \textit{Scikit-learn} implementation of the Isolation Forest (\ref{tab:isolation_forest_parameters}).
+
+\begin{table}[H]
+	\caption{Scikit-Learn Isolation Forest hyperparameters default values.\label{tab:isolation_forest_parameters}}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{Parameter} & \textbf{Default Value} \\
+	\midrule
+	n\_estimators & 100 \\
+	max\_samples & 'auto' \\
+	contamination & 0.1 \\
+	\bottomrule
+	\end{tabularx}
+\end{table}
+
+During he tuning process, as well as the subsequent model testing phase, the model was evaluated using as input normal traffic samples concatenated with jamming attack samples (see code snippet \ref{alg:dataset_concatenation}). 
+This was done to simulate a real-world scenario where the model has to be able to classify correctly anomalous samples but also reduce the number of false positives during normal operation. 
+
+\begin{algorithm}
+	\caption{Test input definition}\label{alg:dataset_concatenation}
+	\begin{algorithmic}[1]
+	\State normalTraffic $\gets$ ReadAndParseFile(NORMAL\_TRAFFIC\_FILE, normal\_traffic\_size)
+	\State jamming $\gets$ ReadAndParseFile(JAMMING\_FILE, jamming\_size)
+
+	\State testInput $\gets$ Concatenate(normalTraffic, jamming)
+	\end{algorithmic}
+\end{algorithm}
+
+The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_size} are shown in table \ref{tab:dataset_sizes}. 
+
+\begin{table}[H]
+	\caption{Dataset sizes used for the tuning and testing phases.}\label{tab:dataset_sizes}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{Dataset} & \textbf{Size} \\
+	\midrule
+	jamming samples n. & 2000 \\
+	nominal samples n. & 20000 \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+The dataset is purposefully unbalanced, as jamming attacks are usually rare events compared to normal network operation. 
+
+In figure \ref{fig:} we can see a representation of the input signal in the case of a constant jamming attack.
+
+%TODO Add figure of constant jamming attack
+
+% \begin{figure}[H]
+% 	\includegraphics[width=10.5 cm]{img/ConstantJammingSignal.png}
+% 	\caption{Constant jamming attack RSS values}
+% 	\label{fig:ConstantJammingSignal}
+% \end{figure}
+
+\subsubsection{n\_estimators tuning}
+
+The first parameter that we decided to tune was the \textit{n\_estimators} parameter. The parameter was varied between 10 and 1000, with a step of 10. The results tuning values are shown in table \ref{tab:n_estimators_tuning}.
 
 
-\subsection{Subsection}
-\subsubsection{Subsubsection}
+
+
 
 
 The text continues here. 
