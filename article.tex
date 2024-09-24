@@ -609,7 +609,7 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
-    \textbf{Metric} & \textbf{Tuned Model} & \textbf{Default Model} \\
+    \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Default Isolation Forest} \\
     \midrule
     \textbf{TP} & 1997 & 2000 \\
     \textbf{FP} & 1565 & 1993 \\
@@ -624,15 +624,16 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
-    \textbf{Metric} & \textbf{Tuned Model} & \textbf{Default Model} \\
+    \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Default Isolation Forest} \\
     \midrule
-    \textbf{Accuracy} & 0.93 & 0.91 \\
-    \textbf{Precision} & 0.56 & 0.50 \\
-    \textbf{Recall} & 1.00 & 1.00 \\
-    \textbf{F1 Score} & 0.72 & 0.67 \\
+    \textbf{Accuracy} & 0.929 & 0.909 \\
+    \textbf{Precision} & 0.561 & 0.501 \\
+    \textbf{Recall} & 0.999 & 1.000 \\
+    \textbf{F1 Score} & 0.718 & 0.667 \\
     \bottomrule
     \end{tabularx}
 \end{table}
+
 
 The tuning phase proved effective in improving the model's performance compared to the default hyperparameters. Still, despite reaching a Recall score of 1.00 in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
 This is most likely due to the nature of the normal traffic signal. As we see from figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the ones of the jamming attack samples, leading the model to falsely classify them as anomalies.
@@ -645,7 +646,7 @@ Instead of seeing this as a setback, we see this as a positive. The fact that th
 Having understood the nature of the problem, we decided to implement a majority rule system to reduce the number of false positives. The improved model would use the Tuned Isolation Forest model's results and then pass them to a Majority Rule module, as shown in figure \ref{fig:MajorityRuleDiagram}. 
 
 \begin{figure}[H]
-	\includegraphics[width=10.5 cm]{img/ModulesStructure.jpg}
+	\includegraphics[width=12.5 cm]{img/ModulesStructure.jpg}
 	\caption{Majority Rule system diagram. The Tuned Isolation Forest model results are passed to the Majority Rule module, that then provides the final classification.}
 	\label{fig:MajorityRuleDiagram}
 	\end{figure}   
@@ -667,7 +668,7 @@ majority of the datapoints in the window are classified as anomalies, the data p
 			\State \hspace{1em} $\text{window.append}(\text{classification}[index])$
 			
 			\If{current classification is OUTLIER and the count of OUTLIERS in the window 
-				 is less than or equal to half the window size}
+		 \State is less than or equal to half the window size}
 				\State \hspace{1em} $\text{classification}[index] \leftarrow \text{INLIERS}$
 			\EndIf
 		\EndFor
@@ -675,6 +676,79 @@ majority of the datapoints in the window are classified as anomalies, the data p
 		\State \hspace{1em} $\text{return classification}$
 	\end{algorithmic}
 \end{algorithm}
+
+To determine the optimal value for the \textit{window\_size} parameter, we tested the model in the same way as we did for the hyperparameters tuning phase. This time, the model parameters were set to the best performing values from the tuning phase (table \ref{tab:best_hyperparameters}). Table \ref{tab:window_size_tuning} shows the tuning values for the \textit{window\_size} parameter.
+
+\begin{table}[H]
+	\caption{window\_size tuning values.}\label{tab:window_size_tuning}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{window\_size} & \textbf{Values} \\
+	\midrule
+	Minimum & 1 \\
+	Maximum & 100 \\
+	Step & 1 \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+From figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
+
+\begin{figure}[H]
+	\includegraphics[width=10.5cm]{img/WindowSizeTuning.png}
+	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
+\end{figure}
+
+After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (figure \ref{fig:InputSignal}). The results of the model classification are shown in figure \ref{fig:majorityRuleIsolationResults}. 
+
+\begin{figure}[H]
+	\begin{adjustwidth}{-\extralength}{0cm}
+	\centering
+	\includegraphics[width=19.5cm]{img/MajorityRuleIsolatioForestClassification.png}
+	\caption{Classification results from the Majority Rule Isolation Forest model}\label{fig:majorityRuleIsolationResults}
+	\end{adjustwidth}
+\end{figure}
+
+In table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_performanceMetrics} we can see a comparison between the tuned model and the Majority Rule model.
+
+\begin{table}[H]
+    \caption{Confusion Matrix Components Comparison.}\label{tab:majority_rule_confusionMatrix}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\textwidth}{CCC}
+    \toprule
+    \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Majority Rule Isolation Forest} \\
+    \midrule
+    \textbf{TP}  & 1997  & 1982 \\
+    \textbf{FN}  & 3     & 18   \\
+    \textbf{FP}  & 1565  & 27   \\
+    \textbf{TN}  & 18435 & 19973 \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \caption{Performance Metrics Comparison.}\label{tab:majority_rule_performanceMetrics}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\textwidth}{CCC}
+    \toprule
+    \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Majority Rule Isolation Forest} \\
+    \midrule
+    \textbf{Accuracy}  & 0.929 & 0.998 \\
+    \textbf{Precision} & 0.561 & 0.987 \\
+    \textbf{Recall}    & 0.999 & 0.991 \\
+    \textbf{F1 Score}  & 0.718 & 0.989 \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+The results show that the Majority Rule Model proved effective in mitigating the high number of false positives that was present in the first version of the model. 
+Given the resource constrained nature of the scenario, we decided to test the computational impact of the Majority Rule module against the standard tuned model. 
+Classification times and training times were measured for both models and the results are shown in figures \ref{fig:majority_rule_training_time} and \ref{fig:majority_rule_classification_time}.
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
