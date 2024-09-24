@@ -441,7 +441,7 @@ In figure \ref{fig:InputSignal} we can see a representation of the input signal 
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
 	\includegraphics[width=19.5cm]{img/InputSignal.png}
-	\caption{Input signal in the case of Constant Jamming. The jamming signal is concatenated with the normal traffic signal.}\label{fig:InputSignal}
+	\caption{Input signal in the case of Constant Jamming. The normal traffic signal is concatenated with the jamming signal.}\label{fig:InputSignal}
 \end{adjustwidth}
 \end{figure}  
 
@@ -571,6 +571,8 @@ Our testing showed that, as expected, tuning of the contamination parameter had 
 
 \subsection{Model Testing Phase}
 
+\subsubsection{Standard model testing}
+
 After the tuning phase, we tested the model using the best performing hyperparameters, recapped in table \ref{tab:best_hyperparameters} and compared against the default parameters. 
 
 
@@ -607,7 +609,7 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
-    \textbf{Metric} & \textbf{Tuned Values} & \textbf{Default Values} \\
+    \textbf{Metric} & \textbf{Tuned Model} & \textbf{Default Model} \\
     \midrule
     \textbf{TP} & 1997 & 2000 \\
     \textbf{FP} & 1565 & 1993 \\
@@ -622,7 +624,7 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
-    \textbf{Metric} & \textbf{Tuned Values} & \textbf{Default Values} \\
+    \textbf{Metric} & \textbf{Tuned Model} & \textbf{Default Model} \\
     \midrule
     \textbf{Accuracy} & 0.93 & 0.91 \\
     \textbf{Precision} & 0.56 & 0.50 \\
@@ -632,9 +634,47 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \end{tabularx}
 \end{table}
 
+The tuning phase proved effective in improving the model's performance compared to the default hyperparameters. Still, despite reaching a Recall score of 1.00 in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
+This is most likely due to the nature of the normal traffic signal. As we see from figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the ones of the jamming attack samples, leading the model to falsely classify them as anomalies.
+This is most likely because of how the dataset was created, as the normal traffic samples were taken from a real-world scenario where the RSS values and be effected by external conditions. 
 
+Instead of seeing this as a setback, we see this as a positive. The fact that the dataset contains noise means it is more representative of a real-world scenario, where the drone might be moving trough different environments and thus be subject to environmental noise.
 
+\subsubsection{Majority rule model testing}
 
+Having understood the nature of the problem, we decided to implement a majority rule system to reduce the number of false positives. The improved model would use the Tuned Isolation Forest model's results and then pass them to a Majority Rule module, as shown in figure \ref{fig:MajorityRuleDiagram}. 
+
+\begin{figure}[H]
+	\includegraphics[width=10.5 cm]{img/ModulesStructure.jpg}
+	\caption{Majority Rule system diagram. The Tuned Isolation Forest model results are passed to the Majority Rule module, that then provides the final classification.}
+	\label{fig:MajorityRuleDiagram}
+	\end{figure}   
+\unskip
+
+The mechanism of the Majority Rule module is simple. When a data point is passed to the Majority rule module, its classification class is inserted into a sliding window. If the datapoint is classified by the Tuned Isolation forest as an anomaly, the Majority Rule module checks the contents of the sliding window. If the 
+majority of the datapoints in the window are classified as anomalies, the data point is classified as an anomaly. If the majority of the datapoints in the window are classified as normal, the data point is classified as normal.
+
+\begin{algorithm}
+	\caption{Majority Rule Algorithm}
+	\begin{algorithmic}[1]
+		\State \hspace{1em} $\text{window} \leftarrow []$
+		
+		\For{each index in range(len(classification))}
+			\If{length of window equals predefined window size}
+				\State \hspace{1em} $\text{window.pop}(0)$
+			\EndIf
+			
+			\State \hspace{1em} $\text{window.append}(\text{classification}[index])$
+			
+			\If{current classification is OUTLIER and the count of OUTLIERS in the window 
+				 is less than or equal to half the window size}
+				\State \hspace{1em} $\text{classification}[index] \leftarrow \text{INLIERS}$
+			\EndIf
+		\EndFor
+		
+		\State \hspace{1em} $\text{return classification}$
+	\end{algorithmic}
+\end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
