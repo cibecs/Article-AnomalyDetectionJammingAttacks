@@ -546,7 +546,27 @@ Given minimal performance differences but the impact on the time metrics, chose 
 	\label{fig:max_samples_time_comparison}
 \end{figure}
 
+\subsubsection{contamination tuning}
 
+The final parameter we focused on is the \textit{contamination} parameter. The tuning values are shown in table \ref{tab:contamination_tuning}.
+
+\begin{table}[H]
+	\caption{contamination tuning values.}\label{tab:contamination_tuning}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{contamination} & \textbf{Values} \\
+	\midrule
+	Minimum & 0.01 \\
+	Maximum & 0.5 \\
+	Step & 0.01 \\
+	\bottomrule
+	\end{tabularx}
+\end{table}
+
+The contamination parameter was by far the one that had the most impact on the model performance, as shown in figure \ref{fig:contamination_tuning}.
+As recall was the metric that we wanted to prioritize as highlights the number of detections, we chose the value of \textbf{contamination = 0.09}, as it provided the best metric values with our dataset.
+Our testing showed that variation on the contamination parameter had a minimal impact on the training and classification time. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
