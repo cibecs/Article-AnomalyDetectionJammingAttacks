@@ -377,7 +377,7 @@ The combination of these metrics gives us an insight into the model's performanc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
-\subsection{Parameters Tuning}
+\subsection{Parameters Tuning Phase}
 
 The first phase in our testing methodology was the tuning of the hyperparameters of the model. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (see section \ref{EvaluationMetrics}) and then choosing the best performing parameters.
 From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, the parameters we decided to tune were the following: 
@@ -566,7 +566,75 @@ The final parameter we focused on is the \textit{contamination} parameter. The t
 
 The contamination parameter was by far the one that had the most impact on the model performance, as shown in figure \ref{fig:contamination_tuning}.
 As recall was the metric that we wanted to prioritize as highlights the number of detections, we chose the value of \textbf{contamination = 0.09}, as it provided the best metric values with our dataset.
-Our testing showed that variation on the contamination parameter had a minimal impact on the training and classification time. 
+
+Our testing showed that, as expected, tuning of the contamination parameter had a minimal impact on the training and classification time. 
+
+\subsection{Model Testing Phase}
+
+After the tuning phase, we tested the model using the best performing hyperparameters, recapped in table \ref{tab:best_hyperparameters} and compared against the default parameters. 
+
+
+\begin{table}[H]
+	\caption{Tuned hyperparameters and default values} \label{tab:best_hyperparameters}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CCC}
+	\toprule
+	\textbf{Parameter} & \textbf{Tuned Value} & \textbf{Default Value} \\
+	\midrule
+	n\_estimators & 15 & 100 \\
+	max\_samples & 10 & 'auto' \\
+	contamination & 0.09 & 0.1 \\
+	\bottomrule
+	\end{tabularx}
+\end{table}
+
+
+
+The model was tested against the input signal shown in figure \ref{fig:InputSignal}. In figure \ref{fig:standardIsolationResults} we can see the results of the model classification of the input signal with the tuned hyperparameters. 
+
+\begin{figure}[H]
+	\begin{adjustwidth}{-\extralength}{0cm}
+	\centering
+	\includegraphics[width=19.5cm]{img/StandardIsolationForestClassification.png}
+	\caption{Classification results from the tuned Isolation Forest model}\label{fig:standardIsolationResults}
+\end{adjustwidth}
+\end{figure}  
+
+Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparison between the model performance with the tuned hyperparameters and the default hyperparameters.
+
+\begin{table}[H]
+    \caption{Confusion Matrix Components Comparison.}\label{tab:confusionMatrix}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\textwidth}{CCC}
+    \toprule
+    \textbf{Metric} & \textbf{Tuned Values} & \textbf{Default Values} \\
+    \midrule
+    \textbf{TP} & 1997 & 2000 \\
+    \textbf{FP} & 1565 & 1993 \\
+    \textbf{TN} & 18435 & 18007 \\
+    \textbf{FN} & 3 & 0 \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \caption{Performance Metrics Comparison.}\label{tab:performanceMetrics}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\textwidth}{CCC}
+    \toprule
+    \textbf{Metric} & \textbf{Tuned Values} & \textbf{Default Values} \\
+    \midrule
+    \textbf{Accuracy} & 0.93 & 0.91 \\
+    \textbf{Precision} & 0.56 & 0.50 \\
+    \textbf{Recall} & 1.00 & 1.00 \\
+    \textbf{F1 Score} & 0.72 & 0.67 \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
