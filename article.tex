@@ -64,6 +64,7 @@
 \usepackage{lipsum}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{subfigure}
 
 %=================================================================
 % Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
@@ -253,7 +254,7 @@ We assume that the jammer type is unknown to the drone.
 Figure \ref{fig:CombinedJammingscenariosDiagram} shows a diagram of the proposed scenario. 
 
 \begin{figure}[H]
-	\includegraphics[width=12.5 cm]{img/CombinedJammingscenariosDiagram.jpg}
+	\includegraphics[width=10.5 cm]{img/CombinedJammingscenariosDiagram.jpg}
 	\caption{Proposed jamming scenario. The Drone communicates with the 6G base station and receives information about how to behave. The fixed jammer \textbf{(1)} and the mobile jammer \textbf{(2)} target the communication between the drone and the base station. The drone has an internal classification module that is able to detect jamming attacks.}
 	\label{fig:CombinedJammingscenariosDiagram}
 	\end{figure}   
@@ -333,7 +334,7 @@ left and right branches of the tree. The process is repeated recursively until a
 Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
 
 \begin{figure}[H]
-	\includegraphics[width=7 cm]{img/IsolationForest.jpg}
+	\includegraphics[width=6 cm]{img/IsolationForest.jpg}
 	\caption{Isolation forest in action. The anomaly \textbf{x0} is isolated in less splits compared to the normal datapoint \textbf{x1}\cite{IsolationForestLiu}.}
 	\label{fig:IsolationForest}
 \end{figure}   
@@ -432,152 +433,64 @@ The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_siz
 
 The dataset is purposefully unbalanced, as jamming attacks are usually rare events compared to normal network operation. 
 
-In figure \ref{fig:} we can see a representation of the input signal in the case of a constant jamming attack.
+In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack.
 
-%TODO Add figure of constant jamming attack
 
-% \begin{figure}[H]
-% 	\includegraphics[width=10.5 cm]{img/ConstantJammingSignal.png}
-% 	\caption{Constant jamming attack RSS values}
-% 	\label{fig:ConstantJammingSignal}
-% \end{figure}
+\begin{figure}[H]
+	\begin{adjustwidth}{-\extralength}{0cm}
+	\centering
+	\includegraphics[width=19.5cm]{img/InputSignal.png}
+	\caption{Input signal in the case of Constant Jamming. The jamming signal is concatenated with the normal traffic signal.}\label{fig:InputSignal}
+\end{adjustwidth}
+\end{figure}  
 
 \subsubsection{n\_estimators tuning}
 
-The first parameter that we decided to tune was the \textit{n\_estimators} parameter. The parameter was varied between 10 and 1000, with a step of 10. The results tuning values are shown in table \ref{tab:n_estimators_tuning}.
-
-
-
-
-
-
-The text continues here. 
-
-\subsection{Figures, Tables and Schemes}
-
-All figures and tables should be cited in the main text as Figure~\ref{fig1}, Table~\ref{tab1}, etc.
-
-\begin{figure}[H]
-\includegraphics[width=10.5 cm]{Definitions/logo-mdpi}
-\caption{This is a figure. Schemes follow the same formatting. If there are multiple panels, they should be listed as: (\textbf{a}) Description of what is contained in the first panel. (\textbf{b}) Description of what is contained in the second panel. Figures should be placed in the main text near to the first time they are cited. A caption on a single line should be centered.\label{fig1}}
-\end{figure}   
-\unskip
-
-\begin{table}[H] 
-\caption{This is a table caption. Tables should be placed in the main text near to the first time they are~cited.\label{tab1}}
-\newcolumntype{C}{>{\centering\arraybackslash}X}
-\begin{tabularx}{\textwidth}{CCC}
-\toprule
-\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}\\
-\midrule
-Entry 1		& Data			& Data\\
-Entry 2		& Data			& Data \textsuperscript{1}\\
-\bottomrule
-\end{tabularx}
-\noindent{\footnotesize{\textsuperscript{1} Tables may have a footer.}}
-\end{table}
-
-The text continues here (Figure~\ref{fig2} and Table~\ref{tab2}).
-
-% Example of a figure that spans the whole page width. The same concept works for tables, too.
-\begin{figure}[H]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=15.5cm]{Definitions/logo-mdpi}
-\end{adjustwidth}
-\caption{This is a wide figure.\label{fig2}}
-\end{figure}  
+The first parameter that we decided to tune was the \textit{n\_estimators} parameter. The tuning values are shown in table \ref{tab:n_estimators_tuning}.
 
 \begin{table}[H]
-\caption{This is a wide table.\label{tab2}}
-	\begin{adjustwidth}{-\extralength}{0cm}
-		\newcolumntype{C}{>{\centering\arraybackslash}X}
-		\begin{tabularx}{\fulllength}{CCCC}
-			\toprule
-			\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}     & \textbf{Title 4}\\
-			\midrule
-\multirow[m]{3}{*}{Entry 1 *}	& Data			& Data			& Data\\
-			  	                   & Data			& Data			& Data\\
-			             	      & Data			& Data			& Data\\
-                   \midrule
-\multirow[m]{3}{*}{Entry 2}    & Data			& Data			& Data\\
-			  	                  & Data			& Data			& Data\\
-			             	     & Data			& Data			& Data\\
-                   \midrule
-\multirow[m]{3}{*}{Entry 3}    & Data			& Data			& Data\\
-			  	                 & Data			& Data			& Data\\
-			             	    & Data			& Data			& Data\\
-                  \midrule
-\multirow[m]{3}{*}{Entry 4}   & Data			& Data			& Data\\
-			  	                 & Data			& Data			& Data\\
-			             	    & Data			& Data			& Data\\
-			\bottomrule
-		\end{tabularx}
-	\end{adjustwidth}
-	\noindent{\footnotesize{* Tables may have a footer.}}
+	\caption{n\_estimators tuning values.}\label{tab:n_estimators_tuning}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{n\_estimators} & \textbf{Values} \\
+	\midrule
+	Minimum & 1 \\
+	Maximum & 50 \\
+	Step & 1 \\
+	\bottomrule
+\end{tabularx}
 \end{table}
 
-%\begin{listing}[H]
-%\caption{Title of the listing}
-%\rule{\columnwidth}{1pt}
-%\raggedright Text of the listing. In font size footnotesize, small, or normalsize. Preferred format: left aligned and single spaced. Preferred border format: top border line and bottom border line.
-%\rule{\columnwidth}{1pt}
-%\end{listing}
+The effect on the evaluation metrics of the model is shown in figure \ref{fig:n_estimators_tuning}.
 
-Text.
+\begin{figure}[H]
+	\includegraphics[width=10.5cm]{img/nEstimatorsTuning.png}
+	\caption{n\_estimators tuning results.}\label{fig:n_estimators_tuning}
+\end{figure}
+\unskip
 
-Text.
+As we can see from the graph, a growing number of estimators initially correlates with a better model performance, but after a certain point the performance stabilizes. 
+As we can see from graphs \ref{fig:n_estimators_training_time} and \ref{fig:n_estimators_classification_time}, the time required both for training and classification increases linearly with the number of estimators.
+This means that choosing an appropriate number of estimators is crucial, as it can greatly affect the model performance. 
 
-\subsection{Formatting of Mathematical Components}
+\begin{figure}[H]
+    \centering
+    \subfigure[n\_estimators training time.]{
+        \includegraphics[width=0.45\textwidth]{img/nEstimatorsTrainingTime.png}
+        \label{fig:n_estimators_training_time}
+    }
+    \hfill
+    \subfigure[n\_estimators classification time.]{
+        \includegraphics[width=0.45\textwidth]{img/nEstimatorsClassificationTime.png}
+        \label{fig:n_estimators_classification_time}
+    }
+    \caption{Comparison of n\_estimators training and classification times.}
+    \label{fig:estimators_time_comparison}
+\end{figure}
 
-This is the example 1 of equation:
-\begin{linenomath}
-\begin{equation}
-a = 1,
-\end{equation}
-\end{linenomath}
-the text following an equation need not be a new paragraph. Please punctuate equations as regular text.
-%% If the documentclass option "submit" is chosen, please insert a blank line before and after any math environment (equation and eqnarray environments). This ensures correct line numbering. The blank line should be removed when the documentclass option is changed to "accept" because the text following an equation should not be a new paragraph.
-
-This is the example 2 of equation:
-\begin{adjustwidth}{-\extralength}{0cm}
-\begin{equation}
-a = b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z
-\end{equation}
-\end{adjustwidth}
-
-% Example of a page in landscape format (with table and table footnote).
-%\startlandscape
-%\begin{table}[H] %% Table in wide page
-%\caption{This is a very wide table.\label{tab3}}
-%	\begin{tabularx}{\textwidth}{CCCC}
-%		\toprule
-%		\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}	& \textbf{Title 4}\\
-%		\midrule
-%		Entry 1		& Data			& Data			& This cell has some longer content that runs over two lines.\\
-%		Entry 2		& Data			& Data			& Data\textsuperscript{1}\\
-%		\bottomrule
-%	\end{tabularx}
-%	\begin{adjustwidth}{+\extralength}{0cm}
-%		\noindent\footnotesize{\textsuperscript{1} This is a table footnote.}
-%	\end{adjustwidth}
-%\end{table}
-%\finishlandscape
-
-
-Please punctuate equations as regular text. Theorem-type environments (including propositions, lemmas, corollaries etc.) can be formatted as follows:
-%% Example of a theorem:
-\begin{Theorem}
-Example text of a theorem.
-\end{Theorem}
-
-The text continues here. Proofs must be formatted as follows:
-
-%% Example of a proof:
-\begin{proof}[Proof of Theorem 1]
-Text of the proof. Note that the phrase ``of Theorem 1'' is optional if it is clear which theorem is being referred to.
-\end{proof}
-The text continues here.
+We decided to choose the value of 15 for the \textit{n\_estimators} parameter, as it provided a good balance between model performance and computational resources required.
+The model metrics keep slowly improving up until 45 estimators, but the minimal performance increase was not worth such a large increase in training and classification time, especially considering the resource-constrained nature of the scenario. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
