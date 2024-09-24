@@ -64,7 +64,7 @@
 \usepackage{lipsum}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{subfigure}
+\usepackage{subcaption}
 
 %=================================================================
 % Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
@@ -378,6 +378,7 @@ The combination of these metrics gives us an insight into the model's performanc
 \section{Results}
 
 \subsection{Parameters Tuning}
+
 The first phase in our testing methodology was the tuning of the hyperparameters of the model. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (see section \ref{EvaluationMetrics}) and then choosing the best performing parameters.
 From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, the parameters we decided to tune were the following: 
 
@@ -433,7 +434,7 @@ The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_siz
 
 The dataset is purposefully unbalanced, as jamming attacks are usually rare events compared to normal network operation. 
 
-In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack.
+In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack. The proposed results, unless otherwise specified, are based on the input signal shown in the figure which employs constant jamming. Periodic jamming always showed comparable trends as constant jamming in all the tests performed.
 
 
 \begin{figure}[H]
@@ -471,26 +472,81 @@ The effect on the evaluation metrics of the model is shown in figure \ref{fig:n_
 \unskip
 
 As we can see from the graph, a growing number of estimators initially correlates with a better model performance, but after a certain point the performance stabilizes. 
-As we can see from graphs \ref{fig:n_estimators_training_time} and \ref{fig:n_estimators_classification_time}, the time required both for training and classification increases linearly with the number of estimators.
+In graphs \ref{fig:n_estimators_training_time} and \ref{fig:n_estimators_classification_time} is shown that the time required both for training and classification increases linearly with the number of estimators.
 This means that choosing an appropriate number of estimators is crucial, as it can greatly affect the model performance. 
 
 \begin{figure}[H]
     \centering
-    \subfigure[n\_estimators training time.]{
-        \includegraphics[width=0.45\textwidth]{img/nEstimatorsTrainingTime.png}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/nEstimatorsTrainingTime.png}
+        \caption{n\_estimators training time.}
         \label{fig:n_estimators_training_time}
-    }
+    \end{subfigure}
     \hfill
-    \subfigure[n\_estimators classification time.]{
-        \includegraphics[width=0.45\textwidth]{img/nEstimatorsClassificationTime.png}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/nEstimatorsClassificationTime.png}
+        \caption{n\_estimators classification time.}
         \label{fig:n_estimators_classification_time}
-    }
+    \end{subfigure}
     \caption{Comparison of n\_estimators training and classification times.}
     \label{fig:estimators_time_comparison}
 \end{figure}
 
-We decided to choose the value of 15 for the \textit{n\_estimators} parameter, as it provided a good balance between model performance and computational resources required.
+
+We decided to choose \textbf{n\_estimators = 15}, as it provided a good balance between model performance and computational resources required.
 The model metrics keep slowly improving up until 45 estimators, but the minimal performance increase was not worth such a large increase in training and classification time, especially considering the resource-constrained nature of the scenario. 
+
+\subsubsection{max\_samples tuning}
+
+The second parameter that we decided to tune was the \textit{max\_samples} parameter. As shown in table \ref{tab:max_samples_tuning}, the tuning values were chosen to be between 1 and 20000, i.e the same number of normal traffic samples in the test input. 
+
+\begin{table}[H]
+	\caption{max\_samples tuning values.}\label{tab:max_samples_tuning}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CC}
+	\toprule
+	\textbf{max\_samples} & \textbf{Values} \\
+	\midrule
+	Minimum & 1 \\
+	Maximum & 100 \\
+	Step & 1 \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+From figure \ref{fig:max_samples_tuning} we can see that the model performance is not greatly affected by the \textit{max\_samples} parameter. This is most likely due to the great difference in RSS values between the normal traffic samples and the jamming attack samples, meaning the model can develop the capability to correctly classify the input even with a small training set.
+
+\begin{figure}[H]
+	\includegraphics[width=10.5cm]{img/maxSamplesTuning.png}
+	\caption{max\_samples tuning results.}\label{fig:max_samples_tuning}
+\end{figure}
+\unskip
+
+Still, as the model has to build bigger trees, the \textit{max\_samples} parameters as considerable influence on the training and classification time, as shown in figure \ref{fig:max_samples_time_comparison}.
+Given minimal performance differences but the impact on the time metrics, chose the value of \textbf{max\_samples = 10}. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/maxSamplesTrainingTime.png}
+		\caption{max\_samples training time.}
+		\label{fig:max_samples_training_time}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/maxSamplesClassificationTime.png}
+		\caption{max\_samples classification time.}
+		\label{fig:max_samples_classification_time}
+	\end{subfigure}
+	\caption{Comparison of max\_samples training and classification times.}
+	\label{fig:max_samples_time_comparison}
+\end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
