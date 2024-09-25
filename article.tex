@@ -226,7 +226,7 @@ offloads the computational burden to a central server, that returns the results 
 communication with the central server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
 An lightweight edge approach on the other hand, while not as powerful as a centralized approach, would to provide real-time results to the device and would be able to operate even when the communication is disrupted, which is crucial in a jamming situation. 
 
-\subsection{Detection and Mitigation of Jamming Attacks}
+\subsection{Detection and Mitigation of Jamming Attacks}\label{sec:DetectionMitigation}
 
 When attempting to mitigate jamming attacks, the first step is always to detect that an attack is taking place. This can be done by monitoring the communication channel for signs of jamming. 
 The state of the art approaches involve the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
@@ -642,7 +642,7 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
 
 The tuning phase proved effective in improving the model's performance compared to the default hyperparameters. Still, despite reaching a very high Recall score in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
 This is most likely due to the nature of the normal traffic signal. As we see from figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the ones of the jamming attack samples, leading the model to falsely classify them as anomalies.
-This is most likely because of how the dataset was created, as the normal traffic samples were taken from a real-world scenario where the RSS values and be effected by external conditions. 
+This is most likely because of how the dataset was created, as the normal traffic samples were taken from a real-world scenario where the RSS values would be effected by external noise. 
 
 Instead of seeing this as a setback, we see this as a positive. The fact that the dataset contains noise means it is more representative of a real-world scenario, where the drone might be moving trough different environments and thus be subject to environmental noise.
 
@@ -776,7 +776,7 @@ Graph \ref{fig:majority_rule_classification_time} shows that there is indeed a d
 
 As mentioned in section \ref{sec:DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
 We decided to compare our solution against the solution of the authors of the dataset we used. 
-We decided to use two significant figures as the results provided in the compared paper were in this format. The results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
+The results show two significant figures as the results provided in the compared paper were in this format. Results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
 Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
 
 
@@ -839,13 +839,13 @@ In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficCla
 In this article we analyzed wether it was possible to employ an Isolation Forest model to detect jamming attacks in a 6G drone scenario. We tuned the hyperparameters of the model and tested it against the default Isolation Forest model. 
 We achieved a considerable improvement in performance thanks to the tuning process (section \ref{sec:standardModelTesting}), but despite the high recall and accuracy scores, the model suffered too much from a high number of false positives, caused by the inherent noise of the dataset. 
 To mitigate this issue, we proposed the integration of the Isolation Forest model with a Majority Rule module (section \ref{sec:majorityRuleModelTesting}). The \textit{window\_size} parameter of the Majority Rule module was tuned to provide the best performance.
-the integration of the Majority Rule module proved extremely effective in reducing the number of false positives, greatly improving the model's precision. 
+The addition of the Majority Rule module proved extremely effective in reducing the number of false positives, greatly improving the model's precision. 
 
-The integration of the Majority Rule module impacted total classification time as shown in figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the isolation forest model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
+Integration of the Majority Rule module also impacted total classification time as shown in figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the isolation forest model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
 In our opinion the trade-off between the increased classification time and the improved performance is worth it, as the model is now much more reliable in a real-world scenario, where noise from the surrounding environment is almost always present.
 The linear time complexity of the classification means that the algorithm is suitable for a resource constrained environment such as the proposed 6G drone scenario.
 
-As shown in section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming attacks and the classification of normal traffic, while matching the performance against constant jamming. 
+As shown in section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming and the classification of normal traffic, while achieving the same performance against constant jamming attacks. 
 We believe that the importance of correct classification of normal traffic is often underestimated, as a high number of false positives can lead to the activation of resource intensive countermeasures, even at times when they are not needed. 
 
 \section{Conclusions}
@@ -858,9 +858,9 @@ After tuning of the model, the drone would periodically sample incoming signals 
 \subsection{Future Work}
 
 Future research could test the model against a wider range of jamming attacks types, as well as analyze the impact of real world noise on the model performance.
-Mounting the model on an actual drone would be the best way to achieve a real-world test of the model and would provide valuable insights into how to improve the model further.
+Mounting the model on an actual drone would be the best way to achieve a real-world test and would provide valuable insights into how to improve the model further.
 
-Devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Future research could leverage these additional metrics to improve the model's performance. Thanks to the properties of the Isolation Forest to work on high dimensional data, the model could be easily expanded to include more metrics, such as the RSV metric proposed in \cite{JammingDetectionIoT-Hussain}.
+As discussed in section \ref{sec:DetectionMitigation} devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Future research could leverage these additional metrics to improve the model's performance. Thanks to the properties of the Isolation Forest to work on high dimensional data, the model could be easily expanded to include more features, such as the RSV metric proposed in \cite{JammingDetectionIoT-Hussain}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
