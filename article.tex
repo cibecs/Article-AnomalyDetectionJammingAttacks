@@ -131,16 +131,15 @@ $^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
 
 The shift from 4G to 5G has been a generational leap has revolutionized connectivity around the world. 
 Despite 5G being still in its early adoption rate at the time of writing \cite{5GStatisticsTaylor}, the research community is already working on the next generation of wireless communication technologies, 6G. 
+
 6G technology is expected to enable a wide variety of new use cases, thanks to the increases in both data rates and latency but this in turn 
 will also bring forth new security challenges, specific to those applications. 
 
-One of the main differences between 5G and 6G technology will be the focus of the 6G standard in regards to 
-AI integration. While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
-of 5G networks, 6G is expected to take this a step further, by integrating artificial
-intelligence and machine learning directly into the network. This is what the authors of \cite{6GRoadmapLetaief} define as 
+One of the main differences between 5G and 6G technology will be a much deeper integration with AI. While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
+of 5G networks, 6G is expected to take this a step further, by designing the networks to be integrated with artificial intelligence from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
 the shift from \textit{Softwarization} to \textit{Intelligentization}.
 
-AI integration in 6G networks will greatly strengthen the security of the network against security threats. 
+AI integration in 6G networks will greatly strengthen the security of the network against potential threats. 
 By leveraging Diagnostic Analytics, a collection of insights into the status of the networks, security teams 
 will be able to train specific AI models to detect and respond to security threats in real-time.
 
@@ -149,11 +148,11 @@ for the detection of jamming attacks in networks of drones.
 
 The paper is divided in 5 sections: 
 \begin{enumerate}
-	\item \textbf{Topic overview:} In this section we will discuss how drones can benefit from integration in 6G network, analyze jamming attacks, their types, mitigation and detection. Finally we will discuss the advantages of an edge AI approach for jamming detection. 
+	\item \textbf{Topic overview:} In this section we will make a general overview of how drones can benefit from integration in 6G network, analyze jamming attacks, their types, mitigation and detection. Finally we will discuss the advantages of an edge AI approach for jamming detection. 
 	\item \textbf{Materials and methods:} In this section we will define the scenario that we decided to analyze as well as the dataset, algorithm and evaluation metrics we chose for our tests. 
-	\item \textbf{Numerical Results:} In this section we will present the testing methodology as well as the numerical results that we obtained. 
-	\item \textbf{Discussion:} In this section we will discuss the results obtained in the previous section and highlight notable trends.
-	\item \textbf{Conclusions:} In this section we will summarize the results and discuss possible future research directions.
+	\item \textbf{Numerical Results:} In this section we will present the testing methodology, describe model tuning and testing phases and present the results obtained. 
+	\item \textbf{Discussion:} In this section we will comment the results obtained in the previous section and highlight the advantages of the proposed approach. 
+	\item \textbf{Conclusions:} In this section we will show how the proposed solution fits into a real world scenario and discuss possible future research directions.
 \end{enumerate}
 
 \section{Related Works}
@@ -171,14 +170,14 @@ keep growing in both the consumer sector as well as the commercial and military 
 
 In report 22.886 \cite{5GV2XSultan} 3GPP, the organ responsible for the development and maintenance of the 5G standard, identifies some of the envisioned use cases for 5G V2X (Vehicle-to-
 Everything) communication services. Among these use cases, the report identifies vehicle platooning, advanced and remote driving end extended situational awareness as some of the main benefits
-of V2V communication. All these use cases can be leveraged by a 6G drone network to achieve fast and reliable drone-to-drone communication, that, with the integration of artificial intelligence 
+of V2V communication. All these capabilities can be leveraged by a 6G drone network to achieve fast and reliable drone-to-drone communication, that, with the integration of artificial intelligence 
 would allow the drones to act autonomously in a coordinated manner. 
 
-This would prove useful in a variety of fields: from autonomous soil and crop health assessment as well as irrigation in agriculture, 
-delivery of life saving supplies and locating of survivors in disaster response, in the delivery sector as a more eco friendly alternative to traditional 
+This would prove useful in a variety of fields: from autonomous irrigation as well as soil and crop health assessment in agriculture, 
+delivery of life saving supplies and identification of survivors in disaster response, in the delivery sector as a more eco friendly alternative to traditional 
 delivery options and possibly in the mobility sector as a complement to traditional taxis and public transportation \cite{DroneCommHassija}. 
 
-The effectiveness of drones in the military sector is widely recognized, both for high and low end models. For example, in the Ukraine war even cheap FPV drones 
+In the military sector, the effectiveness of drones is widely recognized, both for high and low end models. For example, in the Ukraine war even cheap FPV drones 
 mounted with explosives were successfully used to destroy much more expensive equipment \cite{DroneCombatUkraine}. 
 
 Security against Jamming attacks is crucial in all these applications, especially in a safety critical environment. 
@@ -192,15 +191,13 @@ Since the ability to communicate is affected, Jamming attacks falls under the um
 Jamming attacks can be classified into 5 main categories, based on the attack pattern of the jammer: 
 
 \begin{itemize}
-    \item \textbf{Constant Jamming:} The jammer continuously transmits a strong signal on the same frequency as the devices it wants to disrupt. 
-    \item \textbf{Periodic Jamming:} The jammer simply transmits a strong signal on the same frequency as the devices it wants to disrupt 
-    for a certain period of time \(t_a\), then stops transmitting for another period of time \(t_b\). This type of jamming attack is particularly effective against devices 
-    that are not able to change their frequency and has the ability to disrupt the transmission of a sequence of consecutive packets. \cite{VANETsAI-Lyamin}
-    \item \textbf{Random Jamming:} In random jamming, the jammer is active at random intervals, giving each transmitted packet a probability 
-    \(p\) of being jammed \cite{VANETsAI-Lyamin}. 
+    \item \textbf{Constant Jamming:} The jammer continuously transmits a strong signal on the same frequency used by the devices it wants to disrupt to communicate. 
+    \item \textbf{Periodic Jamming:} The jammer transmits a strong signal for a certain period of time \(t_a\), then stops transmitting for another period of time \(t_b\). This pattern is repeated until the attack is stopped.
+    \item \textbf{Random Jamming:} In random jamming, the jammer is active at random intervals, jamming each transmitted packet with a probability 
+    \(p\) based on the attack pattern\cite{VANETsAI-Lyamin}. 
     \item \textbf{Reactive Jamming:} A reactive jammer starts transmitting its jamming signal only when it senses energy in the communication channel, 
     indicating that a legitimate transmission is taking place. This type of jamming attack is more power efficient compared to other 
-    operation types, as it only transmits its signal when it is needed\cite{MLMisbehavior5GBoualouache}.
+    attack patterns, as it only transmits its signal when it know that it can actually disrupt the communication\cite{MLMisbehavior5GBoualouache}.
     \item \textbf{Smart Jamming:} A smart jammer is a more sophisticated type of jammer that is able to adapt its jamming signal to 
     maximize the disruption of the communication between the devices. Smart jammers are able to modify their attack pattern based on the 
     transmission specifics of the devices they are targeting and are able to adapt to changes in the communication channel\cite{AntiJammingV2V-Feng}.
@@ -216,8 +213,8 @@ This usually comes in the form of either a return to base procedure, a landing p
 All of these procedures leave the drone in a vulnerable position, as a bad actor could potentially capture the drone and use it for malicious purposes.
 This is especially true when jamming attacks are used in combination with other types of attacks, such as spoofing attacks. 
 
-One real world example of this is the capture of an American drone by Iran in 2011. 
-In December 2011 a Lockheed Martin RQ-170 Sentinel drone operated by the United States Air Force was flying over Iran when its operators lost control of the vehicle. The US government initially claimed that the drone had crashed due to a technical malfunction, but later reports revealed that the drone had been captured by the Iranian military. 
+One real world example is the capture of an American drone by Iran in 2011. 
+In December 2011 a Lockheed Martin \textit{RQ-170} Sentinel drone operated by the United States Air Force was flying over Iran when its operators lost control of the vehicle. The US government initially claimed that the drone had crashed due to a technical malfunction, but later reports revealed that the drone had been captured by the Iranian military. 
 Iranian electronic warfare specialists claimed to have brought it down using a Jamming attack, that forced the drone into a return to base procedure, in combination with a  GPS spoofing attack, that made the drone land into a designated area \cite{RQ170DroneOwano}. 
 After successfully capturing the drone, the Iranian government managed to reverse-engineer the drone and produce a working replica, which was then used in their military operations \cite{IranianUAVGross}.
 
@@ -225,20 +222,23 @@ After successfully capturing the drone, the Iranian government managed to revers
 
 When presenting a machine learning based approach in an IoT setting, the question of where the AI model should be placed often arises. By their nature, IoT devices, and in turn drones, are usually resource constrained, 
 both in terms of computational power but also in terms of internal storage and battery capacity \cite{6GSecurity-Chorti}. This means that complex AI models and algorithms are usually not feasible to be run on the device itself. A centralized approach 
-offloads the computational burden to a central server, that returns the results of the AI model to the device. While this approach might be feasible in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
+offloads the computational burden to a central server, that returns the results of the AI model to the device. While this approach might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
 communication with the central server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
-An lightweight edge approach on the other hand, while not as powerful as a centralized approach, would to provide real-time results to the device and would be able to operate even when the communication is disrupted. 
+An lightweight edge approach on the other hand, while not as powerful as a centralized approach, would to provide real-time results to the device and would be able to operate even when the communication is disrupted, which is crucial in a jamming situation. 
 
 \subsection{Detection and Mitigation of Jamming Attacks}
 
 When attempting to mitigate jamming attacks, the first step is always to detect that an attack is taking place. This can be done by monitoring the communication channel for signs of jamming. 
-The most common approaches involve the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength Indicator (RSSI) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The most simple way 
-to detect jamming attacks is to set a static threshold for these metrics and trigger an alarm when the threshold is crossed. While this approach easy to implement and might be effective in some cases, it is not able to adapt to changes in the communication channel and might be prone to false positives.
+The state of the art approaches involve the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
+developing a method to detect jamming attacks is to set a static threshold for these metrics and trigger an alarm when the threshold is crossed. While this approach is easy to implement and might be effective in some cases, it is not able to adapt to changes in the communication channel and might be prone to false positives.
 Implementing a machine learning based approach for jamming detection would allow the system to adapt to the changes in the communication channel and would be able to provide a more accurate detection of jamming attacks \cite{VANETsAI-Lyamin}. This is especially useful in mobile scenarios like 
-drone networks, where the environment is constantly changing and the signal strength can vary greatly.
+drone networks, where the environment is constantly changing and the signal strength can vary greatly. 
 
 Once an attack is successfully detected, state of the art jamming mitigation techniques, like Direct Sequence Spread Spectrum (DSSS), Frequency Hopping (FHSS) and advanced signal processing techniques can be put in place to mitigate the 
 effects of the attack. 
+
+The use of an AI model for jamming detection is particularly suitable for a 6G network, as the improved sensing capabilities would allow the model to train on a wide variety of diagnostic data, improving the detection rate and accuracy of the model. 
+Furthermore, as the network is expected to be integrated with AI from the ground up, its highly likely that in the future drones will be integrated with AI-specific chips for a more efficient execution of AI models.
 
 \section{Materials and Methods}
 
@@ -289,12 +289,10 @@ As 6G network traffic is not yet available, we chose an open-source dataset \cit
 received by a Raspberry Pi 3 that is subject to periodic and constant jamming attacks. 
 
 The dataset was created using a software-defined radio (SDR) connected to a laptop that was programmed to transmit a jamming signal using the 
-open source software \textit{GNU Radio}. A second SDR radio was chosen to receive the jamming signal and the RSS values and was connected 
-to a Raspberry Pi 3. The jamming radio operates at a frequency of 2.412 GHz with a Bandwidth of 40MHz, while the Raspberry Pi 3 was programmed to sample the RSS values with a 
-frequency of 32K samples per second. 
+open source software \textit{GNU Radio}. A second SDR radio was connected to a Raspberry Pi 3 and was chosen to receive the jamming signal. The jamming radio operates at a frequency of $2.412 GHz$ with a Bandwidth of $40MHz$, while the Raspberry Pi 3 was programmed to sample the RSS values with a frequency of $32K$ samples per second. 
 
 The dataset contains 3 different \textit{.txt} files that store the RSS values sampled by the Raspberry Pi 3. The first file contains the RSS values sampled during a constant jamming attack, the second file contains the RSS values sampled during a periodic jamming attack and the third file contains the RSS values sampled during normal network operation.
-The samples are stored in a single column, with each row representing a single sample. The samples us the \textit{dBm (decibel-milliwatts)} unit of measurement a logarithmic scale that measures the power of a signal in relation to 1 milliwatt. 
+The samples are stored in a single column, with each row representing a single sample. The samples us the \textit{dBm (decibel-milliwatts)} unit of measurement, a logarithmic scale that measures the power of a signal in relation to 1 milliwatt. 
 Conversion can be done using the formula \cite{WirelessCommSobot} shown in equation \ref{eq:dbm_to_mw}:
 
 \begin{linenomath}
@@ -321,14 +319,15 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 
 \subsection {Algorithm Choice}
 
-When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm had to meet. The algorithm has to be able to classify anomalous samples with a high degree of accuracy, while at the same time 
+When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm had to meet. The algorithm has to be able to classify anomalous samples with a high detection rate (Recall), while at the same time 
 being lightweight enough to be run on a resource constrained device like a drone. The training phase should also be fast, as this would allow the drone to redetermine the normal transmission RSS values in a constantly changing environment. If the model didn't periodically redefine normal RSS values, 
 it would be prone to false positives caused by the mobile nature of drones. 
-The model should be also required a limited amount of storage to be run effectively, as drones are usually lacking in internal storage. 
+The model should be also required a small amount of storage to run effectively, as drones are usually very limited in internal memory. 
 
 The algorithm that best fit these requirements was the \textit{Isolation Forest} algorithm \cite{IsolationForestLiu}. The Isolation Forest algorithm is a state-of-the-art unsupervised machine learning algorithm for anomaly detection, introduced by Liu et al. in 2008. 
-Unlike traditional anomaly detection algorithms, which require the definition of a normal class, Isolation Forest is able to detect anomalies without explicitly defining the characteristics of the normal class.
+Unlike traditional anomaly detection algorithms, which require the definition of a normal class, Isolation Forest is able to detect anomalies without explicitly defining its characteristics.
 This is achieved by leveraging the properties of anomalies themselves, i.e being few and separated from the majority of the data points. 
+
 The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
 left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits that were required to isolate is used to determine the anomaly score of the data point. The higher the number of splits, the more likely the data point is to be an anomaly.
 Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
