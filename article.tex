@@ -571,7 +571,7 @@ Our testing showed that, as expected, tuning of the contamination parameter had 
 
 \subsection{Model Testing Phase}
 
-\subsubsection{Standard model testing}
+\subsubsection{Standard model testing}\label{sec:standardModelTesting}
 
 After the tuning phase, we tested the model using the best performing hyperparameters, recapped in table \ref{tab:best_hyperparameters} and compared against the default parameters. 
 
@@ -641,7 +641,7 @@ This is most likely because of how the dataset was created, as the normal traffi
 
 Instead of seeing this as a setback, we see this as a positive. The fact that the dataset contains noise means it is more representative of a real-world scenario, where the drone might be moving trough different environments and thus be subject to environmental noise.
 
-\subsubsection{Majority rule model testing}
+\subsubsection{Majority rule model testing} \label{sec:majorityRuleModelTesting}
 
 Having understood the nature of the problem, we decided to implement a majority rule system to reduce the number of false positives. The improved model would use the Tuned Isolation Forest model's results and then pass them to a Majority Rule module, as shown in figure \ref{fig:MajorityRuleDiagram}. 
 
@@ -767,9 +767,9 @@ Classification times and training times were measured for both models and the re
 
 Graph \ref{fig:majority_rule_classification_time} shows that there is indeed a difference in classification time, with the standard model being faster. Figure \ref{fig:majority_rule_training_time} on the other hand shows that, as expected, training time is not affected by the Majority Rule module.
 
-\subsubsection{Comparison against existing solution}
+\subsubsection{Comparison against existing solution}\label{sec:comparisonAgainstExistingSolution}
 
-As mentioned in section \ref{DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
+As mentioned in section \ref{sec:DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
 We decided to compare our solution against the solution of the authors of the dataset we used. 
 We decided to use two significant figures as the results provided in the compared paper were in this format. The results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
 Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
@@ -805,7 +805,7 @@ Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two
 	\end{tabularx}
 \end{table}
 
-In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficClassification} we can see the classification results of our proposed solution in the case of a testing sample size of 10000 samples.
+In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficClassification} we can see the classification results of our proposed solution in the case of a testing sample size of $10000$ samples.
 
 \begin{figure}[H]
 	\centering
@@ -830,12 +830,33 @@ In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficCla
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
 
-Authors should discuss the results and how they can be interpreted from the perspective of previous studies and of the working hypotheses. The findings and their implications should be discussed in the broadest context possible. Future research directions may also be highlighted.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this article we analyzed wether it was possible to employ an Isolation Forest model to detect jamming attacks in a 6G drone scenario. We tuned the hyperparameters of the model and tested it against the default Isolation Forest model. 
+We achieved a considerable improvement in performance thanks to the tuning process (section \ref{sec:standardModelTesting}), but despite the high recall and accuracy scores, the model suffered too much from a high number of false positives, caused by the inherent noise of the dataset. 
+To mitigate this issue, we proposed the integration of the Isolation Forest model with a Majority Rule module (section \ref{sec:majorityRuleModelTesting}). The \textit{window\_size} parameter of the Majority Rule module was tuned to provide the best performance.
+the integration of the Majority Rule module proved extremely effective in reducing the number of false positives, greatly improving the model's precision. 
+
+The integration of the Majority Rule module impacted total classification time as shown in figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the isolation forest model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
+In our opinion the trade-off between the increased classification time and the improved performance is worth it, as the model is now much more reliable in a real-world scenario, where noise from the surrounding environment is almost always present.
+The linear time complexity of the classification means that the algorithm is suitable for a resource constrained environment such as the proposed 6G drone scenario.
+
+As shown in section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming attacks and the classification of normal traffic, while matching the performance against constant jamming. 
+We believe that the importance of correct classification of normal traffic is often underestimated, as a high number of false positives can lead to the activation of resource intensive countermeasures, even at times when they are not needed. 
+
 \section{Conclusions}
 
-This section is not mandatory, but can be added to the manuscript if the discussion is unusually long or complex.
+\subsection{Real world integration}
+
+In a real world scenario, a 6G drone integrating the proposed solution would periodically run the tuning phase of the algorithm, selecting the best hyperparameters for the current environment. This could happen periodically or whenever there is a change in the environment caused by the drone moving to a different location. 
+After tuning of the model, the drone would periodically sample incoming signals and classify them using the Majority Rule module. If the model detects a jamming attack, the drone could activate built in countermeasures like frequency hopping or DSSS to mitigate the effects of the attack. 
+
+\subsection{Future Work}
+
+Future research could test the model against a wider range of jamming attacks types, as well as analyze the impact of real world noise on the model performance.
+Mounting the model on an actual drone would be the best way to achieve a real-world test of the model and would provide valuable insights into how to improve the model further.
+
+Devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Future research could leverage these additional metrics to improve the model's performance. Thanks to the properties of the Isolation Forest to work on high dimensional data, the model could be easily expanded to include more metrics, such as the RSV metric proposed in \cite{JammingDetectionIoT-Hussain}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Patents}
@@ -892,6 +913,7 @@ FHSS & Frequency Hopping Spread Spectrum \\
 OSI & Open Systems Interconnection \\
 dBm & Decibel-milliwatts \\
 CNN & Convolutional Neural Network \\
+RSV & Relative Speed Variation \\
 
 
 \end{tabular}
@@ -1004,6 +1026,8 @@ Scikit-learn: Isolation Forest. Available online: \url{https://scikit-learn.org/
 \bibitem[RaspberryPi(2024)]{RaspberryPi3ModelB}
 Raspberry Pi 3 Model B. Available online: \url{https://www.raspberrypi.com/products/raspberry-pi-3-model-b/} (accessed on 14 September 2024).
 
+\bibitem[Karagiannis and Argyriou(2018)]{JammingDetection-Karagiannis}
+Karagiannis, D.; Argyriou, A. Jamming attack detection in a pair of RF communicating vehicles using unsupervised machine learning. {\em Vehicular Communications} {\bf 2018}, {\em 13}, 56--63. https://doi.org/10.1016/j.vehcom.2018.05.001. Available online: \url{https://www.sciencedirect.com/science/article/pii/S221420961730222X}.
 
 \end{thebibliography}
 
