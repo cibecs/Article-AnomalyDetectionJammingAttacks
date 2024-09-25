@@ -283,7 +283,7 @@ Table \ref{tab:attacker_classification} shows the attacker classification in the
 \end{tabularx}
 \end{table}
 
-\subsection{Dataset Choice}
+\subsection{Dataset Choice}\label{sec:DatasetChoice}
 
 As 6G network traffic is not yet available, we chose an open-source dataset \cite{JammingDetectionIoT-Hussain} that analyses the RSS values 
 received by a Raspberry Pi 3 that is subject to periodic and constant jamming attacks. 
@@ -635,7 +635,7 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
 \end{table}
 
 
-The tuning phase proved effective in improving the model's performance compared to the default hyperparameters. Still, despite reaching a Recall score of 1.00 in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
+The tuning phase proved effective in improving the model's performance compared to the default hyperparameters. Still, despite reaching a very high Recall score in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
 This is most likely due to the nature of the normal traffic signal. As we see from figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the ones of the jamming attack samples, leading the model to falsely classify them as anomalies.
 This is most likely because of how the dataset was created, as the normal traffic samples were taken from a real-world scenario where the RSS values and be effected by external conditions. 
 
@@ -744,10 +744,87 @@ In table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_perf
 
 The results show that the Majority Rule Model proved effective in mitigating the high number of false positives that was present in the first version of the model. 
 Given the resource constrained nature of the scenario, we decided to test the computational impact of the Majority Rule module against the standard tuned model. 
-Classification times and training times were measured for both models and the results are shown in figures \ref{fig:majority_rule_training_time} and \ref{fig:majority_rule_classification_time}.
+Classification times and training times were measured for both models and the results are shown in figure pair \ref{fig:majority_rule_time_comparison}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/classificationTimeComparison.png}
+		\caption{Classification time comparison.}
+		\label{fig:majority_rule_classification_time}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/trainingTimeComparison.png}
+		\caption{Training time comparison.}
+		\label{fig:majority_rule_training_time}
+	\end{subfigure}
+	\caption{Comparison of the standard tuned model and the Majority Rule model training and classification times.}
+	\label{fig:majority_rule_time_comparison}
+\end{figure}
+
+Graph \ref{fig:majority_rule_classification_time} shows that there is indeed a difference in classification time, with the standard model being faster. Figure \ref{fig:majority_rule_training_time} on the other hand shows that, as expected, training time is not affected by the Majority Rule module.
+
+\subsubsection{Comparison against existing solution}
+
+As mentioned in section \ref{DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
+We decided to compare our solution against the solution of the authors of the dataset we used. 
+We decided to use two significant figures as the results provided in the compared paper were in this format. The results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
+Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
 
 
+\begin{table}[H]
+	\caption{Comparison between the proposed approach and the approach of \cite{JammingDetectionIoT-Hussain} in the case of periodic jamming.}\label{tab:periodic_jamming_comparison}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CCC}
+	\toprule
+	\textbf{Metric} & \textbf{Proposed Approach} & \textbf{CNN Approach} \\
+	\midrule
+	\textbf{Accuracy}  & 0.98 & N.D \\
+	\textbf{Precision} & 0.99 & 0.73 \\
+	\textbf{Recall}    & 0.95 & 0.83 \\
+	\textbf{F1 Score}  & 0.97 & 0.78 \\
+	\bottomrule
+	\end{tabularx}
+\end{table}
 
+\begin{table}[H]
+	\caption{Comparison between the proposed approach and the approach of \cite{JammingDetectionIoT-Hussain} in the case of normal traffic classification.}\label{tab:normal_traffic_comparison}
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\begin{tabularx}{\textwidth}{CCC}
+	\toprule
+	\textbf{Metric} & \textbf{Proposed Approach} & \textbf{CNN Approach} \\
+	\midrule
+	\textbf{Accuracy}  & 1.00 & N.D \\
+	\textbf{Precision} & 1.00 & 0.80 \\
+	\textbf{Recall}    & 1.00 & 0.70 \\
+	\textbf{F1 Score}  & 1.00 & 0.75 \\
+	\bottomrule
+	\end{tabularx}
+\end{table}
+
+In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficClassification} we can see the classification results of our proposed solution in the case of a testing sample size of 10000 samples.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/OnlyPeriodicJamming.png}
+		\caption{Periodic Jamming classification.}
+		\label{fig:periodicJammingClassification}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/OnlyNormalTraffic.png}
+		\caption{Normal Traffic classification.}
+		\label{fig:normalTrafficClassification}
+	\end{subfigure}
+	\caption{Classification results of the proposed solution.}
+	\label{fig:proposedSolutionClassification}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -814,6 +891,7 @@ DSSS & Direct Sequence Spread Spectrum \\
 FHSS & Frequency Hopping Spread Spectrum \\
 OSI & Open Systems Interconnection \\
 dBm & Decibel-milliwatts \\
+CNN & Convolutional Neural Network \\
 
 
 \end{tabular}
