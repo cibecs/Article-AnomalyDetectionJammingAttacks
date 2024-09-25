@@ -329,7 +329,7 @@ Unlike traditional anomaly detection algorithms, which require the definition of
 This is achieved by leveraging the properties of anomalies themselves, i.e being few and separated from the majority of the data points. 
 
 The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
-left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits that were required to isolate is used to determine the anomaly score of the data point. The higher the number of splits, the more likely the data point is to be an anomaly.
+left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits that were required to isolate it, is used to determine the anomaly score of the data point. The higher the number of splits, the more likely the data point is to be an anomaly.
 Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
 
 \begin{figure}[H]
@@ -341,50 +341,50 @@ Isolation Forest is an \textit{ensamble} algorithm, meaning that the final anoma
 
 The chosen implementation for isolation forest is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
 The algorithm was tested on a Desktop PC with an Intel i7-6700 CPU and 16GB of RAM as well as on a Raspberry Pi 3 with a Quad Core 1.2GHz CPU and 1GB of RAM \cite{RaspberryPi3ModelB}.
-The graphs shown are the ones obtained on the Desktop PC for convenience,  but the ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was verified. 
+The graphs shown are the ones obtained on the Desktop PC for convenience. The ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was confirmed. 
 
 \subsection{Evaluation Metrics}\label{EvaluationMetrics}
 
-The performance of the model was evaluated using the state-of-the-art evaluation metrics for machine learning classification algorithms. The metrics are all based on the number of true positives, false positives, true negatives and false negatives. A true positive is a data point that is correctly classified as an anomaly, while a false positive is a data point that is incorrectly classified as an anomaly. A true negative on the other hand is a data point that is correctly classified as a normal data point, while a false negative is a data point that is incorrectly classified as a normal data point.
+The performance of the model was evaluated using the state-of-the-art evaluation metrics for machine learning classification algorithms. The metrics are all based on the number of true positives, false positives, true negatives and false negatives. A true positive is an anomalous data point that is correctly classified as such, while a false positive is a normal data point that is incorrectly classified as an anomaly. A true negative on the other hand is a normal data point that is correctly classified as a normal data point, while a false negative is an anomalous data point which is incorrectly classified as a normal data point.
 The evaluation metrics that we chose to use are the following: 
 
 \begin{itemize}
-	\item \textbf{Accuracy:} The accuracy is the ratio of correctly classified data points to the total number of data points \ref{eq:accuracy}.
+	\item \textbf{Accuracy:} The accuracy is the ratio of correctly classified data points to the total number of data points (equation \ref{eq:accuracy}).
 	\begin{equation}
 		\label{eq:accuracy}
 	  Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 	\end{equation}
-	\item \textbf{Precision:} The precision is the ratio of correctly classified anomalies to the total number of data points classified as anomalies \ref{eq:precision}.
+	\item \textbf{Precision:} The precision is the ratio of correctly classified anomalies to the total number of data points classified as anomalies (equation \ref{eq:precision}).
 	\begin{equation}
 		\label{eq:precision}
 	  Precision = \frac{TP}{TP + FP}
 	\end{equation}
-	\item \textbf{Recall:} The recall is the ratio of correctly classified anomalies to the total number of anomalies \ref{eq:recall}.
+	\item \textbf{Recall:} The recall is the ratio of correctly classified anomalies to the total number of anomalies (equation \ref{eq:recall}).
 	\begin{equation}
 		\label{eq:recall}
 	  Recall = \frac{TP}{TP + FN}
 	\end{equation}
-	\item \textbf{F1 Score:} The F1 score is the harmonic mean of the precision and recall \ref{eq:f1}.
+	\item \textbf{F1 Score:} The F1 score is the harmonic mean of the precision and recall (equation \ref{eq:f1}).
 	\begin{equation}
 		\label{eq:f1}
 	  F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}
 	\end{equation}
 \end{itemize}
 
-The combination of these metrics gives us an insight into the model's performance. 
+The combination of these metrics gives us an important insight into the model's performance. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 \subsection{Parameters Tuning Phase}
 
-The first phase in our testing methodology was the tuning of the hyperparameters of the model. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (see section \ref{EvaluationMetrics}) and then choosing the best performing parameters.
+The first phase in our testing methodology was the tuning of the model's hyperparameters. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (depicted in section \ref{EvaluationMetrics}) and then choosing the best performing parameter value.
 From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, the parameters we decided to tune were the following: 
 
 \begin{itemize}
 	\item \textbf{n\_estimators:} The number of base estimators in the ensamble, i.e the number of isolation trees used to compute the anomaly score of each datapoint. 
 	\item \textbf{max\_samples:} The max number of samples to draw from the dataset to train each tree.
-	\item \textbf{contamination:} The amount of outliers present in the dataset used to train the model. 
+	\item \textbf{contamination:} The amount of outliers present in the training dataset.  
 \end{itemize}
 
 During the tuning phase, the untested hyperparameters were set to their default values of the \textit{Scikit-learn} implementation of the Isolation Forest (\ref{tab:isolation_forest_parameters}).
@@ -403,7 +403,7 @@ During the tuning phase, the untested hyperparameters were set to their default 
 	\end{tabularx}
 \end{table}
 
-During he tuning process, as well as the subsequent model testing phase, the model was evaluated using as input normal traffic samples concatenated with jamming attack samples (see code snippet \ref{alg:dataset_concatenation}). 
+The model was evaluated using as input normal traffic samples concatenated with jamming attack samples (see code snippet \ref{alg:dataset_concatenation}). 
 This was done to simulate a real-world scenario where the model has to be able to classify correctly anomalous samples but also reduce the number of false positives during normal operation. 
 
 \begin{algorithm}
@@ -425,15 +425,15 @@ The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_siz
 	\toprule
 	\textbf{Dataset} & \textbf{Size} \\
 	\midrule
-	jamming samples n. & 2000 \\
-	nominal samples n. & 20000 \\
+	normal\_traffic\_size & 20000 \\
+	jamming\_size & 2000 \\
 	\bottomrule
 \end{tabularx}
 \end{table}
 
-The dataset is purposefully unbalanced, as jamming attacks are usually rare events compared to normal network operation. 
+The dataset is purposefully unbalanced between normal data points and anomalous points, as jamming attacks are usually rare events compared to normal network operation. 
 
-In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack. The proposed results, unless otherwise specified, are based on the input signal shown in the figure which employs constant jamming. Periodic jamming always showed comparable trends as constant jamming in all the tests performed.
+In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack. The proposed results, unless otherwise specified, are based on the input signal shown in figure \ref{fig:InputSignal}, which employs constant jamming. Periodic jamming always showed comparable trends as constant jamming in all the tests performed.
 
 
 \begin{figure}[H]
@@ -499,7 +499,7 @@ The model metrics keep slowly improving up until 45 estimators, but the minimal 
 
 \subsubsection{max\_samples tuning}
 
-The second parameter that we decided to tune was the \textit{max\_samples} parameter. As shown in table \ref{tab:max_samples_tuning}, the tuning values were chosen to be between 1 and 20000, i.e the same number of normal traffic samples in the test input. 
+The second parameter that we decided to tune was the \textit{max\_samples} parameter. The tuning values are shown in table \ref{tab:max_samples_tuning}.
 
 \begin{table}[H]
 	\caption{max\_samples tuning values.}\label{tab:max_samples_tuning}
@@ -515,7 +515,7 @@ The second parameter that we decided to tune was the \textit{max\_samples} param
 \end{tabularx}
 \end{table}
 
-From figure \ref{fig:max_samples_tuning} we can see that the model performance is not greatly affected by the \textit{max\_samples} parameter. This is most likely due to the great difference in RSS values between the normal traffic samples and the jamming attack samples, meaning the model can develop the capability to correctly classify the input even with a small training set.
+From figure \ref{fig:max_samples_tuning} we can see that the model performance is not greatly affected by the \textit{max\_samples} parameter. This is most likely due to the great difference in RSS values between the normal traffic samples and the jamming attack samples, meaning the model can develop the ability to correctly classify the input even with a small training set.
 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/maxSamplesTuning.png}
@@ -523,8 +523,8 @@ From figure \ref{fig:max_samples_tuning} we can see that the model performance i
 \end{figure}
 \unskip
 
-Still, as the model has to build bigger trees, the \textit{max\_samples} parameters as considerable influence on the training and classification time, as shown in figure \ref{fig:max_samples_time_comparison}.
-Given minimal performance differences but the impact on the time metrics, chose the value of \textbf{max\_samples = 10}. 
+Still, as the model has to build bigger trees, the \textit{max\_samples} parameters has considerable influence on the training and classification time, as shown in figure \ref{fig:max_samples_time_comparison}.
+Given the minimal performance differences but the impact on the time metrics, we chose the value of \textbf{max\_samples = 10}. 
 
 \begin{figure}[H]
 	\centering
@@ -564,9 +564,15 @@ The final parameter we focused on is the \textit{contamination} parameter. The t
 \end{table}
 
 The contamination parameter was by far the one that had the most impact on the model performance, as shown in figure \ref{fig:contamination_tuning}.
-As recall was the metric that we wanted to prioritize as highlights the number of detections, we chose the value of \textbf{contamination = 0.09}, as it provided the best metric values with our dataset.
+As recall was the metric that we wanted to prioritize as it highlights the number of detections, we chose the value of \textbf{contamination = 0.09}.
 
-Our testing showed that, as expected, tuning of the contamination parameter had a minimal impact on the training and classification time. 
+\begin{figure}[H]
+	\includegraphics[width=10.5cm]{img/contaminationTuning.png}
+	\caption{contamination tuning results.}\label{fig:contamination_tuning}
+\end{figure}
+\unskip
+
+Our testing showed that, as expected, tuning of the contamination parameter had minimal impact on the training and classification time. 
 
 \subsection{Model Testing Phase}
 
