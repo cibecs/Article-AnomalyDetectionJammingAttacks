@@ -157,8 +157,19 @@ The paper is divided in 5 sections:
 
 \section{Related Works}
 
-%TODO Add related works
-\lipsum[1-5]
+Detection of jamming attacks in wireless networks has been a topic of interest for the research community for many years. A wide variety of approaches have been proposed for the detection of jamming attacks 
+in different types of networks, with most of the work focusing on the detection of jamming attacks in Vehicular Ad-Hoc Networks (VANETs)\cite{VANETsAI-Lyamin}.
+
+This work build upon the research done in \cite{JammingDetectionIoT-Hussain}, where the authors propose a machine learning based approach for the detection of jamming attacks in IoT networks. 
+The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in a IoT drone scenario. The authors show that the CNN model is able to achieve a high detection rate against constant jamming attacks, but it 
+struggles in the classification of periodic jamming and normal traffic. 
+
+The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation forest to classify 
+and detect jamming attacks in a mobile scenario. 
+
+We apply a similar solution to the one proposed in \cite{HybridJammingDetection-Hong} to the scenario of a 6G drone network, testing the model against the dataset proposed in \cite{JammingDetectionIoT-Hussain}.
+Our approach reached a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also focused on the tuning of the model's hyperparameters to fit our specific scenario and compared it 
+against the default model. In the tuning phase, the resource constrained nature of the scenario was taken into a count for the selection of the more appropriate hyperparameters.
 
 \section{Topic Overview}
 
@@ -1000,6 +1011,13 @@ Raspberry Pi 3 Model B. Available online: \url{https://www.raspberrypi.com/produ
 
 \bibitem[Karagiannis and Argyriou(2018)]{JammingDetection-Karagiannis}
 Karagiannis, D.; Argyriou, A. Jamming attack detection in a pair of RF communicating vehicles using unsupervised machine learning. {\em Vehicular Communications} {\bf 2018}, {\em 13}, 56--63. https://doi.org/10.1016/j.vehcom.2018.05.001. Available online: \url{https://www.sciencedirect.com/science/article/pii/S221420961730222X}.
+
+\bibitem[Hong et al.(2023)]{HybridJammingDetection-Hong}
+Hong, S.; Kim, K.; Lee, S.-H. A Hybrid Jamming Detection Algorithm for Wireless Communications: Simultaneous Classification of Known Attacks and Detection of Unknown Attacks. {\em IEEE Communications Letters} {\bf 2023}, {\em 27}, 1769--1773. https://doi.org/10.1109/LCOMM.2023.3275694.
+
+\bibitem[Zuo et al.(2021)]{GPSSpoofingDetection-Zuo}
+Zuo, S.; Liu, Y.; Zhang, D.; Xin, P.; Liu, T. Detection of GPS Spoofing Attacks Based on Isolation Forest. In Proceedings of the 2021 IEEE 9th International Conference on Information, Communication and Networks (ICICN), Xi'an, China, 2021; pp. 357--361. https://doi.org/10.1109/ICICN52636.2021.9673863.
+
 
 \end{thebibliography}
 
