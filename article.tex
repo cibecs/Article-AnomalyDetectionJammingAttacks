@@ -303,7 +303,7 @@ open source software \textit{GNU Radio}. A second SDR radio was connected to a R
 The dataset contains 3 different \textit{.txt} files that store the RSS values sampled by the Raspberry Pi 3. The first file contains the RSS values sampled during a constant jamming attack, the second file contains the RSS values sampled during a periodic jamming attack and the third file contains the RSS values sampled during normal network operation.
 The samples are stored in a single column, with each row representing a single sampled RSS value, represented using the \textit{dBm (decibel-milliwatts)} unit of measurement. 
 
-Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show respectively plots of the RSS values sampled during a constant jamming attack and a periodic jamming attack, while figure \ref{fig:normalSignal} shows the RSS values sampled during normal network operation.
+Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show respectively plots of the RSS values sampled during a constant jamming attack and a periodic jamming attack, while Figure \ref{fig:normalSignal} shows the RSS values sampled during normal network operation.
 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
@@ -346,7 +346,7 @@ Unlike traditional anomaly detection algorithms, which require the definition of
 This is achieved by leveraging the properties of anomalies themselves, i.e being rare and separated from the majority of the data points. 
 
 The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
-left and right branches of the tree. The process is repeated recursively until all the data points are isolated, as shown in figure \ref{fig:IsolationForest}. The height of a node, meaning the number of splits required to isolate it, is used to determine the anomaly score of the data point. The greater the number of splits, the more likely the data point is to be an anomaly.
+left and right branches of the tree. The process is repeated recursively until all the data points are isolated, as shown in Figure \ref{fig:IsolationForest}. The height of a node, meaning the number of splits required to isolate it, is used to determine the anomaly score of the data point. The greater the number of splits, the more likely the data point is to be an anomaly.
 IF is an \textit{ensamble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees mean more accuracy but also more computational power required.
 
 \begin{figure}[H]
@@ -395,7 +395,7 @@ The combination of these metrics gives us an important insight into the performa
 
 \subsection{Parameters Tuning Phase}
 
-The first phase in our testing methodology was the tuning of the model's hyperparameters. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (depicted in section \ref{EvaluationMetrics}) and then choosing the best values.
+The first phase in our testing methodology was the tuning of the model's hyperparameters. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (depicted in Section \ref{EvaluationMetrics}) and then choosing the best values.
 From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, we decided to tune were the following: 
 
 \begin{itemize}
@@ -433,7 +433,7 @@ This was done to simulate a real-world scenario where the model has to be able t
 	\end{algorithmic}
 \end{algorithm}
 
-The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_size} are shown in table \ref{tab:dataset_sizes}. 
+The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_size} are shown in Table \ref{tab:dataset_sizes}. 
 
 \begin{table}[H]
 	\caption{Dataset sizes used for the tuning and testing phases.}\label{tab:dataset_sizes}
@@ -450,7 +450,7 @@ The values whe chose for \textit{normal\_traffic\_size} and \textit{jamming\_siz
 
 The dataset is intentionally unbalanced between normal data points and anomalous points, as jamming attacks are usually rare events compared to normal network operation. 
 
-In figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack. The proposed results, unless otherwise specified, are based on the input signal shown in figure \ref{fig:InputSignal}, which employs constant jamming. Periodic jamming always showed comparable trends as constant jamming in all the performed tests.
+In Figure \ref{fig:InputSignal} we can see a representation of the input signal in the case of a constant jamming attack. The proposed results, unless otherwise specified, are based on the input signal shown in Figure \ref{fig:InputSignal}, which employs constant jamming. Periodic jamming always showed comparable trends as constant jamming in all the performed tests.
 
 
 \begin{figure}[H]
@@ -465,7 +465,7 @@ In figure \ref{fig:InputSignal} we can see a representation of the input signal 
 
 \subsubsection{n\_estimators tuning}
 
-The first parameter that we decided to tune was the \textit{n\_estimators} parameter. The tuning values are shown in table \ref{tab:n_estimators_tuning}.
+The first parameter that we decided to tune was the \textit{n\_estimators} parameter. The tuning values are shown in Table \ref{tab:n_estimators_tuning}.
 
 \begin{table}[H]
 	\caption{n\_estimators tuning values.}\label{tab:n_estimators_tuning}
@@ -481,7 +481,7 @@ The first parameter that we decided to tune was the \textit{n\_estimators} param
 \end{tabularx}
 \end{table}
 
-The effect on the evaluation metrics of the model is shown in figure \ref{fig:n_estimators_tuning}.
+The effect on the evaluation metrics of the model is shown in Figure \ref{fig:n_estimators_tuning}.
 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/nEstimatorsTuning.png}
@@ -518,11 +518,10 @@ The model metrics keep slowly improving until $45$ estimators, but the performan
 
 \subsubsection{max\_samples tuning}
 
-The second parameter that we decided to tune was the \textit{max\_samples} parameter. The tuning values are shown in table \ref{tab:max_samples_tuning}.
+The second parameter that we decided to tune was the \textit{max\_samples} parameter. The tuning values are shown in Table \ref{tab:max_samples_tuning}.
 
 \begin{table}[H]
 	\caption{max\_samples tuning values.}\label{tab:max_samples_tuning}
-	\newcolumntype{C}{>{\centering\arraybackslash}X}
 	\begin{tabularx}{\textwidth}{CC}
 	\toprule
 	\textbf{max\_samples} & \textbf{Values} \\
@@ -534,7 +533,7 @@ The second parameter that we decided to tune was the \textit{max\_samples} param
 \end{tabularx}
 \end{table}
 
-From figure \ref{fig:max_samples_tuning} we can see that the model performance is not greatly affected by the \textit{max\_samples} parameter. This is most likely due to the great difference in RSS values between the normal traffic samples and the jamming attack samples, meaning the model can develop the ability to correctly classify the input even with a limited training set.
+From Figure \ref{fig:max_samples_tuning} we can see that the model performance is not greatly affected by the \textit{max\_samples} parameter. This is most likely due to the great difference in RSS values between the normal traffic samples and the jamming attack samples, meaning the model can develop the ability to correctly classify the input even with a limited training set.
 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/maxSamplesTuning.png}
@@ -542,7 +541,7 @@ From figure \ref{fig:max_samples_tuning} we can see that the model performance i
 \end{figure}
 \unskip
 
-However, as the model has to build bigger trees, the \textit{max\_samples} parameters has considerable influence on the training and classification time, as shown in figure \ref{fig:max_samples_time_comparison}.
+However, as the model has to build bigger trees, the \textit{max\_samples} parameters has considerable influence on the training and classification time, as shown in Figure \ref{fig:max_samples_time_comparison}.
 Given the minimal performance differences but the impact on the time metrics, we chose the value of \textbf{max\_samples = 10}. 
 
 \begin{figure}[H]
@@ -566,11 +565,10 @@ Given the minimal performance differences but the impact on the time metrics, we
 
 \subsubsection{contamination tuning}
 
-The final parameter we focused on is the \textit{contamination} parameter. The tuning values are shown in table \ref{tab:contamination_tuning}.
+The final parameter we focused on is the \textit{contamination} parameter. The tuning values are shown in Table \ref{tab:contamination_tuning}.
 
 \begin{table}[H]
 	\caption{contamination tuning values.}\label{tab:contamination_tuning}
-	\newcolumntype{C}{>{\centering\arraybackslash}X}
 	\begin{tabularx}{\textwidth}{CC}
 	\toprule
 	\textbf{contamination} & \textbf{Values} \\
@@ -582,7 +580,7 @@ The final parameter we focused on is the \textit{contamination} parameter. The t
 	\end{tabularx}
 \end{table}
 
-The contamination parameter is by far the one that has the most impact on the model performance, as shown in figure \ref{fig:contamination_tuning}.
+The contamination parameter is by far the one that has the most impact on the model performance, as shown in Figure \ref{fig:contamination_tuning}.
 Since recall is the metric that we want to prioritize as it highlights the number of detections, we chose the value of \textbf{contamination = 0.09}.
 
 \begin{figure}[H]
@@ -597,7 +595,7 @@ Our testing showed that, as expected, tuning of the contamination parameter has 
 
 \subsubsection{Standard model testing}\label{sec:standardModelTesting}
 
-After the tuning phase, we tested the model using the best performing hyperparameters, detailed in table \ref{tab:best_hyperparameters} and compared against the default parameters. 
+After the tuning phase, we tested the model using the best performing hyperparameters, detailed in Table \ref{tab:best_hyperparameters} and compared against the default parameters. 
 
 
 \begin{table}[H]
@@ -616,7 +614,7 @@ After the tuning phase, we tested the model using the best performing hyperparam
 
 
 
-The model was tested against the input signal shown in figure \ref{fig:InputSignal}. In figure \ref{fig:standardIsolationResults} we can see the results of the model classification of the input signal with the tuned hyperparameters. 
+The model was tested against the input signal shown in Figure \ref{fig:InputSignal}. In Figure \ref{fig:standardIsolationResults} we can see the results of the model classification of the input signal with the tuned hyperparameters. 
 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
@@ -660,14 +658,14 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
 
 
 The tuning phase proved effective in improving the model's performance compared to the default hyperparameters,with an increase of $2.20\%$ in accuracy, $11.98\%$ in precision, and $7.64\%$ in the F1 score, while maintaining a nearly identical recall ($0.1\%$ drop). However, despite reaching a very high Recall score in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
-This is most likely due to the nature of the normal traffic signal. As we see from figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the jamming attack samples, leading the model to classify them as anomalies.
+This is most likely due to the nature of the normal traffic signal. As we see from Figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the jamming attack samples, leading the model to classify them as anomalies.
 This is most likely because of how the dataset has been created, as the normal traffic samples were measured in a real-world scenario where the RSS values would be effected by external noise. 
 
 Instead of a impairment, we see this an improvement opportunity. The fact that the dataset contains noise means it is more representative of a real-world scenario, where the drone might be moving trough different environments and thus be subject to environmental noise.
 
 \subsubsection{Majority rule model testing} \label{sec:majorityRuleModelTesting}
 
-Having understood the nature of the problem, we decided to implement a majority rule system to reduce the number of false positives. The improved model would use the Tuned Isolation Forest model's results and then pass them to a Majority Rule module, as shown in figure \ref{fig:MajorityRuleDiagram}. 
+Having understood the nature of the problem, we decided to implement a majority rule system to reduce the number of false positives. The improved model would use the Tuned Isolation Forest model's results and then pass them to a Majority Rule module, as shown in Figure \ref{fig:MajorityRuleDiagram}. 
 
 \begin{figure}[H]
 	\includegraphics[width=12.5 cm]{img/ModulesStructure.jpg}
@@ -676,11 +674,11 @@ Having understood the nature of the problem, we decided to implement a majority 
 	\end{figure}   
 \unskip
 
-The mechanism of the Majority Rule module is simple. When a data point is passed to the Majority rule module, its classification class is inserted into a sliding window. If the datapoint is classified by the Tuned Isolation forest as an anomaly, the Majority Rule module checks the contents of the sliding window. If the 
-majority of the datapoints in the window are classified as anomalies, the data point is classified as an anomaly. If the majority of the datapoints in the window are classified as normal, the data point is classified as normal.
+The logic behind the Majority Rule module is simple. The Majority Rule takes as input the classification results of the IF model and inserts them into a sliding window. If the datapoint is classified by the Tuned IF as an anomaly, the Majority Rule module checks the contents of the sliding window. If the 
+majority of the datapoints in the window are classified as anomalies, the data point is classified as an anomaly. If the majority of the datapoints in the window are classified as normal, the data point is classified as normal (see code snipped \ref{alg:majority_rule}).
 
 \begin{algorithm}
-	\caption{Majority Rule Algorithm}
+	\caption{Majority Rule Algorithm}\label{alg:majority_rule}
 	\begin{algorithmic}[1]
 		\State \hspace{1em} $\text{window} \leftarrow []$
 		
@@ -701,11 +699,10 @@ majority of the datapoints in the window are classified as anomalies, the data p
 	\end{algorithmic}
 \end{algorithm}
 
-To determine the optimal value for the \textit{window\_size} parameter, we tested the model in the same way as we did for the hyperparameters tuning phase. This time, the model parameters were set to the best performing values from the tuning phase (table \ref{tab:best_hyperparameters}). Table \ref{tab:window_size_tuning} shows the tuning values for the \textit{window\_size} parameter.
+To determine the optimal value for the \textit{window\_size} parameter, we test the model in the same way as in the hyperparameters tuning phase. The model parameters were set to the best performing values from the tuning phase (table \ref{tab:best_hyperparameters}). Table \ref{tab:window_size_tuning} shows the tuning values for the \textit{window\_size} parameter.
 
 \begin{table}[H]
 	\caption{window\_size tuning values.}\label{tab:window_size_tuning}
-	\newcolumntype{C}{>{\centering\arraybackslash}X}
 	\begin{tabularx}{\textwidth}{CC}
 	\toprule
 	\textbf{window\_size} & \textbf{Values} \\
@@ -717,14 +714,14 @@ To determine the optimal value for the \textit{window\_size} parameter, we teste
 \end{tabularx}
 \end{table}
 
-From figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
+FromFigure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/WindowSizeTuning.png}
 	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
 \end{figure}
 
-After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (figure \ref{fig:InputSignal}). The results of the model classification are shown in figure \ref{fig:majorityRuleIsolationResults}. 
+After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (figure \ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
@@ -734,11 +731,10 @@ After defining the value for the \textit{window\_size} parameter, we tested the 
 	\end{adjustwidth}
 \end{figure}
 
-In table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_performanceMetrics} we can see a comparison between the tuned model and the Majority Rule model.
+In Table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_performanceMetrics} we can see a comparison between the tuned model and the Majority Rule model.
 
 \begin{table}[H]
     \caption{Confusion Matrix Components Comparison.}\label{tab:majority_rule_confusionMatrix}
-    \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
     \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Majority Rule Isolation Forest} \\
@@ -753,7 +749,6 @@ In table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_perf
 
 \begin{table}[H]
     \caption{Performance Metrics Comparison.}\label{tab:majority_rule_performanceMetrics}
-    \newcolumntype{C}{>{\centering\arraybackslash}X}
     \begin{tabularx}{\textwidth}{CCC}
     \toprule
     \textbf{Metric} & \textbf{Tuned Isolation Forest} & \textbf{Majority Rule Isolation Forest} \\
@@ -766,9 +761,9 @@ In table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_perf
     \end{tabularx}
 \end{table}
 
-The results show that the Majority Rule Model proved effective in mitigating the high number of false positives that was present in the first version of the model. 
+The results show that the Majority Rule Model is effective in mitigating the high number of false positives that were present in the first version of the model. 
 Given the resource constrained nature of the scenario, we decided to test the computational impact of the Majority Rule module against the standard tuned model. 
-Classification times and training times were measured for both models and the results are shown in figure pair \ref{fig:majority_rule_time_comparison}.
+Classification times and training times were measured for both models and the results are shown in Figures \ref{fig:majority_rule_classification_time} and \ref{fig:majority_rule_training_time}.
 
 \begin{figure}[H]
 	\centering
@@ -789,14 +784,15 @@ Classification times and training times were measured for both models and the re
 	\label{fig:majority_rule_time_comparison}
 \end{figure}
 
-Graph \ref{fig:majority_rule_classification_time} shows that there is indeed a difference in classification time, with the standard model being faster. Figure \ref{fig:majority_rule_training_time} on the other hand shows that, as expected, training time is not affected by the Majority Rule module.
+Graph \ref{fig:majority_rule_classification_time} shows that there is indeed a difference in classification time, with the standard model being faster. This is due to the additional computational complexity added by the Majority Rule module, which requires updating and checking of the sliding window for each classified datapoint. 
+Figure \ref{fig:majority_rule_training_time} on the other hand shows that, as expected, training time is not affected by the Majority Rule module.
 
 \subsubsection{Comparison against existing solution}\label{sec:comparisonAgainstExistingSolution}
 
-As mentioned in section \ref{sec:DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
+As mentioned in Section \ref{sec:DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
 We decided to compare our solution against the solution of the authors of the dataset we used. 
-The results show two significant figures as the results provided in the compared paper were in this format. Results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
-Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
+The results show two significant Figures as the results provided in the compared paper were in this format. Results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
+Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and Table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
 
 
 \begin{table}[H]
@@ -829,7 +825,7 @@ Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two
 	\end{tabularx}
 \end{table}
 
-In figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficClassification} we can see the classification results of our proposed solution in the case of a testing sample size of $10000$ samples.
+In Figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficClassification} we can see the classification results of our proposed solution in the case of a testing sample size of $10000$ samples.
 
 \begin{figure}[H]
 	\centering
@@ -860,32 +856,28 @@ We achieved a considerable improvement in performance thanks to the tuning proce
 To mitigate this issue, we proposed the integration of the Isolation Forest model with a Majority Rule module (section \ref{sec:majorityRuleModelTesting}). The \textit{window\_size} parameter of the Majority Rule module was tuned to provide the best performance.
 The addition of the Majority Rule module proved extremely effective in reducing the number of false positives, greatly improving the model's precision. 
 
-Integration of the Majority Rule module also impacted total classification time as shown in figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the isolation forest model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
+Integration of the Majority Rule module also impacted total classification time as shown in Figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the isolation forest model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
 In our opinion the trade-off between the increased classification time and the improved performance is worth it, as the model is now much more reliable in a real-world scenario, where noise from the surrounding environment is almost always present.
 The linear time complexity of the classification and low memory usage make the proposed solution suitable for a resource constrained environment such as the analyzed 6G drone scenario.
 
-As shown in section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming and the classification of normal traffic, while achieving the same performance against constant jamming attacks. 
+As shown in Section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming and the classification of normal traffic, while achieving the same performance against constant jamming attacks. 
 We believe that the importance of correct classification of normal traffic is often underestimated, as a high number of false positives can lead to the activation of resource intensive countermeasures, even at times when they are not needed. 
 
 \section{Conclusions}
 
-\subsection{Real world integration}
-
 In a real world scenario, a 6G drone integrating the proposed solution would periodically run the tuning phase of the algorithm, selecting the best hyperparameters for the current environment. This could happen periodically or whenever there is a change in the environment caused by the drone moving to a different location. 
 After tuning of the model, the drone would periodically sample incoming signals and classify them using the Majority Rule module. If the model detects a jamming attack, the drone could activate built in countermeasures like frequency hopping or DSSS to mitigate the effects of the attack. 
-
-\subsection{Future Work}
 
 Future research could test the model against a wider range of jamming attacks types, as well as analyze the impact of real world noise on the model performance.
 Mounting the model on an actual drone would be the best way to achieve a real-world test and would provide valuable insights into how to further improve its performance.
 
-As discussed in section \ref{sec:DetectionMitigation} devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Thanks to the properties of the Isolation Forest to work on high dimensional data, the model could be easily expanded to include more classification features, such as the RSV metric proposed in \cite{JammingDetectionIoT-Hussain}.
+As discussed in Section \ref{sec:DetectionMitigation} devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Thanks to the properties of the Isolation Forest to work on high dimensional data, the model could be easily expanded to include more classification features, such as the RSV metric proposed in \cite{JammingDetectionIoT-Hussain}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Patents}
 
-This section is not mandatory, but may be added if there are patents resulting from the work reported in this manuscript.
+This Section is not mandatory, but may be added if there are patents resulting from the work reported in this manuscript.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{6pt} 
