@@ -241,7 +241,7 @@ both in terms of computational power but also in terms of internal storage and b
 offloads the computational burden to a central server, that returns the results of the AI model to the device. While this scheme might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
 communication with the server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
 A collaborative edge approach would suffer from the same problems, as there is a high likelihood that the communication between the devices would be disrupted by the attack. 
-Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted in a jamming situation. 
+Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted, as in a jamming situation. 
 
 
 \subsection{Detection and Mitigation of Jamming Attacks}\label{sec:DetectionMitigation}
@@ -740,14 +740,14 @@ To determine the optimal value for the \textit{window\_size} parameter, we test 
 \end{tabularx}
 \end{table}
 
-FromFigure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
+From Figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/WindowSizeTuning.png}
 	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
 \end{figure}
 
-After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (figure \ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
+After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (Figure\ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
@@ -757,7 +757,7 @@ After defining the value for the \textit{window\_size} parameter, we tested the 
 	\end{adjustwidth}
 \end{figure}
 
-In Table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_performanceMetrics} we can see a comparison between the tuned model and the Majority Rule model.
+In Tables \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_performanceMetrics} we can see a comparison between the tuned model and the Majority Rule model.
 
 \begin{table}[H]
     \caption{Confusion Matrix Components Comparison.}\label{tab:majority_rule_confusionMatrix}
@@ -891,6 +891,7 @@ In Figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficCla
 	\label{fig:proposedSolutionClassification}
 \end{figure}
 
+Our solution is able to achieve considerably better results in the classification of normal traffic and periodic jamming, while maintaining the same level of performance in the case of constant jamming.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
@@ -909,6 +910,12 @@ As shown in Section \ref{sec:comparisonAgainstExistingSolution}, the proposed so
 We believe that the importance of correct classification of normal traffic is often underestimated, as a high number of false positives can lead to the activation of resource intensive countermeasures, even at times when they are not needed. 
 
 \section{Conclusions}
+
+In this article we analyzed the use of the Isolation Forest unsupervised machine learning algorithm for the detection of jamming attacks. We compared the performance of the base Isolation Forest model against a version specifically tuned to detect jamming attacks. In the tuning phase, we paid particular attention to the computational added by each parameter and tried to find the balance between performance and efficiency. 
+We then proposed the integration of a Majority Rule module to reduce the number of false positives caused by the inherent noise of the dataset. The Majority Rule module was tuned to provide the best performance and proved effective in mitigating the problem of false positives, while still maintaining a linear complexity in classification time.
+We tested the model against a dataset that included normal traffic, constant jamming, and periodic jamming attacks, with an unbalanced number of normal traffic samples and jamming attack samples to better reflect a real-world scenario.
+We compared the performance of the proposed solution against the solution proposed by \cite{JammingDetectionIoT-Hussain} and found that our solution outperformed the existing solution in both the detection of periodic jamming and the classification of normal traffic, while retaining the same performance against constant jamming attacks.
+
 
 In a real world scenario, a 6G drone integrating the proposed solution would periodically run the tuning phase of the algorithm, selecting the best hyperparameters for the current environment. This could happen periodically or whenever there is a change in the environment caused by the drone moving to a different location. 
 After tuning of the model, the drone would periodically sample incoming signals and classify them using the Majority Rule module. If the model detects a jamming attack, the drone could activate built in countermeasures like frequency hopping or DSSS to mitigate the effects of the attack. 
