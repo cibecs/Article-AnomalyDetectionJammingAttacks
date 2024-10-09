@@ -72,10 +72,10 @@
 
 %=================================================================
 % Full title of the paper (Capitalized)
-\Title{A Lightweight Edge AI-based Jamming Detection Scheme for 6G Drone Networks}
+\Title{A Lightweight AI-based Jamming Detection for Drone Networks}
 
 % MDPI internal command: Title for citation in the left column
-\TitleCitation{A Lightweight Edge AI-based Jamming Detection Scheme for 6G Drone Networks}
+\TitleCitation{A Lightweight AI-based Jamming Detection for Drone Networks}
 
 % Author Orchid ID: enter ID or remove command
 \newcommand{\orcidauthorA}{0000-0000-0000-000X} % Add \orcidA{} behind the author's name
@@ -144,12 +144,16 @@ By leveraging Diagnostic Analytics, a collection of insights into the status of 
 will be able to train specific AI models to detect and respond to security threats in real-time.
 
 In this paper we will focus on a specific aspect of the security of 6G networks, namely we will provide a lightweight edge-based machine learning approach 
-for the detection of jamming attacks in networks of drones. 
+for the detection of jamming attacks in networks of drones.
+
+We conceptualize a scenario where a drone is subject to constant and periodic jamming and has to rely on an internal AI model to detect the attack and apply the appropriate countermeasures. IoT devices in 6G networks
+will be equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
+Our solution is designed to run on a resource constrained device like a drone, and is able to detect both constant and periodic jamming attacks with a high degree of accuracy.
 
 The paper is divided in 5 sections: 
 \begin{enumerate}
 	\item \textbf{Topic overview:} General overview of the benefits of drone integration in 6G networks, analysis of jamming attacks: types, mitigation and detection. Discussion of the advantages provided by an edge AI approach for jamming detection. 
-	\item \textbf{Materials and methods:} Description of the analyzed scenario, along with the dataset, algorithms, and evaluation metrics chosen for the tests.
+	\item \textbf{System Model:} Description of the analyzed scenario, along with the dataset, algorithms, and evaluation metrics chosen for the tests.
 	\item \textbf{Numerical Results:} Explanation of the testing methodology, including model tuning, testing phases, and a presentation of the obtained results.
 	\item \textbf{Discussion:} Analysis of the results from the previous section, emphasizing the advantages of the proposed approach.
 	\item \textbf{Conclusions:} Overview of how the proposed solution applies to real-world scenarios, with a discussion on potential future research directions.
@@ -166,7 +170,8 @@ struggles in the classification of periodic jamming and normal traffic.
 The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation forest to classify 
 and detect jamming attacks in a mobile scenario. 
 
-We apply a similar solution to the one proposed in \cite{HybridJammingDetection-Hong} to the scenario of a 6G drone network, testing the model against the dataset proposed in \cite{JammingDetectionIoT-Hussain}.
+Our solution also leverages the Isolation Forest algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset proposed in \cite{JammingDetectionIoT-Hussain}.
+We propose a lightweight approach that integrates a specifically tuned Isolation Forest with a Majority Rule module to reduce the number of false positives and improve the resistance of the model to environmental noise.
 Our approach reached a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also focused on the tuning of the model's hyperparameters to fit our specific scenario and compared it 
 against the default model. In the tuning phase, the resource constrained nature of the scenario was a key deciding factor in the selection of the more appropriate hyperparameters.
 
@@ -178,7 +183,7 @@ Drones, also known as Unmanned Aerial Vehicles (UAVs) are defined as \textit{all
 without a pilot on board} \cite{DronesEC}. This technology has experienced rapid growth in recent years and is expected to 
 keep growing in both the consumer sector as well as the commercial and military sectors \cite{DronesStatisticsLaricchia}.
 
-In report 22.886 \cite{5GV2XSultan} 3GPP identifies some of the envisioned use cases for 5G V2X (Vehicle-to-
+In technical report 22.886 \cite{5GV2XSultan} 3GPP identifies some of the envisioned use cases for 5G V2X (Vehicle-to-
 Everything) communication services. Among these use cases, advanced and remote driving, vehicle platooning and extended situational awareness are identified as some of the main benefits
 of V2V communication. All these capabilities can be leveraged by a 6G drone network to achieve fast and reliable drone-to-drone communication, that, with the integration of artificial intelligence, 
 would allow the drones to act autonomously in a coordinated manner. 
@@ -237,7 +242,7 @@ A lightweight edge approach on the other hand, while not as precise as a central
 
 \subsection{Detection and Mitigation of Jamming Attacks}\label{sec:DetectionMitigation}
 
-The state of the art approaches for jamming detection involve the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
+The state of the art approaches for jamming detection involve monitoring of the communication link and the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
 developing a method to detect jamming attacks is to set a static threshold for these metrics and trigger an alarm when the threshold is crossed. While this approach is easy to implement and might be effective in some cases, it is not able to adapt to changes in the communication channel and might be prone to false positives.
 Implementing a ML based approach for jamming detection would allow the system to adapt to the changes in the communication channel and would be able to provide a more accurate detection of jamming attacks \cite{VANETsAI-Lyamin}. This is especially useful in mobile scenarios like 
 drone networks, where the environment is constantly changing and the signal strength can vary greatly. 
@@ -248,7 +253,7 @@ effects of the attack.
 The use of an AI model for jamming detection is particularly suitable for a 6G network, as the improved sensing capabilities would allow the model to train on a wide variety of diagnostic data, improving the detection rate and accuracy of the model. 
 Furthermore, as the network is expected to be integrated with AI from the ground up, its likely that in the future drones will be equipped with AI-specific chips for a more efficient execution of AI models.
 
-\section{Materials and Methods}
+\section{System Model}
 
 \subsection{Scenario Definition and Attacker Classification}
 
@@ -309,18 +314,16 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
 	\includegraphics[width=19.5cm]{img/ConstantJammingSignal.png}
-	\label{fig:ConstantJammingSignal}
 	\end{adjustwidth}
-	\caption{Constant jamming attack RSS values}
+	\caption{Constant jamming attack RSS values}\label{fig:ConstantJammingSignal}
 \end{figure}  
 \unskip
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
 	\includegraphics[width=19.5cm]{img/PeriodicJammingSignal.png}
-	\label{fig:PeriodicJammingSignal}
 	\end{adjustwidth}
-	\caption{Periodic jamming attack RSS values}
+	\caption{Periodic jamming attack RSS values}\label{fig:PeriodicJammingSignal}
 \end{figure}  
 \unskip
 
@@ -328,9 +331,8 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
 	\includegraphics[width=19.5cm]{img/NormalSignal.png}
-	\label{fig:normalSignal}
 	\end{adjustwidth}
-	\caption{Normal network operation RSS values}
+	\caption{Normal network operation RSS values}\label{fig:normalSignal}
 \end{figure}
 \unskip
 
