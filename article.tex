@@ -72,10 +72,10 @@
 
 %=================================================================
 % Full title of the paper (Capitalized)
-\Title{A Lightweight AI-based Jamming Detection for Drone Networks}
+\Title{A Lightweight AI-based  Approach For Drone Jamming Detection}
 
 % MDPI internal command: Title for citation in the left column
-\TitleCitation{A Lightweight AI-based Jamming Detection for Drone Networks}
+\TitleCitation{A Lightweight AI-based  Approach For Drone Jamming Detection}
 
 % Author Orchid ID: enter ID or remove command
 \newcommand{\orcidauthorA}{0000-0000-0000-000X} % Add \orcidA{} behind the author's name
@@ -90,7 +90,7 @@
 \AuthorNames{Sergio Cibecchini, Francesco Chiti and Laura Pierucci}
 
 % MDPI internal command: Authors, for citation in the left column
-\AuthorCitation{Cibecchini, S.; Chiti, F.; Lastname, F.}
+\AuthorCitation{Cibecchini, S.; Chiti, F.; Pierucci, L.}
 % If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
 
 % Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
@@ -148,13 +148,15 @@ for the detection of jamming attacks in networks of drones.
 
 We conceptualize a scenario where a drone is subject to constant and periodic jamming and has to rely on an internal AI model to detect the attack and apply the appropriate countermeasures. IoT devices in 6G networks
 will be equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
-Our solution is designed to run on a resource constrained device like a drone, and is able to detect both constant and periodic jamming attacks with a high degree of accuracy.
+
+Our solution is designed to run on a resource constrained IoT device like a drone and to be lightweight, both in terms of memory usage and computational power.
+Despite the low resources requirements, the proposed approach is able to detect both constant and periodic jamming attacks with a high degree of accuracy, as well as correctly classify normal traffic. 
 
 The paper is divided in 5 sections: 
 \begin{enumerate}
 	\item \textbf{Topic overview:} General overview of the benefits of drone integration in 6G networks, analysis of jamming attacks: types, mitigation and detection. Discussion of the advantages provided by an edge AI approach for jamming detection. 
 	\item \textbf{System Model:} Description of the analyzed scenario, along with the dataset, algorithms, and evaluation metrics chosen for the tests.
-	\item \textbf{Numerical Results:} Explanation of the testing methodology, including model tuning, testing phases, and a presentation of the obtained results.
+	\item \textbf{Model Performance:} Explanation of the testing methodology, including model tuning, testing phases, and a presentation of the obtained results.
 	\item \textbf{Discussion:} Analysis of the results from the previous section, emphasizing the advantages of the proposed approach.
 	\item \textbf{Conclusions:} Overview of how the proposed solution applies to real-world scenarios, with a discussion on potential future research directions.
 \end{enumerate}
@@ -170,9 +172,9 @@ struggles in the classification of periodic jamming and normal traffic.
 The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation forest to classify 
 and detect jamming attacks in a mobile scenario. 
 
-Our solution also leverages the Isolation Forest algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset proposed in \cite{JammingDetectionIoT-Hussain}.
+Our solution also leverages the Isolation Forest algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset created by \cite{JammingDetectionIoT-Hussain}.
 We propose a lightweight approach that integrates a specifically tuned Isolation Forest with a Majority Rule module to reduce the number of false positives and improve the resistance of the model to environmental noise.
-Our approach reached a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also focused on the tuning of the model's hyperparameters to fit our specific scenario and compared it 
+Our approach reached a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also detailed the tuning of the model's hyperparameters to fit our specific scenario and compared it 
 against the default model. In the tuning phase, the resource constrained nature of the scenario was a key deciding factor in the selection of the more appropriate hyperparameters.
 
 \section{Topic Overview}
@@ -192,8 +194,8 @@ This would prove useful in a variety of fields: from autonomous irrigation as we
 delivery of life saving supplies and identification of survivors in disaster response, in the delivery sector as a more eco friendly alternative to traditional 
 delivery options and possibly in the mobility sector as a complement to traditional taxis and public transportation \cite{DroneCommHassija}. 
 
-In the military sector, the effectiveness of drones is widely recognized, both for high and low end models. For example, in the Ukraine war even cheap FPV drones 
-mounted with explosives were successfully used to destroy much more expensive equipment \cite{DroneCombatUkraine}. 
+In the military sector, the effectiveness of drones is widely recognized, both for high and low end models and are being used in a variety of roles, from more passive roles like surveillance and intelligence gathering, to more active roles like
+delivery of explosives and targeted strikes. 
 
 Security against Jamming attacks is crucial in all these applications, especially in a safety critical environment. 
 
@@ -238,7 +240,9 @@ When presenting a Machine Learning (ML) based approach in an IoT setting, the qu
 both in terms of computational power but also in terms of internal storage and battery capacity \cite{6GSecurity-Chorti}. This means that complex AI models and algorithms are usually not feasible to be run on the device itself. A centralized approach 
 offloads the computational burden to a central server, that returns the results of the AI model to the device. While this scheme might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
 communication with the server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
-A lightweight edge approach on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted in a jamming situation. 
+A collaborative edge approach would suffer from the same problems, as there is a high likelihood that the communication between the devices would be disrupted by the attack. 
+Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted in a jamming situation. 
+
 
 \subsection{Detection and Mitigation of Jamming Attacks}\label{sec:DetectionMitigation}
 
@@ -313,7 +317,7 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
-	\includegraphics[width=19.5cm]{img/ConstantJammingSignal.png}
+	\includegraphics[width=21cm]{img/ConstantJammingSignal.png}
 	\end{adjustwidth}
 	\caption{Constant jamming attack RSS values}\label{fig:ConstantJammingSignal}
 \end{figure}  
@@ -321,7 +325,7 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
-	\includegraphics[width=19.5cm]{img/PeriodicJammingSignal.png}
+	\includegraphics[width=21cm]{img/PeriodicJammingSignal.png}
 	\end{adjustwidth}
 	\caption{Periodic jamming attack RSS values}\label{fig:PeriodicJammingSignal}
 \end{figure}  
@@ -330,7 +334,7 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 \begin{figure} [H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
-	\includegraphics[width=19.5cm]{img/NormalSignal.png}
+	\includegraphics[width=21cm]{img/NormalSignal.png}
 	\end{adjustwidth}
 	\caption{Normal network operation RSS values}\label{fig:normalSignal}
 \end{figure}
@@ -359,8 +363,6 @@ IF is an \textit{ensamble} algorithm, meaning that the final anomaly score is ca
 \unskip
 
 The chosen implementation for IF is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
-The algorithm was tested on a Desktop PC with an Intel i7-6700 CPU and 16GB of RAM as well as on a Raspberry Pi 3 with a Quad Core 1.2GHz CPU and 1GB of RAM \cite{RaspberryPi3ModelB}.
-The graphs shown are the ones obtained on the Desktop PC for convenience. The ability of the algorithm to run effectively on a resource constrained device like the Raspberry Pi 3, that has hardware comparable to the one found in high-end commercial drones, was confirmed. 
 
 \subsection{Evaluation Metrics}\label{EvaluationMetrics}
 
@@ -393,7 +395,7 @@ The chosen evaluation metrics are the following:
 The combination of these metrics gives us an important insight into the performance of the model. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Results}
+\section{Model Performance }
 
 \subsection{Parameters Tuning Phase}
 
@@ -458,7 +460,7 @@ In Figure \ref{fig:InputSignal} we can see a representation of the input signal 
 \begin{figure}[H]
     \begin{adjustwidth}{-\extralength}{0cm}
         \centering
-        \includegraphics[width=19.5cm]{img/InputSignal.png}
+        \includegraphics[width=21cm]{img/InputSignal.png}
     \end{adjustwidth}
     \caption{Input signal in the case of Constant Jamming. The normal traffic signal is concatenated with the jamming signal.}
     \label{fig:InputSignal}
@@ -621,7 +623,7 @@ The model was tested against the input signal shown in Figure \ref{fig:InputSign
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
-	\includegraphics[width=19.5cm]{img/StandardIsolationForestClassification.png}
+	\includegraphics[width=21cm]{img/StandardIsolationForestClassification.png}
 	\end{adjustwidth}
 	\caption{Classification results from the tuned Isolation Forest model}\label{fig:standardIsolationResults}
 \end{figure}  
@@ -642,6 +644,28 @@ Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparis
     \bottomrule
     \end{tabularx}
 \end{table}
+
+Figures \ref{fig:ConfusionMatrixStandardIF} and \ref{fig:ConfusionMatrixTunedIF} show, respectively, the confusion matrix for the default and the tuned Isolation Forest model.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/ConfusionMatrixStandardIF.png}
+		\caption{}
+		\label{fig:ConfusionMatrixStandardIF}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/ConfusionMatrixTunedIF.png}
+		\caption{}
+		\label{fig:ConfusionMatrixTunedIF}
+	\end{subfigure}
+	\caption{Confusion Matrix for the default Isolation Forest model \textbf{(a)} and the tuned Isolation Forest model \textbf{(b)}.}
+	\label{fig:ConfusionMatrixStandardTunedIF}
+\end{figure}
+
 
 \begin{table}[H]
     \caption{Performance Metrics Comparison.}\label{tab:performanceMetrics}
@@ -728,7 +752,7 @@ After defining the value for the \textit{window\_size} parameter, we tested the 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
 	\centering
-	\includegraphics[width=19.5cm]{img/MajorityRuleIsolatioForestClassification.png}
+	\includegraphics[width=21cm]{img/MajorityRuleIsolatioForestClassification.png}
 	\caption{Classification results from the Majority Rule Isolation Forest model}\label{fig:majorityRuleIsolationResults}
 	\end{adjustwidth}
 \end{figure}
@@ -748,6 +772,25 @@ In Table \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_perf
     \bottomrule
     \end{tabularx}
 \end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/ConfusionMatrixTunedIF.png}
+		\caption{}
+		\label{fig:ConfusionMatrixStandardTunedIF1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/ConfusionMatrixMajorityIF.png}
+		\caption{}
+		\label{fig:ConfusionMatrixMajorityIF}
+	\end{subfigure}
+	\caption{Confusion Matrix for the tuned Isolation Forest model \textbf{(a)} and the Majority Rule Isolation Forest model \textbf{(b)}.}
+	\label{fig:ConfusionMatrixTunedMajorityIF}
+\end{figure}
 
 \begin{table}[H]
     \caption{Performance Metrics Comparison.}\label{tab:majority_rule_performanceMetrics}
@@ -967,9 +1010,6 @@ Sultan, A. Study on enhancement of 3GPP support for 5G V2X services. Tech. Rep. 
 
 \bibitem[Hassija et al.(2021)]{DroneCommHassija}
 Hassija, V.; Kumar, R.; Gupta, H.; Singh, S.; Sharma, P. Fast, Reliable, and Secure Drone Communication: A Comprehensive Survey. {\em IEEE Communications Surveys and Tutorials} {\bf 2021}, {\em 23}, 2802--2832. \url{https://doi.org/10.1109/COMST.2021.3097916}.
-
-\bibitem[Rao et al.(2024)]{DroneCombatUkraine}
-Rao, A.; Zafra, M.; Hunder, M.; Kiyada, S. How drone combat in Ukraine is changing warfare. Available online: \url{https://www.reuters.com/graphics/UKRAINE-CRISIS/DRONES/dwpkeyjwkpm/} (accessed on 13 September 2024).
 
 \bibitem[Cawthra(2020)]{DataIntegrityCawthra}
 Cawthra, J. Data Integrity: Detecting and Responding to Ransomware and Other Destructive Events. {\em NIST Special Publication} {\bf 2020}, {\em 1800-26A}.
