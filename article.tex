@@ -95,8 +95,8 @@
 % If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
 
 % Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
-\address{%
-$^{1}$ \quad Associate Professor at Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Firenze, Firenze, Italy; francesco.chiti@unifi.it, laura.pierucci@unifi.it
+\address{
+$^{1}$ \quad Associate Professor at Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Firenze, Florence, Italy; francesco.chiti@unifi.it, laura.pierucci@unifi.it
 }
 
 
@@ -113,7 +113,7 @@ $^{1}$ \quad Associate Professor at Dipartimento di Ingegneria dell'Informazione
 %\conference{} % An extended version of a conference paper
 
 % Abstract (Do not insert blank lines, i.e. \\) 
-\abstract{The future integration of drones in 6G networks will significantly enhance their capabilities, enabling a wide range of new applications based on autonomous operation. However, drone networks are particularly vulnerable to Jamming attacks, a type of Availability attack that can disrupt network operation and hinder drone functionality. In this paper, we propose an unsupervised machine learning approach for the detection of constant and periodic jamming attacks, using the Isolation Forest algorithm. The base model has been tuned to best fit the proposed scenario, but faced challenges related to environmental noise in the dataset. To address this, we introduced a Majority Rule module which significantly reduced the number of false positives, achieving high accuracy and precision. Our approach outperforms the standard Isolation Forest model in the detection of both constant and periodic jamming attacks, while still correctly identifying normal traffic. Finally, we discuss the potential integration of the proposed solution in 6G-enabled drone networks, as a lightweight edge-based solution for enhancing security against jamming attacks. }
+\abstract{The future integration of drones in 6G networks will significantly enhance their capabilities, enabling a wide range of new applications based on autonomous operation. However, drone networks are particularly vulnerable to Jamming attacks, a type of Availability attack that can disrupt network operation and hinder drone functionality. In this paper, we propose an unsupervised machine learning approach for the detection of constant and periodic jamming attacks, using the Isolation Forest algorithm. We detail the tuning of the base model as well as the intregration with a Majority Rule module which significantly reduced the number of false positives caused by environmental noise, achieving high accuracy and precision. Our approach outperforms the standard Isolation Forest model in the detection of both constant and periodic jamming attacks, while still correctly identifying normal traffic. Finally, we discuss the potential integration of the proposed solution in 6G-enabled drone networks, as a lightweight edge-based solution for enhancing security against jamming attacks. }
 
 % Keywords
 \keyword{Jamming attacks, 6G Drone Networks, Isolation Forest, Machine Learning, Edge AI, IoT Security} 
@@ -137,8 +137,8 @@ Despite 5G being still in its early adoption rate at the time of writing \cite{5
 6G technology is expected to enable a wide variety of new use cases, thanks to the increases in both data rates and latency, but this in turn 
 will also bring forth new security challenges specific to those applications. 
 
-One of the main differences between 5G and 6G technology will be a much deeper integration with AI. While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
-of 5G networks, 6G is expected to take this a step further, by designing the networks to be integrated with artificial intelligence from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
+One of the main differences between 5G and 6G technology will be a much deeper integration with Artificial Intelligence (AI). While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
+of 5G networks, 6G is expected to take this a step further, by designing the networks to be integrated with AI from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
 the shift from \textit{Softwarization} to \textit{Intelligentization}.
 
 AI integration in 6G networks will greatly strengthen the security of the network against potential threats. 
@@ -148,8 +148,9 @@ will be able to train specific AI models to detect and respond to security threa
 In this paper we will focus on a specific aspect of the security of 6G networks, namely we will provide a lightweight edge-based machine learning approach 
 for the detection of jamming attacks in networks of drones.
 
-We conceptualize a scenario where a drone is subject to constant and periodic jamming and has to rely on an internal AI model to detect the attack and apply the appropriate countermeasures. IoT devices in 6G networks
-will be equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
+We conceptualize a scenario where a drone is subject to constant and periodic jamming and has to rely on an internal AI model to detect the attack and apply the appropriate countermeasures. 
+
+In the future, IoT devices will be equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
 
 Our solution is designed to run on a resource constrained IoT device like a drone and to be lightweight, both in terms of memory usage and computational power.
 Despite the low resources requirements, the proposed approach is able to detect both constant and periodic jamming attacks with a high degree of accuracy, as well as correctly classify normal traffic. 
@@ -158,7 +159,7 @@ The paper is divided in 5 sections:
 \begin{enumerate}
 	\item \textbf{Topic overview:} General overview of the benefits of drone integration in 6G networks, analysis of jamming attacks: types, mitigation and detection. Discussion of the advantages provided by an edge AI approach for jamming detection. 
 	\item \textbf{System Model:} Description of the analyzed scenario, along with the dataset, algorithms, and evaluation metrics chosen for the tests.
-	\item \textbf{Model Performance:} Explanation of the testing methodology, including model tuning, testing phases, and a presentation of the obtained results.
+	\item \textbf{Model Performance:} Explanation of the testing methodology, including model tuning, testing phases, and detailed description of the performance of the model.
 	\item \textbf{Discussion:} Analysis of the results from the previous section, emphasizing the advantages of the proposed approach.
 	\item \textbf{Conclusions:} Overview of how the proposed solution applies to real-world scenarios, with a discussion on potential future research directions.
 \end{enumerate}
@@ -168,7 +169,7 @@ The paper is divided in 5 sections:
 Detection of jamming attacks in wireless networks has been a topic of interest for the research community for many years. A wide variety of approaches have been proposed for different types of networks, with most of the work focusing on the detection of jamming attacks in Vehicular Ad-Hoc Networks (VANETs)\cite{VANETsAI-Lyamin}.
 
 This work build upon the research done in \cite{JammingDetectionIoT-Hussain}, where the authors analyze a machine learning based approach for the detection of jamming attacks. 
-The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in a IoT drone scenario. The authors show that the CNN model is able to achieve a high detection rate against constant jamming attacks, but it 
+The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in a IoT drone scenario. The authors \cite{JammingDetectionIoT-Hussain} show that their CNN model is able to achieve a high detection rate against constant jamming attacks, but
 struggles in the classification of periodic jamming and normal traffic. 
 
 The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation forest to classify 
@@ -199,7 +200,7 @@ delivery options and possibly in the mobility sector as a complement to traditio
 In the military sector, the effectiveness of drones is widely recognized, both for high and low end models and are being used in a variety of roles, from more passive roles like surveillance and intelligence gathering, to more active roles like
 delivery of explosives and targeted strikes. 
 
-Security against Jamming attacks is crucial in all these applications, especially in a safety critical environment. 
+Securing the communication channel against Jamming attacks is crucial in all these applications, especially in a safety critical environment. 
 
 \subsection{Understanding Jamming Attacks}
 
@@ -211,15 +212,15 @@ Jamming attacks can be classified into 5 main categories, based on the attack pa
 
 \begin{itemize}
     \item \textbf{Constant Jamming:} The jammer continuously transmits a strong signal on the same frequency used by the devices it wants to disrupt to communicate. 
-    \item \textbf{Periodic Jamming:} The jammer transmits a strong signal for a certain period of time \(t_a\), then stops transmitting for another period of time \(t_b\). This cycle is repeated until the attack is stopped.
+    \item \textbf{Periodic Jamming:} The jammer transmits a strong signal for a certain period of time \(t_a\), then stops transmitting for another period of time \(t_b\). This cycle is repeated until the attack ends.
     \item \textbf{Random Jamming:} In random jamming, the jammer is active at random intervals, jamming each transmitted packet with a probability 
-    \(p\) based on a random pattern\cite{VANETsAI-Lyamin}. 
+    \(p\) based on a random pattern \cite{VANETsAI-Lyamin}. 
     \item \textbf{Reactive Jamming:} A reactive jammer starts transmitting its jamming signal only when it senses energy in the communication channel, 
     indicating that a legitimate transmission is taking place. This type of jamming attack is more power efficient compared to other 
-    attack patterns, as it only transmits its signal when it know that it can actually disrupt the communication\cite{MLMisbehavior5GBoualouache}.
+    attack patterns, as it only transmits its signal when it know that it can actually disrupt the communication \cite{MLMisbehavior5GBoualouache}.
     \item \textbf{Smart Jamming:} A smart jammer is a more sophisticated type of jammer that is able to adapt its jamming signal to 
     maximize the disruption of the communication between the devices. Smart jammers employ a traffic analysis module, meaning they are able to modify their attack pattern based on the 
-    transmission specifics of the devices they are targeting and adapt to changes in the communication channel\cite{AntiJammingV2V-Feng}.
+    transmission specifics of the devices they are targeting and adapt to changes in the communication channel \cite{AntiJammingV2V-Feng}.
 \end{itemize}
 
 
@@ -227,14 +228,10 @@ Jamming attacks can be classified into 5 main categories, based on the attack pa
 
 Jamming attacks are particularly effective against drone networks, as drones usually rely on external input to navigate and operate correctly.
 If a jammer were able to completely block the communication between the drone and the base station, the drone would be left without any indication on how to behave and would need to activate an internal failsafe mechanism. 
-This usually comes in the form of either a return to base procedure, a hover in place procedure or a land in place procedure.
+This usually comes in the form of either a \textit{return to base} procedure, a \textit{hover in place} procedure or a \textit{land in place} procedure.
 All of these approaches leave the drone in a vulnerable position, as a bad actor could potentially capture the drone and use it for malicious purposes.
-This is especially true when jamming attacks are used in combination with other types of attacks, such as spoofing attacks. 
-
-One real world example is the capture of an American drone by Iran in 2011. 
-In December 2011 a Lockheed Martin \textit{RQ-170} Sentinel drone operated by the United States Air Force was flying over Iran when its operators lost control of the vehicle. The US government initially claimed that the drone had crashed due to a technical malfunction, but later reports revealed that the drone had been captured by the Iranian military. 
-Iranian electronic warfare specialists claimed to have brought it down using a Jamming attack, that forced the drone into a return to base procedure, in combination with a  GPS spoofing attack, that made the drone land into a designated area \cite{RQ170DroneOwano}. 
-After successfully capturing the drone, the Iranian government managed to reverse-engineer the drone and produce a working replica, which was then used in their military operations \cite{IranianUAVGross}.
+This is especially true when jamming attacks are used in combination with other types of attacks, such as spoofing attacks. A jamming attack can be initiated against a drone, making it lose connection with the central server. 
+The drone would be forced to start a failsafe procedure, like \textit{return to base}. The attacker could than employ a GPS spoofing attack to make the drone believe that the base station is in a different location, leading to the drone landing in the spot designated by the attacker \cite{RQ170DroneOwano}
 
 \subsection{Centralized vs Edge approach for Jamming detection}
 
@@ -243,12 +240,12 @@ both in terms of computational power but also in terms of internal storage and b
 offloads the computational burden to a central server, that returns the results of the AI model to the device. While this scheme might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
 communication with the server means less time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the base station, a centralized approach might not be feasible in this case.
 A collaborative edge approach would suffer from the same problems, as there is a high likelihood that the communication between the devices would be disrupted by the attack. 
-Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted, as in a jamming situation. 
+Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted, as is the case in a jamming situation. 
 
 
 \subsection{Detection and Mitigation of Jamming Attacks}\label{sec:DetectionMitigation}
 
-The state of the art approaches for jamming detection involve monitoring of the communication link and the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) and the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
+The state of the art approaches for jamming detection involve monitoring of the communication link and the analysis of metrics such as the Signal to Noise Ration (SNR), the Received Signal Strength (RSS) or the Packet Delivery Ratio (PDR) \cite{JammingDetection-Sciancalepore}. The simplest approach when 
 developing a method to detect jamming attacks is to set a static threshold for these metrics and trigger an alarm when the threshold is crossed. While this approach is easy to implement and might be effective in some cases, it is not able to adapt to changes in the communication channel and might be prone to false positives.
 Implementing a ML based approach for jamming detection would allow the system to adapt to the changes in the communication channel and would be able to provide a more accurate detection of jamming attacks \cite{VANETsAI-Lyamin}. This is especially useful in mobile scenarios like 
 drone networks, where the environment is constantly changing and the signal strength can vary greatly. 
@@ -278,10 +275,9 @@ Figure \ref{fig:CombinedJammingscenariosDiagram} shows a diagram of the proposed
 	\caption{Proposed jamming scenario. The Drone communicates with the 6G base station and receives information about how to behave. The fixed jammer \textbf{(1)} and the mobile jammer \textbf{(2)} target the communication between the drone and the base station. The drone has an internal classification module that is able to detect jamming attacks.}
 	\label{fig:CombinedJammingscenariosDiagram}
 	\end{figure}   
-	\unskip
 
 
-In our scenario, the drone will be subject to two types of jamming attacks, a constant jamming attack and a periodic jamming attack.
+In our scenario, the drone will be subject to two types of jamming attacks, a constant and a periodic jamming attack.
 These types of attacks can be attributed to different types of jammers. The constant jamming attack could be caused by a ground jammer, as maintaining a constant jamming signal requires a large power source, while 
 the periodic jamming attack could be caused by a mobile jammer, for example a drone, as drones are usually battery powered and can only jam for a limited amount of time. 
 Employing a periodic jamming attack could help the malicious drone preserve energy and reduce the chances of being detected.
@@ -344,13 +340,13 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 
 \subsection {Detection Algorithm}
 
-When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm is required to meet. The algorithm has to be able to classify anomalous samples with a high detection rate (Recall), while at the same time 
+When choosing the algorithm for the classification module, we first had to define the requirements that the algorithm has to meet. The algorithm has to be able to classify anomalous samples with a high detection rate (Recall), while at the same time 
 being lightweight enough in terms of memory usage and computational power to be run on a resource constrained device like a drone. The training phase should also be fast, as this would allow the drone to quickly determine the normal transmission RSS values in a constantly changing environment. A periodical redefinition of normal RSS values would 
 limit the number of false positives caused by the drone mobility. 
 The model should be also required a small amount of storage to run effectively, as drones are usually very limited in internal memory. 
 
 The algorithm that best fit these requirements was the \textit{Isolation Forest} algorithm \cite{IsolationForestLiu}. The Isolation Forest (IF) algorithm is a state-of-the-art unsupervised machine learning algorithm for anomaly detection, introduced by Liu et al. in 2008. 
-Unlike traditional anomaly detection algorithms, which require the definition of a normal class, IF is able to detect anomalies without explicitly defining its characteristics.
+Unlike traditional anomaly detection algorithms, which require the definition of a normal class, IF is able to detect anomalies without explicitly defining their characteristics.
 This is achieved by leveraging the properties of anomalies themselves, i.e being rare and separated from the majority of the data points. 
 
 The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
@@ -359,7 +355,7 @@ IF is an \textit{ensamble} algorithm, meaning that the final anomaly score is ca
 
 \begin{figure}[H]
 	\includegraphics[width=6 cm]{img/IsolationForest.jpg}
-	\caption{Isolation forest in action. The anomaly \textbf{x0} is isolated in less splits compared to the normal datapoint \textbf{x1}\cite{IsolationForestLiu}.}
+	\caption{Isolation forest in action. The anomaly \textbf{x0} is isolated in less splits compared to the normal datapoint \textbf{x1} \cite{IsolationForestLiu}.}
 	\label{fig:IsolationForest}
 \end{figure}   
 \unskip
@@ -394,15 +390,15 @@ The chosen evaluation metrics are the following:
 	\end{equation}
 \end{itemize}
 
-The combination of these metrics gives us an important insight into the performance of the model. 
+The combination of these metrics gives us concrete insight into the performance of the model. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model Performance }
 
 \subsection{Parameters Tuning Phase}
 
-The first phase in our testing methodology was the tuning of the model's hyperparameters. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (depicted in Section \ref{EvaluationMetrics}) and then choosing the best values.
-From the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, we decided to tune were the following: 
+The first phase in our testing methodology was the tuning of the model's hyperparameters. The tuning was performed by making the parameters vary between a minimum and a maximum value, evaluating the impact on the performance metrics (detailed in Section \ref{EvaluationMetrics}) and then choosing the best values.
+Among the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, we decided to tune the following: 
 
 \begin{itemize}
 	\item \textbf{n\_estimators:} the number of base estimators in the ensamble, i.e the number of isolation trees used to compute the anomaly score of each datapoint. 
@@ -495,7 +491,7 @@ The effect on the evaluation metrics of the model is shown in Figure \ref{fig:n_
 \end{figure}
 \unskip
 
-As we can see from the graph, performance increases as the estimators increase, while converging to a stable value. 
+As we can see from the graph, performance increases as the estimators increase, converging to a stable value. 
 In graphs \ref{fig:n_estimators_training_time} and \ref{fig:n_estimators_classification_time} is shown that the time required both for training and classification increases linearly with the number of estimators.
 This means that choosing an appropriate number of estimators is crucial, as it can greatly affect the model performance. 
 
@@ -685,7 +681,7 @@ Figures \ref{fig:ConfusionMatrixStandardIF} and \ref{fig:ConfusionMatrixTunedIF}
 \end{table}
 
 
-The tuning phase proved effective in improving the model's performance compared to the default hyperparameters,with an increase of $2.20\%$ in accuracy, $11.98\%$ in precision, and $7.64\%$ in the F1 score, while maintaining a nearly identical recall ($0.1\%$ drop). However, despite reaching a very high Recall score in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
+The tuning phase proved effective in improving the model's performance compared to the default hyperparameters,with an increase of $2\%$ in accuracy, $6\%$ in precision, and $5.1\%$ in the F1 score, while maintaining a nearly identical recall ($0.1\%$ drop). However, despite reaching a very high Recall score in both scenarios, the model is still too prone to false positives, as indicated by the value of the Precision metric. 
 This is most likely due to the nature of the normal traffic signal. As we see from Figure \ref{fig:standardIsolationResults}, many of the normal traffic samples have RSS values that are similar to the jamming attack samples, leading the model to classify them as anomalies.
 This is most likely because of how the dataset has been created, as the normal traffic samples were measured in a real-world scenario where the RSS values would be effected by external noise. 
 
@@ -700,7 +696,7 @@ Having understood the nature of the problem, we decided to implement a majority 
 	\caption{Majority Rule system diagram. The Tuned Isolation Forest model results are passed to the Majority Rule module, that then provides the final classification.}
 	\label{fig:MajorityRuleDiagram}
 	\end{figure}   
-\unskip
+
 
 The logic behind the Majority Rule module is simple. The Majority Rule takes as input the classification results of the IF model and inserts them into a sliding window. If the datapoint is classified by the Tuned IF as an anomaly, the Majority Rule module checks the contents of the sliding window. If the 
 majority of the datapoints in the window are classified as anomalies, the data point is classified as an anomaly. If the majority of the datapoints in the window are classified as normal, the data point is classified as normal (see code snipped \ref{alg:majority_rule}).
@@ -749,7 +745,7 @@ From Figure \ref{fig:window_size_tuning} we can see that the \textit{window\_siz
 	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
 \end{figure}
 
-After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (Figure\ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
+After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (Figure \ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
 
 \begin{figure}[H]
 	\begin{adjustwidth}{-\extralength}{0cm}
@@ -809,6 +805,7 @@ In Tables \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_per
 \end{table}
 
 The results show that the Majority Rule Model is effective in mitigating the high number of false positives that were present in the first version of the model. 
+The Majority rule integration resulted in an improvement in Precision of $42.6\%$, in Accuracy of of $6.9\%$ and in F1 Score of $27.1\%$, while suffering only a less than $1\%$ drop in Recall.
 Given the resource constrained nature of the scenario, we decided to test the computational impact of the Majority Rule module against the standard tuned model. 
 Classification times and training times were measured for both models and the results are shown in Figures \ref{fig:majority_rule_classification_time} and \ref{fig:majority_rule_training_time}.
 
@@ -817,17 +814,17 @@ Classification times and training times were measured for both models and the re
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/classificationTimeComparison.png}
-		\caption{Classification time comparison.}
+		\caption{}
 		\label{fig:majority_rule_classification_time}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/trainingTimeComparison.png}
-		\caption{Training time comparison.}
+		\caption{}
 		\label{fig:majority_rule_training_time}
 	\end{subfigure}
-	\caption{Comparison of the standard tuned model and the Majority Rule model training and classification times.}
+	\caption{Comparison of the standard tuned model and the Majority Rule in terms of classification time \textbf{(a)} and training time \textbf{(b)}.}
 	\label{fig:majority_rule_time_comparison}
 \end{figure}
 
@@ -838,7 +835,8 @@ Figure \ref{fig:majority_rule_training_time} on the other hand shows that, as ex
 
 As mentioned in Section \ref{sec:DatasetChoice}, this work is based on the work of \cite{JammingDetectionIoT-Hussain}, where the authors proposed a solution for jamming attack detection based on CNNs. In their paper, one of the drawbacks that the authors cite with their solution is the low detection rate against periodic jamming, as well as a non reliable classification of normal traffic. 
 We decided to compare our solution against the solution of the authors of the dataset we used. 
-The results show two significant Figures as the results provided in the compared paper were in this format. Results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics.
+The results show two significant Figures as the results provided in the compared paper were in this format. Results in the case of constant jamming were very similar, with both models scoring $1.0$ in all the metrics and are thus not shown.
+
 Table \ref{tab:periodic_jamming_comparison} shows the comparison between the two models in the case of periodic jamming and Table \ref{tab:normal_traffic_comparison} shows the comparison between the two models in classification of normal traffic.
 
 
@@ -913,7 +911,7 @@ We believe that the importance of correct classification of normal traffic is of
 
 \section{Conclusions}
 
-In this article we analyzed the use of the Isolation Forest unsupervised machine learning algorithm for the detection of jamming attacks. We compared the performance of the base Isolation Forest model against a version specifically tuned to detect jamming attacks. In the tuning phase, we paid particular attention to the computational added by each parameter and tried to find the balance between performance and efficiency. 
+In this article we analyzed the use of the Isolation Forest unsupervised machine learning algorithm for the detection of jamming attacks. We compared the performance of the base Isolation Forest model against a version specifically tuned to detect jamming attacks. In the tuning phase, we paid particular attention to the computational impact of each parameter and tried to find the balance between performance and efficiency. 
 We then proposed the integration of a Majority Rule module to reduce the number of false positives caused by the inherent noise of the dataset. The Majority Rule module was tuned to provide the best performance and proved effective in mitigating the problem of false positives, while still maintaining a linear complexity in classification time.
 We tested the model against a dataset that included normal traffic, constant jamming, and periodic jamming attacks, with an unbalanced number of normal traffic samples and jamming attack samples to better reflect a real-world scenario.
 We compared the performance of the proposed solution against the solution proposed by \cite{JammingDetectionIoT-Hussain} and found that our solution outperformed the existing solution in both the detection of periodic jamming and the classification of normal traffic, while retaining the same performance against constant jamming attacks.
@@ -936,7 +934,7 @@ As discussed in Section \ref{sec:DetectionMitigation} devices integrated into 6G
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace{6pt} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\authorcontributions{Conceptualization, Francesco Chiti and Sergio Cibecchini; methodology, Sergio Cibecchini; software, Sergio Cibecchini; validation, Francesco Chiti and Laura Pierucci; formal analysis, Sergio Cibecchini; investigation, Sergio Cibecchini; resources, Francesco Chiti and Laura Pierucci; data curation, Sergio Cibecchini; writing—original draft preparation, Sergio Cibecchini; writing—review and editing, Francesco Chiti and Laura Pierucci; visualization, Sergio Cibecchini; supervision, Francesco Chiti and Laura Pierucci. All authors have read and agreed to the published version of the manuscript.}
+\authorcontributions{Conceptualization, Francesco Chiti and Sergio Cibecchini; methodology, Sergio Cibecchini; software, Sergio Cibecchini; validation, Francesco Chiti and Laura Pierucci; writing—original draft preparation, Sergio Cibecchini; writing—review and editing, Francesco Chiti and Laura Pierucci; visualization, Sergio Cibecchini; supervision, Francesco Chiti and Laura Pierucci. All authors have read and agreed to the published version of the manuscript.}
 
 \funding{This research received no external funding.}
 
@@ -1025,9 +1023,6 @@ Feng, S.; Haykin, S. Cognitive Risk Control for Anti-Jamming V2V Communications 
 
 \bibitem[Owano(2024)]{RQ170DroneOwano}
 Owano, N. RQ-170 drone's ambush facts spilled by Iranian engineer. Available online: \url{https://phys.org/news/2011-12-rq-drone-ambush-facts-iranian.html} (accessed on 14 September 2024).
-
-\bibitem[Gross and TOI Staff(2024)]{IranianUAVGross}
-Gross, J.A.; TOI Staff. Iranian UAV that entered Israeli airspace seems to be American stealth knock-off. Available online: \url{https://www.timesofisrael.com/iranian-uav-that-enteredisraeli-airspace-seems-to-be-american-stealth-knock-off} (accessed on 16 May 2024).
 
 \bibitem[Chorti et al.(2022)]{6GSecurity-Chorti}
 Chorti, A.; Hollanti, C.; Koorapaty, H.; Poor, H.V. Context-Aware Security for 6G Wireless: The Role of Physical Layer Security. {\em IEEE Communications Standards Magazine} {\bf 2022}, {\em 6}, 102--108. https://doi.org/10.1109/MCOMSTD.0001.2000082.
