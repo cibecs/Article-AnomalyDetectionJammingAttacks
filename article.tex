@@ -83,7 +83,7 @@
 \newcommand{\orcidauthorC}{0000-0001-6271-7988}
 
 % Authors, for the paper (add full first names)
-\Author{Sergio Cibecchini*\orcidA{}, Francesco Chiti $^{1}$\orcidB{} and Laura Pierucci$^{1}$\orcidC{}}
+\Author{Sergio Cibecchini*\orcidA{}, Francesco Chiti $^{1}$\orcidB{} and Laura Pierucci$^{2}$\orcidC{}}
 
 %\longauthorlist{yes}
 
@@ -95,8 +95,9 @@
 % If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
 
 % Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
-\address{
-$^{1}$ \quad Associate Professor at Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Firenze, Florence, Italy; francesco.chiti@unifi.it, laura.pierucci@unifi.it
+\address {
+$^{1}$ \quad Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Firenze, Florence, Italy; francesco.chiti@unifi.it\\
+$^{2}$ \quad Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Firenze, Florence, Italy; laura.pierucci@unifi.it\\
 }
 
 
@@ -131,14 +132,16 @@ $^{1}$ \quad Associate Professor at Dipartimento di Ingegneria dell'Informazione
 %\setcounter{section}{-1} %% Remove this when starting to work on the template.
 \section{Introduction}
 
-The shift from 4G to 5G has been a generational leap has revolutionized connectivity. 
+The shift from 4G to 5G has been a generational leap and has revolutionized connectivity. 
 Despite 5G being still in its early adoption rate at the time of writing \cite{5GStatisticsTaylor}, the research community is already working on the next generation of wireless communication technologies, 6G. 
-6G technology is expected to enable a wide variety of new use cases, thanks to massive coverage as well as increases in both data rates and latency. All of these advancements will in turn bring forth new security challenges specific to those applications. 
+6G technology is expected to enable a wide variety of new use cases, thanks to massive coverage as well as improvements in both data rates and latency. All of these advancements will in turn bring forth new security challenges specific to those applications. 
 
 One of the main differences between 5G and 6G technology will be a much deeper integration with Artificial Intelligence (AI). While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
-of 5G networks, 6G is expected to take this a step further, by designing the networks to be integrated with AI from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
-the shift from \textit{Softwarization} to \textit{Intelligentization}.AI integration in 6G networks will greatly strengthen the security of the network against potential threats. 
-By leveraging Diagnostic Analytics, a collection of insights into the status of the networks, security teams 
+of 5G networks, 6G is expected to take this a step further, with the networks being designed to be AI native from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
+the shift from \textit{Softwarization} to \textit{Intelligentization}. 
+
+AI integration in 6G networks will greatly strengthen the security of the network against potential threats. 
+By leveraging Diagnostic Analytics, a collection of insights into the status of the network, security teams 
 will be able to train specific AI models to detect and respond to security threats in real-time.
 
 In this paper we focus on a specific aspect of the security of 6G networks, namely we provide a lightweight edge-based Machine Learning approach 
@@ -153,7 +156,7 @@ The paper is organized in 5 Sections:
 	\item \textbf{Topic overview:} General overview of the benefits of drone integration in 6G networks, analysis of jamming attacks: types, mitigation and detection. Discussion of the advantages provided by an edge AI approach for jamming detection. 
 	\item \textbf{System Model:} Description of the analyzed scenario, along with the dataset, algorithms, and evaluation metrics chosen for the tests.
 	\item \textbf{Model Performance:} Explanation of the testing methodology, including model tuning, testing phases, and detailed description of the performance of the model.
-	\item \textbf{Discussion:} Analysis of the results from the previous section, emphasizing the advantages of the proposed approach.
+	\item \textbf{Discussion:} Analysis of the results from the previous section and the advantages of the proposed approach.
 	\item \textbf{Conclusions:} Overview of how the proposed solution applies to real-world scenarios, with a discussion on potential future research directions.
 \end{enumerate}
 
@@ -227,8 +230,9 @@ The drone would be forced to start a failsafe procedure, like \textit{return to 
 \subsection{Centralized vs Edge approach for Jamming detection}
 
 When presenting a ML based approach in an IoT setting, the question of where the AI model should be placed often arises. By their nature, IoT devices, and in turn drones, are usually resource constrained, 
-both in terms of computational power but also in terms of internal storage and battery capacity \cite{6GSecurity-Chorti}. This means that complex AI models and algorithms are usually not feasible to be run on the device itself. A centralized approach 
-offloads the computational burden to a remote central server, that returns the results of the AI model to the device. While this scheme might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
+both in terms of computational power but also in terms of internal storage and battery capacity \cite{6GSecurity-Chorti}. This means that complex AI models and algorithms are usually not feasible to be run on the device itself. 
+
+A centralized approach offloads the computational burden to a remote central server, that returns the results of the AI model to the device. While this scheme might be favorable in some cases, in a real-time situation such as a jamming attack, the latency introduced by the
 communication with the server reduces the time to react to the attack. Also, as jamming attacks degrade or sometimes completely block the communication between the device and the BS, a centralized approach might not be feasible in this case.
 A collaborative edge approach would suffer from the same problems, as there is a high likelihood that the communication between the devices would be disrupted by the attack. 
 Implementing a lightweight on-device edge approach, on the other hand, while not as precise as a centralized approach, would provide real-time results and would be able to operate even when the communication is disrupted, as is the case in a jamming situation. 
@@ -256,7 +260,7 @@ The drone implements a simple unsupervised machine learning algorithm module, tr
 
 
 We assume that a jammer is deployed in the network and that it starts a jamming attack at a certain instant by transmitting a high power signal on the same frequency as the one used by the drone to communicate with the ground station.
-We assume that the jammer is able to completely block the communication between the drone and the ground station, meaning that the drone has to rely on its internal classification algorithm to determine if a jamming attack is taking place and react accordingly.
+We assume that the jammer is able to completely block the communication between the drone and the ground station, meaning that the drone has to rely on its internal resources to determine if a jamming attack is taking place and react accordingly.
 We assume that the jammer type is unknown to the drone. 
 
 
@@ -330,9 +334,9 @@ Figures \ref{fig:ConstantJammingSignal} and \ref{fig:PeriodicJammingSignal} show
 
 \subsection {Detection Algorithm}
 
-When choosing the algorithm for the classification module, we first had to define the requirements that the it is required to meet. The algorithm has to have the ability to classify anomalous samples with a high detection rate (Recall), while at the same time 
+When choosing the algorithm for the classification module, we first had to define the requirements that it has to meet. The algorithm has to have the ability to classify anomalous samples with a high detection rate (Recall), while at the same time 
 being lightweight enough in terms of memory usage and computational power to be run on a resource constrained device like a drone. The training phase should also be fast, as this would allow the drone to quickly determine the normal transmission RSS values in a constantly changing environment. A periodical redefinition of normal RSS values would 
-limit the number of false positives caused by the drone mobility. 
+limit the number of false positives caused by drone mobility. 
 The model should be also required a small amount of storage to run effectively, as drones are usually very limited in internal memory. 
 
 The algorithm that we deemed the best fit for these requirements is the \textit{Isolation Forest} algorithm \cite{IsolationForestLiu}. The Isolation Forest (IF) algorithm is a state-of-the-art unsupervised ML algorithm for anomaly detection, introduced by Liu et al. in 2008. 
@@ -897,7 +901,7 @@ The addition of the MR module proved extremely effective in reducing the number 
 
 Integration of the MR module also impacted total classification time as shown in Figure \ref{fig:majority_rule_classification_time}, but the linear trend \cite{IsolationForestLiu} that we expected from the IF model was preserved, meaning that the classification time complexity was kept at $O(n)$. 
 In our opinion the trade-off between the increased classification time and the improved performance is worth it, as the model is now much more reliable in a real-world scenario, where noise from the surrounding environment is almost always present.
-The linear time complexity of the classification and low memory usage make the proposed solution suitable for a resource constrained environment such as the analyzed 6G drone scenario.
+The linear time complexity and low memory usage make the proposed solution suitable for a resource constrained environment such as the analyzed 6G drone scenario.
 
 As shown in Section \ref{sec:comparisonAgainstExistingSolution}, the proposed solution outperformed the solution proposed by \cite{JammingDetectionIoT-Hussain} in both the detection of periodic jamming and the classification of normal traffic, while achieving the same performance against constant jamming attacks. 
 We believe that the importance of correct classification of normal traffic is often underestimated, as a high number of false positives can lead to the activation of resource intensive countermeasures, even at times when they are not needed. 
