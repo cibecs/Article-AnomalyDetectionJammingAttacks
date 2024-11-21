@@ -480,7 +480,7 @@ The effect on the evaluation metrics of the model is shown in Figure \ref{fig:n_
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10.5cm]{img/nEstimatorsTuning.png}
-	\caption{n\_estimators tuning results.}\label{fig:n_estimators_tuning}
+	\caption{n\_estimators tuning results. Performance of the model increases with an increasing number of estimators}\label{fig:n_estimators_tuning}
 \end{figure}
 \unskip
 
@@ -503,7 +503,7 @@ This means that choosing an appropriate number of estimators is crucial, as it c
         \caption{n\_estimators classification time.}
         \label{fig:n_estimators_classification_time}
     \end{subfigure}
-    \caption{Comparison of n\_estimators training and classification times.}
+    \caption{Comparison of n\_estimators training and classification times. Both training and classification times increase linearly with the number of estimators.}
     \label{fig:estimators_time_comparison}
 \end{figure}
 
@@ -533,7 +533,7 @@ From Figure \ref{fig:max_samples_tuning} we can notice that the model performanc
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10.5cm]{img/maxSamplesTuning.png}
-	\caption{max\_samples tuning results.}\label{fig:max_samples_tuning}
+	\caption{max\_samples tuning results. The max samples parameter has limited impact on the model's performance given the large difference in RSS values between normal and anomalous samples.}\label{fig:max_samples_tuning}
 \end{figure}
 \unskip
 
@@ -555,7 +555,7 @@ Given the minimal performance differences but substantial impact on the time met
 		\caption{max\_samples classification time.}
 		\label{fig:max_samples_classification_time}
 	\end{subfigure}
-	\caption{Comparison of max\_samples training and classification times.}
+	\caption{Comparison of max\_samples training and classification times. Both training and classification times follow a logarithmic trend.}
 	\label{fig:max_samples_time_comparison}
 \end{figure}
 
@@ -582,7 +582,7 @@ Since recall is the metric that we want to prioritize as it highlights the numbe
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10.5cm]{img/contaminationTuning.png}
-	\caption{contamination tuning results.}\label{fig:contamination_tuning}
+	\caption{contamination tuning results. While recall score benefits from a higher contamination, all the other metrics are negatively impacted by a higher contamination value.}\label{fig:contamination_tuning}
 \end{figure}
 \unskip
 
@@ -618,7 +618,7 @@ The model was tested against the input signal shown in Figure \ref{fig:InputSign
 	\centering
 	\includegraphics[width=21cm]{img/StandardIsolationForestClassification.png}
 	\end{adjustwidth}
-	\caption{Classification results from the tuned Isolation Forest model}\label{fig:standardIsolationResults}
+	\caption{Classification results from the tuned Isolation Forest model.}\label{fig:standardIsolationResults}
 \end{figure}  
 
 Table \ref{tab:confusionMatrix} and \ref{tab:performanceMetrics} show a comparison between the model performance with the tuned and the default hyperparameters.
@@ -655,7 +655,7 @@ Figures \ref{fig:ConfusionMatrixStandardIF} and \ref{fig:ConfusionMatrixTunedIF}
 		\caption{}
 		\label{fig:ConfusionMatrixTunedIF}
 	\end{subfigure}
-	\caption{Confusion Matrix for the default Isolation Forest model \textbf{(a)} and the tuned Isolation Forest model \textbf{(b)}.}
+	\caption{Confusion Matrix for the default Isolation Forest model \textbf{(a)} and the tuned Isolation Forest model \textbf{(b)}. The tuned version reduces false positives while suffering a minimal loss in true positives.}
 	\label{fig:ConfusionMatrixStandardTunedIF}
 \end{figure}
 
@@ -738,7 +738,7 @@ To determine the optimal value for the \textit{window\_size} parameter, we test 
 From Figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/WindowSizeTuning.png}
-	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
+	\caption{window\_size tuning results. Most metrics initially benefit from a larger window size except for recall that suffers a linear decrease.}\label{fig:window_size_tuning}
 \end{figure}
 
 
@@ -787,7 +787,7 @@ In Tables \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_per
 		\caption{}
 		\label{fig:ConfusionMatrixMajorityIF}
 	\end{subfigure}
-	\caption{Confusion Matrix for the tuned Isolation Forest model \textbf{(a)} and the Majority Rule Isolation Forest model \textbf{(b)}.}
+	\caption{Confusion Matrix for the tuned Isolation Forest model \textbf{(a)} and the Majority Rule Isolation Forest model \textbf{(b)}. The MR model greatly reduces false positives while maintaining a rate of true positives of over 99\%.}
 	\label{fig:ConfusionMatrixTunedMajorityIF}
 \end{figure}
 
@@ -888,7 +888,7 @@ In Figures \ref{fig:periodicJammingClassification} and \ref{fig:normalTrafficCla
 		\caption{Normal Traffic classification.}
 		\label{fig:normalTrafficClassification}
 	\end{subfigure}
-	\caption{Classification results of the proposed solution.}
+	\caption{Classification results of the proposed solution. The model is able to correctly classify periodic jamming and normal traffic with high accuracy.}
 	\label{fig:proposedSolutionClassification}
 \end{figure}
 
