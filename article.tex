@@ -922,9 +922,10 @@ We compared the performance of the proposed solution against the solution propos
 
 
 In a real world scenario, a 6G drone integrating the proposed solution would periodically run the tuning phase of the algorithm, selecting the best hyperparameters for the current environment. This could happen periodically or whenever there is a change in the environment caused by the drone moving to a different location. 
+The dynamic tuning of the model would ensure that the parameters of the model are always optimized for the current environment, providing the best possible performance.
 After the tuning phase, the drone would periodically sample incoming signals and classify them using the MR-integrated IF. If the model detects a jamming attack, the drone could activate built-in countermeasures like Frequency Hopping or Direct Sequence Spread Spectrum  to mitigate the effects of the attack. 
 
-Future research could explore the model's performance against a broader range of jamming attacks types and evaluate the impact of real world noise on its accuracy.
+Future research could explore the model's performance against a broader range of jamming attacks types, including smart, reactive and random jamming, and evaluate the impact of real world noise on its accuracy.
 Deploying the model on a drone would provide opportunity for real-world testing and valuable insights for further refinement.
 
 As discussed in Section \ref{sec:DetectionMitigation}, devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Thanks to the ability of the Isolation Forest to work on high dimensional data, the model could easily be expanded to include more classification features, which would improve its situational awareness and performance.
