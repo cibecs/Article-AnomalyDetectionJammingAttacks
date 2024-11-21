@@ -735,12 +735,16 @@ To determine the optimal value for the \textit{window\_size} parameter, we test 
 \end{tabularx}
 \end{table}
 
-From Figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}.
-
+From Figure \ref{fig:window_size_tuning} we can see that the \textit{window\_size} parameter has a considerable impact on the model performance. 
 \begin{figure}[H]
 	\includegraphics[width=10.5cm]{img/WindowSizeTuning.png}
 	\caption{window\_size tuning results.}\label{fig:window_size_tuning}
 \end{figure}
+
+
+While accuracy and precision benefit from a larger window size, we can observe a linear decrease in recall as the window size increases.
+This is due to the nature of the majority rule, as a larger window size means that a larger number of anomalous data points must be present in the window in order to classify the current data point as an anomaly.
+The optimal value for the \textit{window\_size} parameter was found to be \textbf{window\_size = 39}, as it provides high accuracy and precision while maintaining a high recall.
 
 After defining the value for the \textit{window\_size} parameter, we tested the model against the same input signal used for the standard tuned model (Figure \ref{fig:InputSignal}). The results of the model classification are shown in Figure \ref{fig:majorityRuleIsolationResults}. 
 
