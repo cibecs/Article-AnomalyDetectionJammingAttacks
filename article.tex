@@ -807,6 +807,9 @@ In Tables \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_per
 
 The results show that the Majority Rule Model is effective in mitigating the high number of false positives that were present in the first version of the model. 
 The MR integration resulted in an improvement in Precision of $42.6\%$, in Accuracy of $6.9\%$ and in F1 Score of $27.1\%$, while suffering only a less than $1\%$ drop in Recall.
+In the original model, most of the false positives occurred due to the normal traffic samples containing a high number of isolated data points with similar RSS values to those of the jamming samples. 
+The MR module addresses this by checking if the previous points were also classified as anomalies. This approach proves to be effective, as jamming attacks are rarely composed of isolated data points.
+
 Given the resource-constrained nature of the scenario, we decided to test the computational impact of the MR module against the standard tuned model. 
 Classification times and training times were measured for both models and the results are shown in Figures \ref{fig:majority_rule_classification_time} and \ref{fig:majority_rule_training_time}.
 
