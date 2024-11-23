@@ -164,15 +164,21 @@ The paper is organized in five Sections:
 
 Detection of jamming attacks in wireless networks has been a topic of interest for the research community for many years. A wide variety of approaches have been proposed for different types of networks, with most of the work focusing on the detection of jamming attacks in Vehicular Ad-Hoc Networks (VANETs)\cite{VANETsAI-Lyamin}.
 
+The authors of \cite{JammingDetectionML-Arjoune} analyze a wide range of supervised Machine Learning approaches for the detection of Jamming attacks, including Random Forest, Support Vector Machines and Neural Networks. The authors show that Random Forests were able to achieve a high detection of jamming attacks. 
+The authors of \cite{JammingDetectionRF-Karagiannis} on the other hand, propose the use of an unsupervised approach in the context of VANETs and test its performance in a variety of real-world scenarios. 
+
 This work builds upon the research done in \cite{JammingDetectionIoT-Hussain}, where the authors analyze a Machine Learning (ML) based approach for the detection of jamming attacks. 
 The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in an IoT drone scenario. The authors of \cite{JammingDetectionIoT-Hussain} show that their CNN model is able to achieve a high detection rate against constant jamming attacks, but
 struggles in the classification of periodic jamming and normal traffic. 
 
+We propose a lightweight approach that integrates a specifically tuned Isolation Forest with a Majority Rule module to reduce the number of false positives and improve resistance against environmental noise.
+Our solution leverages the IF algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset created by \cite{JammingDetectionIoT-Hussain}.
+
+Isolation forest has been successfully applied in a variety of scenarios for the detection of anomalies.
 The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation Forest to classify 
 and detect jamming attacks in a mobile scenario. 
 
-Our solution also leverages the Isolation Forest algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset created by \cite{JammingDetectionIoT-Hussain}.
-We propose a lightweight approach that integrates a specifically tuned Isolation Forest with a Majority Rule module to reduce the number of false positives and improve resistance against environmental noise.
+We decided on the Isolation Forest algorithm for its low computational and memory requirements and good performance in the detection of anomalies.
 Our approach reaches a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also detail the tuning of the model's hyperparameters to fit our specific scenario and compare it 
 against the default model. In the tuning phase, the resource-constrained nature of the scenario was a key deciding factor in the selection of the more appropriate hyperparameters.
 
@@ -344,16 +350,12 @@ Unlike traditional anomaly detection algorithms, which require the definition of
 This is achieved by leveraging the properties of anomalies themselves, i.e., being rare and separated from the majority of the data points. 
 
 The algorithm works by building a forest of isolation trees. Each tree is built by randomly selecting one of the features and then splitting the data points based on a value randomly selected between the minimum and maximum value of the feature. This partitions the data into the 
-left and right branches of the tree. The process is repeated recursively until all the data points are isolated, as shown in Figure \ref{fig:IsolationForest}. The height of a node, meaning the number of splits required to isolate it, is used to determine the anomaly score of the data point. The greater the number of splits, the more likely the data point is to be an anomaly.
+left and right branches of the tree. The process is repeated recursively until all the data points are isolated. The height of a node, meaning the number of splits required to isolate it, is used to determine the anomaly score of the data point. The greater the number of splits, the more likely the data point is to be an anomaly.
 IF is an \textit{ensemble} algorithm, meaning that the final anomaly score is calculated by averaging the anomaly scores of all the trees in the forest. More trees result in greater accuracy but also more computational power required.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=6 cm]{img/IsolationForest.jpg}
-	\caption{Isolation Forest in action. The anomaly \textbf{x0} is isolated in fewer splits compared to the normal data point \textbf{x1} \cite{IsolationForestLiu}.}
-	\label{fig:IsolationForest}
-\end{figure}   
-\unskip
+The algorithm was chosen for its simplicity, low computational requirements (both in terms of memory and computational power) and proven effectiveness in the detection of anomalies\cite{IsolationForestLiu}. While more complex solutions like Neural Networks or Support Vector Machines might prove more effective in certain scenarios, they are best suited in a situation where computation power is not a limiting factor.
+The unsupervised nature of the algorithm was also a determining factor in its selection, as it would allow for a periodical redefinition of the normal RSS values based on the current environment, without the need to rely on a fixed labeled dataset. 
+Also, thanks to the ability to work on high dimensional data, the algorithm could potentially be scaled to work with more complex datasets in the future, if the drones were to be equipped with more advanced sensors.
 
 The chosen implementation for IF is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
 
@@ -1006,6 +1008,12 @@ Letaief, K.B.; Chen, W.; Shi, Y.; Zhang, J.; AI, B. The Roadmap to 6G: AI Empowe
 
 \bibitem[Lyamin et al.(2018)]{VANETsAI-Lyamin}
 Lyamin, N.; Samuylov, A.; Gaidamaka, Y.; Vinel, A.; Koucheryavy, Y. AI-Based Malicious Network Traffic Detection in VANETs. {\em IEEE Network} {\bf 2018}, {\em 32}, 15--21. \url{https://doi.org/10.1109/MNET.2018.1800074}.
+
+\bibitem[Arjoune et al.(2020)]{JammingDetectionML-Arjoune}
+Arjoune, Y.; Salahdine, F.; Islam, M.S.; Ghribi, E.; Kaabouch, N. A Novel Jamming Attacks Detection Approach Based on Machine Learning for Wireless Communication. In Proceedings of the 2020 International Conference on Information Networking (ICOIN), Barcelona, Spain, 2020; pp. 459--464. https://doi.org/10.1109/ICOIN48656.2020.9016462.
+
+\bibitem[Karagiannis and Argyriou(2018)]{JammingDetectionRF-Karagiannis}
+Karagiannis, D.; Argyriou, A. Jamming attack detection in a pair of RF communicating vehicles using unsupervised machine learning. {\em Vehicular Communications} {\bf 2018}, {\em 13}, 56--63. https://doi.org/10.1016/j.vehcom.2018.05.001. Available online: \url{https://www.sciencedirect.com/science/article/pii/S221420961730222X}.
 
 \bibitem[Hussain et al.(2023)]{JammingDetectionIoT-Hussain}
 Hussain, A.; Zhang, M.; Bhatia, S.; Cheng, L. Jamming Detection in IoT Wireless Networks: An Edge-AI Based Approach. In Proceedings of the 12th International Conference on the Internet of Things, IoT ’22; Association for Computing Machinery: Delft, Netherlands, 2023; pp. 57--64. ISBN: 9781450396653. \url{https://doi.org/10.1145/3567445.3567456}.
