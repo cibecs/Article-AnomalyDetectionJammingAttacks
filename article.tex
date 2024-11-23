@@ -167,6 +167,8 @@ Detection of jamming attacks in wireless networks has been a topic of interest f
 The authors of \cite{JammingDetectionML-Arjoune} analyze a wide range of supervised Machine Learning approaches for the detection of Jamming attacks, including Random Forest, Support Vector Machines and Neural Networks. The authors show that Random Forests were able to achieve a high detection of jamming attacks. 
 The authors of \cite{JammingDetectionRF-Karagiannis} on the other hand, propose the use of an unsupervised approach in the context of VANETs and test its performance in a variety of real-world scenarios. 
 
+The authors of \cite{JammingDetectionDrones-Greco} compare the use of Multi-Layer Perceptrons (MLPs) and Decision Trees for the detection of jamming attacks in drone networks, showing that both methods are able to achieve good detection performance. 
+
 This work builds upon the research done in \cite{JammingDetectionIoT-Hussain}, where the authors analyze a Machine Learning (ML) based approach for the detection of jamming attacks. 
 The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in an IoT drone scenario. The authors of \cite{JammingDetectionIoT-Hussain} show that their CNN model is able to achieve a high detection rate against constant jamming attacks, but
 struggles in the classification of periodic jamming and normal traffic. 
@@ -177,6 +179,25 @@ Our solution leverages the IF algorithm for jamming detection in the scenario of
 Isolation forest has been successfully applied in a variety of scenarios for the detection of anomalies.
 The authors of \cite{GPSSpoofingDetection-Zuo} propose an Isolation Forest based approach for the detection of GPS spoofing attacks, while the authors of \cite{HybridJammingDetection-Hong} successfully applied a combination of decision trees and Isolation Forest to classify 
 and detect jamming attacks in a mobile scenario. 
+
+Table \ref{tab:method_comparison} shows a summary of the detailed approaches for jamming detection in scientific literature.
+
+\begin{table}[H]
+    \caption{Existing approaches for jamming detection in scientific literature\label{tab:method_comparison}}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\textwidth}{CCCC}
+    \toprule
+    \textbf{Reference} & \textbf{Data Source} & \textbf{Method} & \textbf{Metrics} \\
+    \midrule
+    \cite{JammingDetectionML-Arjoune} & Simulation & Random Forest & BPR, PDR, RSS, CCA \\
+    \cite{JammingDetectionIoT-Hussain} & Real data & CNN & RSS \\
+    \cite{JammingDetectionML-Arjoune} & Simulation & Linear SVM & BPR, PDR, RSS, CCA \\
+    \cite{HybridJammingDetection-Hong} & Real data & DT + IF & PDR, BPR, SNR, RSSI \\
+    \cite{JammingDetectionDrones-Greco} & Real + Simulated data & DT + MLP & Throughput, PDR, RSSI \\
+    Our solution & Real data & IF & RSS \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
 
 We decided on the Isolation Forest algorithm for its low computational and memory requirements and good performance in the detection of anomalies.
 Our approach reaches a high detection rate against both constant and periodic jamming attacks, while also being able to classify normal traffic with a high degree of accuracy. We also detail the tuning of the model's hyperparameters to fit our specific scenario and compare it 
@@ -1014,6 +1035,9 @@ Arjoune, Y.; Salahdine, F.; Islam, M.S.; Ghribi, E.; Kaabouch, N. A Novel Jammin
 
 \bibitem[Karagiannis and Argyriou(2018)]{JammingDetectionRF-Karagiannis}
 Karagiannis, D.; Argyriou, A. Jamming attack detection in a pair of RF communicating vehicles using unsupervised machine learning. {\em Vehicular Communications} {\bf 2018}, {\em 13}, 56--63. https://doi.org/10.1016/j.vehcom.2018.05.001. Available online: \url{https://www.sciencedirect.com/science/article/pii/S221420961730222X}.
+
+\bibitem[Greco et al.(2021)]{JammingDetectionDrones-Greco}
+Greco, C.; Pace, P.; Basagni, S.; Fortino, G. Jamming detection at the edge of drone networks using Multi-layer Perceptrons and Decision Trees. {\em Applied Soft Computing} {\bf 2021}, {\em 111}, 107806. https://doi.org/10.1016/j.asoc.2021.107806. Available online: \url{https://www.sciencedirect.com/science/article/pii/S1568494621007274}.
 
 \bibitem[Hussain et al.(2023)]{JammingDetectionIoT-Hussain}
 Hussain, A.; Zhang, M.; Bhatia, S.; Cheng, L. Jamming Detection in IoT Wireless Networks: An Edge-AI Based Approach. In Proceedings of the 12th International Conference on the Internet of Things, IoT ’22; Association for Computing Machinery: Delft, Netherlands, 2023; pp. 57--64. ISBN: 9781450396653. \url{https://doi.org/10.1145/3567445.3567456}.
