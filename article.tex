@@ -414,7 +414,9 @@ The combination of these metrics gives us concrete insight into the performance 
 
 \subsection{Parameters Tuning Phase}
 
-The first phase in our testing methodology involves tuning the model's hyperparameters by varying them between a minimum and a maximum value, evaluating the impact on the performance metrics (detailed in Section \ref{EvaluationMetrics}) and then choosing the best values.
+The first phase in our testing methodology involves tuning the model's hyperparameters by varying them between a minimum and a maximum value, evaluating the impact on the performance metrics (detailed in Section \ref{EvaluationMetrics}) and then choosing the best possible values. 
+In our scenario, a value is considered good if it provides a high metric value while at the same time not impacting too drastically the execution time. In cases where improving the value of a metric requires a significant increase in execution time, we chose the value that provides the best trade-off between the two.
+
 Among the parameters available in the \textit{Scikit-learn} implementation of the Isolation Forest, we decided to tune the following: 
 
 \begin{itemize}
@@ -503,7 +505,7 @@ The effect on the evaluation metrics of the model is shown in Figure \ref{fig:n_
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10.5cm]{img/nEstimatorsTuning.png}
-	\caption{n\_estimators tuning results. Performance of the model increases with an increasing number of estimators}\label{fig:n_estimators_tuning}
+	\caption{n\_estimators tuning results. Performance of the model in all analyzed metrics increases with an increasing number of estimators}\label{fig:n_estimators_tuning}
 \end{figure}
 \unskip
 
@@ -678,7 +680,7 @@ Figures \ref{fig:ConfusionMatrixStandardIF} and \ref{fig:ConfusionMatrixTunedIF}
 		\caption{}
 		\label{fig:ConfusionMatrixTunedIF}
 	\end{subfigure}
-	\caption{Confusion Matrix for the default Isolation Forest model \textbf{(a)} and the tuned Isolation Forest model \textbf{(b)}. The tuned version reduces false positives while suffering a minimal loss in true positives.}
+	\caption{Confusion Matrix for the default Isolation Forest model \textbf{(a)} and the tuned Isolation Forest model \textbf{(b)}. The tuned version reduces false positives while suffering a negligible increase in false negatives compared to the default model.}
 	\label{fig:ConfusionMatrixStandardTunedIF}
 \end{figure}
 
@@ -810,7 +812,7 @@ In Tables \ref{tab:majority_rule_confusionMatrix} and \ref{tab:majority_rule_per
 		\caption{}
 		\label{fig:ConfusionMatrixMajorityIF}
 	\end{subfigure}
-	\caption{Confusion Matrix for the tuned Isolation Forest model \textbf{(a)} and the Majority Rule Isolation Forest model \textbf{(b)}. The MR model greatly reduces false positives while maintaining a rate of true positives of over 99\%.}
+	\caption{Confusion Matrix for the tuned Isolation Forest model \textbf{(a)} and the Majority Rule Isolation Forest model \textbf{(b)}. The MR model significantly reduces false positives while maintaining a rate of true positives of over 99\%.}
 	\label{fig:ConfusionMatrixTunedMajorityIF}
 \end{figure}
 
