@@ -378,7 +378,7 @@ The algorithm was chosen for its simplicity, low computational requirements (bot
 The unsupervised nature of the algorithm was also a determining factor in its selection, as it would allow for a periodical redefinition of the normal RSS values based on the current environment, without the need to rely on a fixed labeled dataset. 
 Also, thanks to the ability to work on high dimensional data, the algorithm could potentially be scaled to work with more complex datasets in the future, if the drones were to be equipped with more advanced sensors.
 
-The chosen implementation for IF is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. 
+The chosen implementation for IF is the one provided by the \textit{Scikit-learn} library \cite{IsolationForestScikitLearn} for Python 3. The model was tested on both a Raspberry Pi 3 and a desktop processor, demonstrating effective performance in both environments with comparable trends. The presented graphs reflect results from the desktop processor, but the model's efficiency on resource-constrained devices has been validated.
 
 \subsection{Evaluation Metrics}\label{EvaluationMetrics}
 
