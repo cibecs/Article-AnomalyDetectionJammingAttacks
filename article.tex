@@ -134,7 +134,9 @@ $^{2}$ \quad Dipartimento di Ingegneria dell'Informazione, Università degli Stu
 
 The shift from 4G to 5G has been a generational leap and has revolutionized connectivity. 
 Despite 5G still being in its early stages of adoption at the time of writing \cite{5GStatisticsTaylor}, the research community is already working on the next generation of wireless communication technologies, 6G. 
-6G technology is expected to enable a wide variety of new use cases, thanks to massive coverage as well as improvements in both data rates and latency. All of these advancements will in turn bring forth new security challenges specific to those applications. 
+6G technology is expected to enable a wide variety of new use cases, thanks to massive coverage as well as improvements in both data rates and latency, especially for IoT domains~\cite{ChFaPi21}. All of these advancements will in turn bring forth new security challenges specific to those applications. 
+
+Starting from Release 17, 3GPP introduces the wireless infrastructure UAV (WI UAV) to provide, thanks to its controlled  mobility, the flexibility required by a dynamic and massive access  for ubiquitous  connectivity. Release 18, known as ``6G and beyond drones'', enlarges this vision introducing AI to achieve fully connected sky and marine communications of drones for a global Internet of Drones (IoD).
 
 One of the main differences between 5G and 6G technology will be a much deeper integration with Artificial Intelligence (AI). While Software Defined Networks (SDN) have played a key role in improving the efficiency and security 
 of 5G networks, 6G is expected to take this a step further, with the networks being designed to be AI native from the ground up. This is what the authors of \cite{6GRoadmapLetaief} define as 
@@ -147,7 +149,7 @@ will be able to train specific AI models to detect and respond to security threa
 In this paper we focus on a specific aspect of the security of 6G networks, namely we provide a lightweight edge-based Machine Learning approach 
 for the detection of jamming attacks in networks of drones. We conceptualize a scenario where a drone is subject to constant and periodic jamming and has to rely on an internal AI model to detect the attack and apply the appropriate countermeasures. 
 
-In the future, IoT devices are expected to come equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
+In the future, IoT devices are expected to come equipped with AI-specific chips that will allow them to run AI models directly on the edge, without the need to offload computation to a central server. This approach, aligning with the context-aware autonomic computing and communications paradigm~\cite{ChFaLoPu16}, is especially useful in the case of jamming attacks, where the communication between the device and the server is disrupted.
 Our solution is designed to run on a resource-constrained IoT device like a drone and to be lightweight, both in terms of memory usage and computational power.
 Despite the low resource requirements, the proposed approach is able to detect both constant and periodic jamming attacks with a high degree of accuracy, as well as correctly classify normal traffic. 
 
@@ -161,17 +163,28 @@ The paper is organized in five Sections:
 \end{enumerate}
 
 \section{Related Works}
+In this Section, some reviews regarding the integration of terrestrial 5G/6G cellular networks with non terrestrial network (NTN), e.g., UAV/drone networks, and the relevance of AI-native solutions in T(NTN) domain are  highlighted. Further, the attention is focused on the jamming attacks detection in a typical drone scenario.
+The paper~\cite{BaShKiJu22} introduces the UAV wireless infrastructure to support a flying base station/ relay  or data collector /disseminator in 6G integrated terrestrial/non terrestrial networks (T/NTNs). The authors provide a sufficient review of various regulatory and the main standardization initiatives for integrating UAVs into the cellular network and describe several testbeds and UAV prototypes. Moreover, the paper (i) categorizes various advantages potentially provided, such as the increased capacity and coverage, on-demand networking, machine type communications, 3D mobility support and users tracking, (ii) addresses the issue of flexible use spectrum policy, and (iii) conducts an accurate analysis of security concerns, as GPS jamming attacks.
+
+The recent survey \cite{AQMoBaCeZoArAsMuDeIm23} first highlights the limits of ML models training to manage Big Data related to the massive number of connected devices in Cloud-based servers to deliver pervasive smart services and applications and then considers federated learning (FL) as a promising solution to distribute computation to the edge network.  In particular, after the fundamentals of the FL principles and architecture, the review shows the use of multi-access edge computing (MEC) as a suitable environment for FL algorithms to offer low latency for real time applications in beyond 5G/6G networks as well as in regard to other FL enabled technologies, such as BlockChain and Network Slicing. In addition, the state of art for AI-empowered UAV is reviewed, especially considering FL  (i) for  preserving the privacy of sensed data in UAV-enabled mobile crowd-sensing, (ii) for exploiting and predict the data on air quality acquired by an UAV swarm also considering data collected by different agencies, (iii) for reducing e2e latency and overhead at the edge, and to improve consequently the battery life of UAV, (iv) for reducing the communication cost among multiple UAVs and a ground data fusion centre in the context of image classification.
+
+The authors of~\cite{WaGuGa24}  provide a review of the current trends and state of the art of Unmanned autonomous intelligent systems (UAISs) in the context of 5G/6G NTN communications. Initially, the NTN integration with 5G/6G systems is addressed by means of utilizing UAVs and other low-altitude aerial platforms, then it highlights the importance  of artificial intelligence (AI) as UAIS becomes a part of the future integrated T/NTN networks. Deep learning/reinforcement learning  algorithms, MEC and distributed computation offloading offering low latency paths are shown to enable UAIS in the development of practical applications, such as object detection/reorganization, decision-making, and autonomous navigation.
+
 
 Detection of jamming attacks in wireless networks has been a topic of interest for the research community for many years. A wide variety of approaches have been proposed for different types of networks, with most of the work focusing on the detection of jamming attacks in Vehicular Ad-Hoc Networks (VANETs)\cite{VANETsAI-Lyamin}.
 
 The authors of \cite{JammingDetectionML-Arjoune} analyze a wide range of supervised Machine Learning approaches for the detection of Jamming attacks, including Random Forest, Support Vector Machines and Neural Networks. The authors show that Random Forests were able to achieve a high detection of jamming attacks. 
+
 The authors of \cite{JammingDetectionRF-Karagiannis} on the other hand, propose the use of an unsupervised approach in the context of VANETs and test its performance in a variety of real-world scenarios. 
 
 The authors of \cite{JammingDetectionDrones-Greco} compare the use of Multi-Layer Perceptrons (MLPs) and Decision Trees for the detection of jamming attacks in drone networks, showing that both methods are able to achieve good detection performance. 
 
 This work builds upon the research done in \cite{JammingDetectionIoT-Hussain}, where the authors analyze a Machine Learning (ML) based approach for the detection of jamming attacks. 
+
 The authors propose the use of Convolutional Neural Networks (CNNs) to detect jamming attacks in an IoT drone scenario. The authors of \cite{JammingDetectionIoT-Hussain} show that their CNN model is able to achieve a high detection rate against constant jamming attacks, but
 struggles in the classification of periodic jamming and normal traffic. 
+
+Finally, a lightweight reinforcement learning algorithm for anti-jamming in UAV communications, utilizing spectrum state abstraction to efficiently adapt to dynamic jamming environments, rather than focusing specifically on jamming detection, is presented in~\cite{LiWaDuXuHa24}.
 
 We propose a lightweight approach that integrates a specifically tuned Isolation Forest with a Majority Rule module to reduce the number of false positives and improve resistance against environmental noise.
 Our solution leverages the IF algorithm for jamming detection in the scenario of a 6G drone network, testing the model against the dataset created by \cite{JammingDetectionIoT-Hussain}.
@@ -282,8 +295,9 @@ Furthermore, as the network is expected to be integrated with AI from the ground
 
 \subsection{Scenario Definition and Attacker Classification}
 
-In the proposed scenario (Figure \ref{fig:CombinedJammingscenariosDiagram}) we have a flying drone that is subject to a jamming attack. The drone communicates with a ground station and periodically samples the Received Signal Strength (RSS) of the signal it receives. 
-The drone implements a simple unsupervised machine learning module, trained on nominal traffic RSS values. The module takes the sampled RSS values and classifies them as either normal or anomalous, making the drone able to determine whether or not a jamming attack is taking place. 
+The reference scenario, as depicted in Figure \ref{fig:CombinedJammingscenariosDiagram}, is comprised of a  drone that is subject to a jamming attack. The drone communicates with a ground station and periodically samples the Received Signal Strength (RSS) of the signal it receives. 
+According to the edge processing and networking paradigm, the drone is equipped with jamming detection module which could be integrated as a part of a more complex security architectural framework. 
+In particular, this module implements a simple unsupervised machine learning module, trained on nominal traffic RSS values. The module takes the sampled RSS values and classifies them as either normal or anomalous, making the drone able to determine whether or not a jamming attack is taking place. 
 
 
 We assume that a jammer is deployed in the network and that it starts a jamming attack at a certain instant by transmitting a high-power signal on the same frequency as the one used by the drone to communicate with the ground station.
@@ -953,7 +967,11 @@ After the tuning phase, the drone would periodically sample incoming signals and
 Future research could explore the model's performance against a broader range of jamming attacks types, including smart, reactive and random jamming, and evaluate the impact of real world noise on its accuracy.
 Deploying the model on a drone would provide opportunity for real-world testing and valuable insights for further refinement.
 
-As discussed in Section \ref{sec:DetectionMitigation}, devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{6GRoadmapLetaief}. Thanks to the ability of the Isolation Forest to work on high dimensional data, the model could easily be expanded to include more classification features, which would improve its situational awareness and performance.
+As discussed in Section \ref{sec:DetectionMitigation}, devices integrated into 6G networks are expected to have a higher degree of sensing capabilities compared to current devices \cite{}. Thanks to the ability of the Isolation Forest to work on high dimensional data, the model could easily be expanded to include more classification features, which would improve its situational awareness and performance.
+This could play a crucial role in addressing interference or signal shadowing patterns.
+
+Furthermore, future work could include the investigation of the impact of adversarial settings, as this could offer insights into real-world performance as well as demonstrate adaptability to emerging 6G technologies.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1026,8 +1044,23 @@ RSV & Relative Speed Variation \\
 \bibitem[Taylor(2024)]{5GStatisticsTaylor}
 5G - statistics \& facts. Available online: \url{https://www.statista.com/topics/3447/5g/topicOverview} (accessed on 13 September 2024).
 
+\bibitem[Chiti et al.(2021)]{ChFaPi21}
+Chiti, F. and Fantacci, R. and Pierucci, L. A Green Routing Protocol with Wireless Power Transfer for Internet of Things. {\em Journal of Sensor and Actuator Networks} {\bf 2021}, {\em 10}, {\em 1}. \url{https://doi.org/10.3390/jsan10010006}.
+
+\bibitem[Bajracharya et al.(2022)]{BaShKiJu22}
+Bajracharya, R.; Shrestha, R.; Kim, S.; Jung, H. 6G NR-U Based Wireless Infrastructure UAV: Standardization, Opportunities, Challenges and Future Scopes. {\em IEEE Access} {\bf 2022}, {\em 10}, 84--90. \url{https://doi.org/10.3390/jsan10010006}.
+
+\bibitem[Al-Quraan et al.(2023)]{AQMoBaCeZoArAsMuDeIm23}
+Al-Quraan, M.;  Mohjazi, L.;  Bariah, L.; Centeno, A.; Zoha, A.; Arshad, K.; Assaleh, K.; Muhaidat, S.; Debbah, M.; Imran, M. A. Edge-Native Intelligence for 6G Communications Driven by Federated Learning: A Survey of Trends and Challenges. {\em IEEE Transactions on Emerging Topics in Computational Intelligence} {\bf 2023}, {\em 7}, {\em 3}, 957--979. \url{https://doi.org/10.1109/10.1109/TETCI.2023.3251404}.
+
+\bibitem[Wang et al.(2024)]{WaGuGa24}
+Wang, X.; Guo, Y.; Gao, Y. Unmanned Autonomous Intelligent System in 6G Non-Terrestrial Network. {\em Information} {\bf 2024}, {\em 15}, {\em 1}. \url{https://doi.org/10.3390/info15010038}.
+
 \bibitem[Letaief et al.(2019)]{6GRoadmapLetaief}
 Letaief, K.B.; Chen, W.; Shi, Y.; Zhang, J.; AI, B. The Roadmap to 6G: AI Empowered Wireless Networks. {\em IEEE Communications Magazine} {\bf 2019}, {\em 57}, 84--90. \url{https://doi.org/10.1109/MCOM.2019.1900271}.
+
+\bibitem[Chiti et al.(2016)]{LoPu16}
+Chiti, F. and Fantacci, R. and Loreti, M. and Pugliese, R. Context-aware wireless mobile autonomic computing and communications: research trends and emerging applications. {\em IEEE Wireless Communications} {\bf 2016}, {\em 23}, {\em 2}, 86--92. \url{https://10.1109/MWC.2016.7462489}.
 
 \bibitem[Lyamin et al.(2018)]{VANETsAI-Lyamin}
 Lyamin, N.; Samuylov, A.; Gaidamaka, Y.; Vinel, A.; Koucheryavy, Y. AI-Based Malicious Network Traffic Detection in VANETs. {\em IEEE Network} {\bf 2018}, {\em 32}, 15--21. \url{https://doi.org/10.1109/MNET.2018.1800074}.
@@ -1040,6 +1073,9 @@ Karagiannis, D.; Argyriou, A. Jamming attack detection in a pair of RF communica
 
 \bibitem[Greco et al.(2021)]{JammingDetectionDrones-Greco}
 Greco, C.; Pace, P.; Basagni, S.; Fortino, G. Jamming detection at the edge of drone networks using Multi-layer Perceptrons and Decision Trees. {\em Applied Soft Computing} {\bf 2021}, {\em 111}, 107806. https://doi.org/10.1016/j.asoc.2021.107806. Available online: \url{https://www.sciencedirect.com/science/article/pii/S1568494621007274}.
+
+\bibitem[Liu et al.(2024)]{LiWaDuXuHa24}
+Liu, X.; Wang, X.; Xu, Y.; Du, Z.; Xu Y.; Han H. Lightweight Reinforcement Learning with State Abstraction for Dynamic Spectrum Anti-Jamming Communications {\em 2024 IEEE Wireless Communications and Networking Conference} {\bf 2024}, 1--6. \url{https://doi.org/10.1109/WCNC57260.2024.10571324}.
 
 \bibitem[Hussain et al.(2023)]{JammingDetectionIoT-Hussain}
 Hussain, A.; Zhang, M.; Bhatia, S.; Cheng, L. Jamming Detection in IoT Wireless Networks: An Edge-AI Based Approach. In Proceedings of the 12th International Conference on the Internet of Things, IoT ’22; Association for Computing Machinery: Delft, Netherlands, 2023; pp. 57--64. ISBN: 9781450396653. \url{https://doi.org/10.1145/3567445.3567456}.

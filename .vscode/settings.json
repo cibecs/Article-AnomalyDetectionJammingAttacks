@@ -9,6 +9,7 @@
         "booktabs",
         "enumitem",
         "epstopdf",
+        "Examplesand",
         "fancyhdr",
         "Firstname",
         "frontpage",
@@ -24,6 +25,7 @@
         "moreauthors",
         "oneauthor",
         "pdftex",
+        "Pierucci",
         "setspace"
     ]
 }
